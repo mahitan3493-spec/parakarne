@@ -4,12 +4,15 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 
 type AuthTab = "login" | "signup";
 
+type BankModalMode = "detail" | "rating";
+
 type UIContextValue = {
   authTab: AuthTab | null;
   openAuthModal: (tab: AuthTab) => void;
   closeAuthModal: () => void;
   bankDetailId: string | null;
-  openBankModal: (id: string) => void;
+  bankModalMode: BankModalMode;
+  openBankModal: (id: string, mode?: BankModalMode) => void;
   closeBankModal: () => void;
   profileOpen: boolean;
   openProfileModal: () => void;
@@ -23,6 +26,7 @@ const UIContext = createContext<UIContextValue | undefined>(undefined);
 export function UIProvider({ children }: { children: ReactNode }) {
   const [authTab, setAuthTab] = useState<AuthTab | null>(null);
   const [bankDetailId, setBankDetailId] = useState<string | null>(null);
+  const [bankModalMode, setBankModalMode] = useState<BankModalMode>("detail");
   const [profileOpen, setProfileOpen] = useState(false);
   const [reviewFormBank, setReviewFormBank] = useState<string | null>(null);
 
@@ -33,8 +37,15 @@ export function UIProvider({ children }: { children: ReactNode }) {
         openAuthModal: (tab) => setAuthTab(tab),
         closeAuthModal: () => setAuthTab(null),
         bankDetailId,
-        openBankModal: (id) => setBankDetailId(id),
-        closeBankModal: () => setBankDetailId(null),
+        bankModalMode,
+        openBankModal: (id, mode = "detail") => {
+          setBankModalMode(mode);
+          setBankDetailId(id);
+        },
+        closeBankModal: () => {
+          setBankDetailId(null);
+          setBankModalMode("detail");
+        },
         profileOpen,
         openProfileModal: () => setProfileOpen(true),
         closeProfileModal: () => setProfileOpen(false),

@@ -1870,3 +1870,122 @@ tbody tr,
     flex-direction: column;
   }
 }
+
+/* ===== bank inspect / rating action buttons ===== */
+.ledger-actions,
+.bcard-actions,
+.modal-secondary-actions,
+.success-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ledger-action {
+  border: 1.5px solid var(--ink);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 2px;
+  padding: 8px 12px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ledger-action:hover {
+  background: var(--paper);
+}
+.ledger-action.primary {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.ledger-action.primary:hover {
+  background: #a80f1f;
+}
+.bcard-actions {
+  border-top: 1px solid var(--paper-line);
+  padding-top: 12px;
+}
+.detail-action-bar {
+  margin: 10px 0 16px;
+}
+.detail-action-bar .btn {
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+.success-state {
+  text-align: center;
+  padding: 18px 6px 8px;
+}
+.success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e3f4eb;
+  color: #136944;
+  border: 2px solid #26805b;
+  font-size: 34px;
+  font-weight: 900;
+}
+.success-title {
+  color: #136944;
+  margin-bottom: 10px;
+}
+.success-state h3 {
+  font-family: var(--font-display), serif;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.success-state p {
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+.success-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 18px 0;
+}
+.success-summary span {
+  border: 1px solid var(--paper-line);
+  background: var(--paper);
+  padding: 10px;
+  border-radius: 2px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.success-actions {
+  justify-content: center;
+  margin-top: 16px;
+}
+.success-actions .btn {
+  min-width: 150px;
+}
+@media (max-width: 700px) {
+  .success-summary {
+    grid-template-columns: 1fr;
+  }
+  .ledger-actions,
+  .bcard-actions,
+  .success-actions,
+  .modal-secondary-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .ledger-action,
+  .success-actions .btn,
+  .detail-action-bar .btn {
+    width: 100%;
+  }
+}

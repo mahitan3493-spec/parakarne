@@ -86,18 +86,19 @@ export default function Ledger() {
                     {c.label}
                   </th>
                 ))}
+                <th>İşlem</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="skeleton-row">
+                  <td colSpan={5} className="skeleton-row">
                     Bankalar yükleniyor…
                   </td>
                 </tr>
               ) : sorted.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="skeleton-row">
+                  <td colSpan={5} className="skeleton-row">
                     Henüz banka verisi eklenmedi.
                   </td>
                 </tr>
@@ -121,7 +122,7 @@ export default function Ledger() {
 function LedgerRow({ bank }: { bank: Bank }) {
   const { openBankModal } = useUI();
   return (
-    <tr onClick={() => openBankModal(bank.id)}>
+    <tr onClick={() => openBankModal(bank.id, "detail")}>
       <td>
         <div className="bank-cell">
           <BankLogo bank={bank} small />
@@ -153,6 +154,16 @@ function LedgerRow({ bank }: { bank: Bank }) {
       </td>
       <td className="rate-num" style={{ color: "var(--ink-faint)" }}>
         {bank.reviewCount.toLocaleString("tr-TR")}
+      </td>
+      <td>
+        <div className="ledger-actions" onClick={(e) => e.stopPropagation()}>
+          <button className="ledger-action" onClick={() => openBankModal(bank.id, "detail")}>
+            İncele
+          </button>
+          <button className="ledger-action primary" onClick={() => openBankModal(bank.id, "rating")}>
+            Puanla
+          </button>
+        </div>
       </td>
     </tr>
   );

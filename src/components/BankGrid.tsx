@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo } from "react";
-import Link from "next/link";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
@@ -49,13 +48,14 @@ export default function BankGrid() {
         {!loading && top.length > 0 && (
           <div className="bank-grid">
             {top.map((b) => (
-              <Link
+              <article
                 key={b.id}
-                href={`/banka/${b.id}`}
                 className="bcard"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openBankModal(b.id);
+                role="button"
+                tabIndex={0}
+                onClick={() => openBankModal(b.id, "detail")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") openBankModal(b.id, "detail");
                 }}
               >
                 <div className="bcard-top">
@@ -74,7 +74,15 @@ export default function BankGrid() {
                   </span>
                   <span>{b.reviewCount.toLocaleString("tr-TR")} yorum</span>
                 </div>
-              </Link>
+                <div className="bcard-actions" onClick={(e) => e.stopPropagation()}>
+                  <button className="ledger-action" onClick={() => openBankModal(b.id, "detail")}>
+                    İncele
+                  </button>
+                  <button className="ledger-action primary" onClick={() => openBankModal(b.id, "rating")}>
+                    Puanla
+                  </button>
+                </div>
+              </article>
             ))}
           </div>
         )}

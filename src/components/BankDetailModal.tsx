@@ -19,7 +19,7 @@ import {
 import ReviewItem from "./ReviewItem";
 import BankLogo from "./BankLogo";
 
-type ModalStep = 1 | 2 | 3 | 4;
+type ModalStep = 1 | 2 | 3 | 4 | 5;
 
 const APPLICATION_OPTIONS: { value: ApplicationOutcome; label: string; tone: string }[] = [
   { value: "approved", label: "Onaylandı", tone: "approved" },
@@ -69,7 +69,7 @@ function StarPicker({ value, onChange }: { value: number | undefined; onChange: 
 
 export default function BankDetailModal() {
   const { user } = useAuth();
-  const { bankDetailId, closeBankModal, openAuthModal } = useUI();
+  const { bankDetailId, bankModalMode, closeBankModal, openAuthModal } = useUI();
   const { banks } = useBanks();
   const { reviews } = useReviews();
   const { showToast } = useToast();
@@ -81,6 +81,7 @@ export default function BankDetailModal() {
   const [employmentStatus, setEmploymentStatus] = useState<EmploymentStatus | undefined>();
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [lastSubmittedBankName, setLastSubmittedBankName] = useState("");
 
   const rawBank = banks.find((b) => b.id === bankDetailId);
   const bank = useMemo(
@@ -89,14 +90,15 @@ export default function BankDetailModal() {
   );
 
   useEffect(() => {
-    setStep(1);
+    setStep(bankModalMode === "rating" ? 2 : 1);
     setCategories({});
     setCreditApplicationOutcome(undefined);
     setCreditCardApplicationOutcome(undefined);
     setEmploymentStatus(undefined);
     setText("");
     setSubmitting(false);
-  }, [bankDetailId]);
+    setLastSubmittedBankName("");
+  }, [bankDetailId, bankModalMode]);
 
   if (!bankDetailId || !bank) return null;
 
@@ -113,6 +115,16 @@ export default function BankDetailModal() {
 
   function goToStep(nextStep: ModalStep) {
     setStep(nextStep);
+  }
+
+  function goBackToBankList() {
+    closeBankModal();
+    window.location.href = "/#bankalar";
+  }
+
+  function goHome() {
+    closeBankModal();
+    window.location.href = "/";
   }
 
   function handleNextFromRatings() {
@@ -169,13 +181,9 @@ export default function BankDetailModal() {
         employmentStatus,
         text: text.trim(),
       });
+      setLastSubmittedBankName(bank!.name);
       showToast(`${bank!.name} için puanın ve yorumun kaydedildi.`);
-      setStep(1);
-      setCategories({});
-      setCreditApplicationOutcome(undefined);
-      setCreditCardApplicationOutcome(undefined);
-      setEmploymentStatus(undefined);
-      setText("");
+      setStep(5);
     } catch (err) {
       showToast(err instanceof Error ? err.message : "Yorum gönderilemedi, tekrar dene.");
     } finally {
@@ -255,6 +263,14 @@ export default function BankDetailModal() {
               Bu Bankayı Puanla
             </button>
             <p className="modal-footnote">🔒 Yorum ve puan sadece bu bankaya kaydedilir.</p>
+            <div className="modal-secondary-actions detail-action-bar">
+              <a className="btn" href={`/banka/${bank.id}/`}>
+                Banka sayfasını aç
+              </a>
+              <a className="btn" href="/#karsilastir" onClick={closeBankModal}>
+                Karşılaştırmaya git
+              </a>
+            </div>
             <div className="detail-reviews">
               {bankReviews.length ? (
                 bankReviews.map((r) => <ReviewItem key={r.id} review={r} />)
@@ -395,6 +411,36 @@ export default function BankDetailModal() {
               Banka detayına dön
             </button>
           </>
+        )}
+
+        {step === 5 && (
+          <div className="success-state">
+            <div className="success-icon">✓</div>
+            <div className="rating-modal-title success-title">Puanın ve yorumun kaydedildi</div>
+            <h3>{lastSubmittedBankName || bank.name} karnesine eklendi.</h3>
+            <p>
+              Verdiğin hizmet puanları, kredi/kredi kartı sonucu ve yorumun bu bankanın
+              ParaKarne verilerine işlendi.
+            </p>
+            <div className="success-summary">
+              <span>Kredi: {APPLICATION_OPTIONS.find((o) => o.value === creditApplicationOutcome)?.label}</span>
+              <span>Kredi Kartı: {APPLICATION_OPTIONS.find((o) => o.value === creditCardApplicationOutcome)?.label}</span>
+              <span>
+                Gelir: {EMPLOYMENT_OPTIONS.find((o) => o.value === employmentStatus)?.label}
+              </span>
+            </div>
+            <div className="success-actions">
+              <button className="btn primary" onClick={() => goToStep(1)}>
+                Bankayı İncele
+              </button>
+              <button className="btn" onClick={goBackToBankList}>
+                Başka Banka Puanla
+              </button>
+              <button className="btn" onClick={goHome}>
+                Ana Sayfaya Dön
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>
