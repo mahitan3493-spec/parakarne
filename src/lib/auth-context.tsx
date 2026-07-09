@@ -57,7 +57,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const cred = await createUserWithEmailAndPassword(currentAuth, email, password);
     await updateProfile(cred.user, { displayName: name });
     await sendEmailVerification(cred.user).catch(() => undefined);
-    setUser({ ...cred.user, displayName: name });
+
+    // Firebase User nesnesini spread etmek reload/getIdToken gibi prototype
+    // metotlarını düşürebilir. Yorum kaydı öncesi e-posta doğrulama kontrolü
+    // güvenilir çalışsın diye gerçek User referansını saklıyoruz.
+    await cred.user.reload().catch(() => undefined);
+    setUser(currentAuth.currentUser);
   }
 
   async function login(email: string, password: string) {

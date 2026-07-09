@@ -1,5 +1,4 @@
-// Otomatik oluşturulmuştur: BankaYardım içeriğinden ParaKarne'ye taşınan
-// 40 bilgilendirme makalesi + Hakkımızda sayfası.
+// ParaKarne bilgilendirme makaleleri ve SEO içerikleri.
 export type Article = {
   slug: string;
   title: string;
@@ -13,7 +12,7 @@ export type Article = {
 export const articles: Article[] = [
   {
     slug: "89-1-89-2-89-3-haciz-ihbarnamesi",
-    title: `Benim Borcumdan Dolayı Babama İcra Gelir mi? 89 Haciz İhbarnamesi`,
+    title: `Borcumdan Dolayı Babama İcra Gelir mi?`,
     seoTitle: `Borcumdan Dolayı Babama İcra Gelir mi?`,
     description: `89/1, 89/2 ve 89/3 haciz ihbarnamesi nedir? Aile bireyleri borçtan sorumlu olur mu, ihbarname gelirse ne yapılmalı?`,
     category: "İcra, Haciz ve Yasal Takip",
@@ -807,7 +806,7 @@ export const articles: Article[] = [
   {
     slug: "hesap-blokesi",
     title: `Banka Hesabında Bloke Var, Ne Yapmalıyım?`,
-    description: `Banka hesabındaki bloke icra, e-haciz, vergi borcu, adli inceleme veya banka güvenlik sebebiyle oluşabilir. Blokenin kaynağı nasıl öğrenilir, nasıl kaldırılır?`,
+    description: `Banka hesabındaki bloke icra, e-haciz, vergi borcu, adli inceleme veya güvenlik sebebiyle oluşabilir. Kaynak nasıl öğrenilir, bloke nasıl kaldırılır?`,
     category: "Hesap ve Mobil Bankacılık",
     bodyHtml: `<p class="lead">Hesap blokesi her zaman banka borcundan kaynaklanmaz — icra dosyası, vergi dairesi e-haczi, kamu alacağı, adli tedbir veya bankanın güvenlik politikası da sebep olabilir. Önce kaynağı öğrenmek şart. Biz ParaKarne ekibi olarak aldığımız geri bildirimlerde en çok karşılaştığımız durum, kullanıcıların blokenin kaynağını (banka mı, icra mı, vergi dairesi mi) öğrenmeden çözüm aramaya çalışması oluyor.</p>
 
@@ -1642,7 +1641,7 @@ export const articles: Article[] = [
   },
   {
     slug: "kredi-karti-kullanimi-ve-yapilandirma",
-    title: `Kredi Kartı Nasıl Kullanılmalı? Limit, Nakit Avans ve Yapılandırma`,
+    title: `Kredi Kartı Nasıl Kullanılmalı?`,
     seoTitle: `Kredi Kartı Nasıl Kullanılmalı?`,
     description: `Kredi kartı limiti nasıl kullanılmalı, nakit avans risk oluşturur mu, kredi kartı ve ek hesap yapılandırması nasıl yapılır?`,
     category: "Kredi ve Kredi Kartı",
@@ -1969,7 +1968,7 @@ export const articles: Article[] = [
   {
     slug: "mobil-bankaciliga-giremiyorum",
     title: `Mobil Bankacılığım Bloke Oldu, Ne Yapmalıyım?`,
-    description: `Mobil bankacılık neden bloke olur? Yanlış şifre, yeni cihaz, farklı IP, VPN, uzaktan erişim, yüksek tutarlı transfer ve şüpheli işlem blokesi nasıl çözülür?`,
+    description: `Mobil bankacılık neden bloke olur? Yanlış şifre, yeni cihaz, VPN, uzaktan erişim, yüksek transfer ve şüpheli işlem blokesi nasıl çözülür?`,
     category: "Hesap ve Mobil Bankacılık",
     bodyHtml: `<p class="lead">Mobil bankacılık genelde durduk yere bloke olmaz. Banka, farklı cihaz, farklı IP, VPN, uzaktan erişim uygulaması, normal dışı transfer veya şüpheli işlem gördüğünde müşterisini korumak için geçici güvenlik blokesi koyabilir. Biz ParaKarne ekibi olarak yaptığımız incelemelerde gördük ki, mobil bankacılık blokelerinin büyük çoğunluğu kullanıcı hatası değil, bankaların güvenlik önlemlerinden kaynaklanıyor.</p>
 
@@ -2044,7 +2043,7 @@ export const articles: Article[] = [
   },
   {
     slug: "operator-evkur-finansman-borcu-findeks",
-    title: `Telefon Aldım, Findeks'te Kredi Görünüyor: Operatör ve Evkur Borçları`,
+    title: `Telefon Aldım, Findeks'te Kredi Görünüyor`,
     seoTitle: `Telefon Borcu Findeks’te Kredi Görünür mü?`,
     description: `Turkcell, Vodafone, Türk Telekom, Evkur ve finansman şirketlerinden alınan ürünler Findeks ve Risk Merkezi'nde neden kredi gibi görünür?`,
     category: "Findeks ve KKB",
@@ -2163,7 +2162,7 @@ export const articles: Article[] = [
   },
   {
     slug: "sim-kart-blokesi-bankaya-giremiyorum",
-    title: `Telefon Değiştirince Banka Uygulamasına Nasıl Girilir? (SIM Blokesi)`,
+    title: `Telefon Değişince Banka Uygulamasına Giriş`,
     seoTitle: `Telefon Değişince Banka Uygulamasına Giremiyorum`,
     description: `Yeni telefon aldığınızda veya hat taşıdığınızda banka mobil uygulamasına giremiyor musunuz? Şubeye gitmeden SIM kart blokesi kaldırma yöntemleri.`,
     category: "Hesap ve Mobil Bankacılık",

@@ -51,6 +51,8 @@ service cloud.firestore {
       allow read: if true;
 
       allow create: if isSignedIn()
+        && request.auth.token.email_verified == true
+        && reviewId == request.auth.uid + '_' + request.resource.data.bankId
         && request.resource.data.keys().hasOnly([
           'uid',
           'userName',
@@ -72,8 +74,14 @@ service cloud.firestore {
         ])
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.userName is string
+        && request.resource.data.userName.size() >= 1
+        && request.resource.data.userName.size() <= 80
         && request.resource.data.bankId is string
+        && request.resource.data.bankId.size() >= 2
+        && request.resource.data.bankId.size() <= 80
         && request.resource.data.bankName is string
+        && request.resource.data.bankName.size() >= 2
+        && request.resource.data.bankName.size() <= 80
         && request.resource.data.stars is int
         && request.resource.data.stars >= 1
         && request.resource.data.stars <= 5
@@ -107,12 +115,13 @@ service cloud.firestore {
           || validFindeksScoreRange(request.resource.data.findeksScoreRange))
         && request.resource.data.text is string
         && request.resource.data.text.size() >= 25
-        && request.resource.data.text.size() <= 2000
-        && request.resource.data.note is string
+        && request.resource.data.text.size() <= 1000
+        && request.resource.data.note == 'Bu yorum karne ortalamasına eklendi.'
         && request.resource.data.status == 'published'
         && request.resource.data.reportCount == 0
         && request.resource.data.reportedBy is list
-        && request.resource.data.reportedBy.size() == 0;
+        && request.resource.data.reportedBy.size() == 0
+        && request.resource.data.createdAt == request.time;
 
       allow update: if isAdmin()
         || (
@@ -126,6 +135,7 @@ service cloud.firestore {
           ])
           && request.resource.data.reportCount == resource.data.reportCount + 1
           && request.resource.data.reportedBy.size() == resource.data.reportedBy.size() + 1
+          && request.resource.data.reportedBy.hasAll(resource.data.reportedBy)
           && request.auth.uid in request.resource.data.reportedBy
         );
 

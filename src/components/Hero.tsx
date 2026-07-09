@@ -81,11 +81,11 @@ export default function Hero() {
               <span className="lbl">banka karneye alındı</span>
             </div>
             <div>
-              <span className="num">{reviewsLoading ? "…" : stats.reviewCount.toLocaleString("tr-TR")}</span>
+              <span className="num">{reviewsLoading ? "1+" : stats.reviewCount.toLocaleString("tr-TR")}</span>
               <span className="lbl">toplam kullanıcı yorumu</span>
             </div>
             <div>
-              <span className="num">{reviewsLoading ? "…" : stats.avg}</span>
+              <span className="num">{reviewsLoading ? "canlı" : stats.avg}</span>
               <span className="lbl">ortalama kullanıcı puanı</span>
             </div>
           </div>

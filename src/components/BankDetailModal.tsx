@@ -123,6 +123,9 @@ export default function BankDetailModal() {
   if (!bankDetailId || !bank) return null;
 
   const bankReviews = visibleReviews(reviews).filter((r) => r.bankId === bank.id);
+  const myExistingReview = user
+    ? reviews.find((r) => r.uid === user.uid && r.bankId === bank.id)
+    : null;
   const applicableCategories = CATEGORY_META.filter(
     (cat) => bank.hasBranch !== false || (cat.key !== "branch" && cat.key !== "atm"),
   );
@@ -154,6 +157,10 @@ export default function BankDetailModal() {
   }
 
   function handleNextFromRatings() {
+    if (myExistingReview) {
+      setModalError("Bu bankayı zaten puanladın. Her kullanıcı aynı bankaya yalnızca 1 karne bırakabilir.");
+      return;
+    }
     if (filledCount < applicableCategories.length) {
       setModalError("Devam etmek için tüm hizmet kategorilerine puan ver.");
       return;
@@ -175,6 +182,21 @@ export default function BankDetailModal() {
       openAuthModal("signup");
       return;
     }
+    if (myExistingReview) {
+      setModalError("Bu bankayı zaten puanladın. Her kullanıcı aynı bankaya yalnızca 1 karne bırakabilir.");
+      showToast("Bu bankayı zaten puanladın.");
+      return;
+    }
+
+    await user.reload().catch(() => undefined);
+    await user.getIdToken(true).catch(() => undefined);
+    const signedInWithGoogle = user.providerData.some((provider) => provider.providerId === "google.com");
+    if (!user.emailVerified && !signedInWithGoogle) {
+      setModalError("Yorum kaydetmeden önce e-posta adresini doğrulaman gerekiyor. Gelen kutundaki doğrulama bağlantısına tıkla.");
+      showToast("Önce e-posta adresini doğrulaman gerekiyor.");
+      return;
+    }
+
     if (filledCount < applicableCategories.length) {
       setModalError("Devam etmek için tüm hizmet kategorilerine puan ver.");
       setStep(2);
@@ -208,7 +230,13 @@ export default function BankDetailModal() {
       setModalError("");
       setStep(5);
     } catch (err) {
-      showToast(err instanceof Error ? err.message : "Yorum gönderilemedi, tekrar dene.");
+      const message =
+        err instanceof Error && err.message.toLowerCase().includes("permission")
+          ? "Yorum kaydı güvenlik kuralına takıldı. E-postanı doğruladıysan sayfayı yenileyip tekrar dene."
+          : err instanceof Error
+            ? err.message
+            : "Yorum gönderilemedi, tekrar dene.";
+      showToast(message);
     } finally {
       setSubmitting(false);
     }
@@ -282,8 +310,17 @@ export default function BankDetailModal() {
               <span>Editör notu</span>
               {bank.summary}
             </p>
-            <button className="btn primary review-submit-btn" onClick={() => goToStep(2)}>
-              Bu Bankayı Puanla
+            <button
+              className="btn primary review-submit-btn"
+              onClick={() => {
+                if (myExistingReview) {
+                  showToast("Bu bankayı zaten puanladın. Her kullanıcı aynı bankaya yalnızca 1 karne bırakabilir.");
+                  return;
+                }
+                goToStep(2);
+              }}
+            >
+              {myExistingReview ? "Bu Bankayı Zaten Puanladın" : "Bu Bankayı Puanla"}
             </button>
             <p className="modal-footnote">🔒 Yorum ve puan sadece bu bankaya kaydedilir.</p>
             <div className="modal-secondary-actions detail-action-bar">
@@ -311,7 +348,11 @@ export default function BankDetailModal() {
             <div className="rating-modal-title">Adım 2 • Hizmet Puanları</div>
             <StepDots step={2} />
             <p className="modal-step-count">2 / 4</p>
-            {modalError && <div className="modal-inline-alert">{modalError}</div>}
+            {(modalError || myExistingReview) && (
+              <div className="modal-inline-alert">
+                {modalError || "Bu bankayı zaten puanladın. İkinci bir karne kaydedilemez."}
+              </div>
+            )}
             <p className="hint">Aşağıdaki hizmet kategorilerini 1 ile 5 yıldız arasında puanla.</p>
             <div className="rating-fields">
               {applicableCategories.map((cat) => (
@@ -336,7 +377,7 @@ export default function BankDetailModal() {
               <button className="btn" onClick={() => goToStep(1)}>
                 Geri
               </button>
-              <button className="btn primary" onClick={handleNextFromRatings}>
+              <button className="btn primary" onClick={handleNextFromRatings} disabled={!!myExistingReview}>
                 Devam Et
               </button>
             </div>

@@ -11,11 +11,11 @@ const siteUrl = "https://parakarne.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ParaKarne - Banka Yorumları, Puanlama ve Karşılaştırma Platformu",
+    default: "ParaKarne - Banka Yorumları ve Karşılaştırma",
     template: "%s | ParaKarne",
   },
   description:
-    "ParaKarne ile bankaları gerçek kullanıcı yorumlarına göre inceleyin, puanlayın ve karşılaştırın. Mobil uygulama, müşteri hizmetleri, ATM, güvenlik, şube hizmetleri ve kredi/kredi kartı onay oranlarını görün.",
+    "ParaKarne ile bankaları gerçek kullanıcı yorumlarına göre inceleyin, puanlayın ve karşılaştırın. Mobil uygulama, müşteri hizmetleri, ATM, güvenlik ve onay oranlarını görün.",
   applicationName: "ParaKarne",
   keywords: [
     "banka puanlama",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: siteUrl,
     siteName: "ParaKarne",
-    title: "ParaKarne - Banka Yorumları, Puanlama ve Karşılaştırma Platformu",
+    title: "ParaKarne - Banka Yorumları ve Karşılaştırma",
     description:
       "Bankaları gerçek kullanıcı yorumlarına göre puanlayın, inceleyin ve karşılaştırın.",
     images: [
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ParaKarne - Banka Yorumları, Puanlama ve Karşılaştırma Platformu",
+    title: "ParaKarne - Banka Yorumları ve Karşılaştırma",
     description: "Türkiye'deki bankaları kullanıcı puanları, yorumlar ve onay oranlarıyla karşılaştırın.",
     images: ["/og-image.png"],
   },

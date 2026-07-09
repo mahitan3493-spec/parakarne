@@ -1,11 +1,11 @@
 import {
-  addDoc,
   arrayUnion,
-  collection,
   deleteDoc,
   doc,
+  getDoc,
   increment,
   serverTimestamp,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db, firebaseMissingMessage } from "./firebase";
@@ -31,7 +31,16 @@ export async function submitReview(params: {
   text: string;
 }) {
   const stars = overallFromCategories(params.categories);
-  await addDoc(collection(requireDb(), "reviews"), {
+  const currentDb = requireDb();
+  const reviewId = `${params.uid}_${params.bankId}`;
+
+  const reviewRef = doc(currentDb, "reviews", reviewId);
+  const existing = await getDoc(reviewRef);
+  if (existing.exists()) {
+    throw new Error("Bu bankayı zaten puanladın. Her kullanıcı aynı bankaya yalnızca 1 karne bırakabilir.");
+  }
+
+  await setDoc(reviewRef, {
     uid: params.uid,
     userName: params.userName,
     bankId: params.bankId,
