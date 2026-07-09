@@ -18,20 +18,19 @@ export default function HakkimizdaPage() {
       <div dangerouslySetInnerHTML={{ __html: `<p class="lead">ParaKarne, Türkiye’deki bankaları gerçek kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimlerine göre karşılaştırmanızı sağlayan bağımsız bir banka değerlendirme platformudur. Kullanıcılar bankaların müşteri hizmetleri, ATM hizmetleri, güvenlik, mobil uygulama, şube hizmetleri ve kredi/kredi kartı onay oranlarını tek yerde inceleyebilir; kendi deneyimini paylaşarak banka karnesine katkıda bulunabilir.</p>
 
   <h3>Biz Kimiz?</h3>
-  <p>Türkiye'de insanların bankacılık süreçlerinde en çok zorlandığı konuları sadeleştirmek için ParaKarne'yi oluşturduk. Bankacılıkta birçok kişi aynı sorunları yaşıyor: kredi başvurusu reddediliyor ama sebebi bilinmiyor; borç kapatılıyor ama Findeks raporunda hâlâ açık takip görünüyor; hesapta bloke var ama hangi kurumun koyduğu öğrenilemiyor; icra tebligatı geliyor ama itiraz süresi kaçırılıyor; aileye 89 haciz ihbarnamesi geliyor ama ne anlama geldiği bilinmiyor. Hedefimiz, bankacılık ve icra süreçlerinde insanların çaresiz kalmasını önlemektir — amacımız korkutmak değil, sakinleştirmek ve doğru yola yönlendirmektir. Çünkü çoğu bankacılık sorunu, doğru raporu kontrol ederek, doğru kuruma başvurarak ve doğru şekilde takip edilerek çözülebilir.</p>
+  <p>Türkiye'de insanların bankacılık süreçlerinde yaşadığı deneyimleri daha görünür hale getirmek için ParaKarne'yi oluşturduk. Bir bankanın mobil uygulaması iyi mi, müşteri hizmetlerine ulaşmak kolay mı, ATM ve şube deneyimi nasıl, kredi veya kredi kartı başvurularında kullanıcılar nasıl sonuçlar alıyor? ParaKarne bu sorulara kullanıcı puanları, yorumlar ve karşılaştırma ekranlarıyla cevap verir.</p>
 
   <h3>Ne Yapıyoruz?</h3>
-  <p>ParaKarne'de kullanıcılar yaşadıkları sorunu yazarak konuya göre yönlendirme alır. Sistem, bankacılık süreçlerini karmaşık resmi dilden çıkarıp kişinin anlayabileceği adım adım bir yol haritasına dönüştürür. Örneğin kullanıcı şu sorulara cevap arayabilir:</p>
+  <p>ParaKarne iki ana bölümden oluşur: rehber içerikler ve banka puanlama sistemi.</p>
   <ul>
-    <li>Kredi başvurum neden reddediliyor?</li>
-    <li>Findeks raporumda açık takip görünüyor, ne yapmalıyım?</li>
-    <li>Borcumu kapattım ama hesap blokem kalkmadı, nereye başvurmalıyım?</li>
-    <li>89/1 haciz ihbarnamesi geldi, nasıl itiraz edilir?</li>
-    <li>Yasal takipten sonra tekrar kredi kartı alabilir miyim?</li>
-    <li>Kredi sigortası iadesi nasıl alınır?</li>
-    <li>Varlık şirketi borcu kredi almama engel olur mu?</li>
+    <li>Rehber içeriklerde kredi, kredi kartı, Findeks, hesap blokesi, yasal takip, icra, haciz ve mobil bankacılık sorunları hakkında genel bilgilendirme yazıları yayınlarız.</li>
+    <li>Banka puanlama sisteminde kullanıcılar bankaları müşteri hizmetleri, ATM hizmetleri, güvenlik, mobil uygulama ve şube hizmetleri açısından puanlayabilir.</li>
+    <li>Kredi ve kredi kartı başvuru sonuçları, çalışma/gelir durumu ve isteğe bağlı Findeks skor aralığı gibi verilerle bankaların kullanıcı deneyimine dayalı onay oranları hesaplanabilir.</li>
+    <li>Karşılaştırma ekranı sayesinde kullanıcılar bankaları gerçek yorumlar, puanlar, kategori notları ve kredi/kredi kartı onay oranları üzerinden yan yana inceleyebilir.</li>
   </ul>
-  <p>Bu tür sorularda kullanıcıya hangi raporu kontrol etmesi gerektiğini, hangi kuruma başvuracağını, hangi belgeleri hazırlayacağını ve süreci nasıl takip edeceğini anlatıyoruz; gerektiğinde başvurularında kullanabileceği bir dilekçe taslağı da hazırlıyoruz.</p>
+
+  <h3>ParaKarne Neden Var?</h3>
+  <p>Bankalar hakkında internette çok sayıda şikayet ve yorum bulunuyor; ancak bu deneyimler çoğu zaman dağınık, karşılaştırması zor ve kategori bazında ölçülemiyor. ParaKarne, kullanıcıların bankacılık deneyimlerini daha düzenli bir karne mantığıyla toplar. Böylece bir bankayı seçmeden, başvuru yapmadan veya mevcut bankanızla ilgili karar vermeden önce diğer kullanıcıların deneyimlerini görebilirsiniz.</p>
 
   <h3>Ne Yapmıyoruz?</h3>
   <p>ParaKarne; banka, kredi veren kurum, avukatlık bürosu veya resmi kamu kurumu değildir.</p>
@@ -42,7 +41,7 @@ export default function HakkimizdaPage() {
     <li>Hukuki danışmanlık hizmeti vermeyiz.</li>
     <li>Resmi kurum gibi davranmayız.</li>
   </ul>
-  <p>Yaptığımız şey; bankacılık sorunlarını anlaşılır hale getirmek ve kullanıcının hangi adımı atacağını, hangi raporu kontrol edeceğini ve süreci nasıl bilinçli şekilde takip edeceğini göstermektir.</p>
+  <p>Rehber yazılarımız genel bilgilendirme amacı taşır. Banka puanları ve yorumlar ise kullanıcıların kendi deneyimlerine dayanır.</p>
 
   <h3>Güvenliğiniz</h3>
   <p>ParaKarne hiçbir kullanıcıdan banka şifresi, kart numarası, CVV, SMS doğrulama kodu, mobil bankacılık şifresi veya özel hesap bilgisi istemez. Güvenliğiniz için bu bilgileri hiçbir kişi, kurum veya platformla paylaşmamanızı öneririz.</p>` }} />

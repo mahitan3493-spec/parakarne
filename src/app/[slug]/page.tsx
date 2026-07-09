@@ -20,13 +20,15 @@ export async function generateMetadata({
   const article = getArticle(slug);
   if (!article) return {};
 
+  const pageTitle = article.seoTitle ?? article.title;
+
   return {
-    title: article.title,
+    title: pageTitle,
     description: article.description,
     alternates: { canonical: `/${article.slug}` },
     openGraph: {
       url: `/${article.slug}`,
-      title: article.title,
+      title: pageTitle,
       description: article.description,
       type: "article",
     },

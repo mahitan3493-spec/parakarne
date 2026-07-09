@@ -3,6 +3,7 @@
 export type Article = {
   slug: string;
   title: string;
+  seoTitle?: string;
   description: string;
   category: string | null;
   bodyHtml: string;
@@ -13,6 +14,7 @@ export const articles: Article[] = [
   {
     slug: "89-1-89-2-89-3-haciz-ihbarnamesi",
     title: `Benim Borcumdan Dolayı Babama İcra Gelir mi? 89 Haciz İhbarnamesi`,
+    seoTitle: `Borcumdan Dolayı Babama İcra Gelir mi?`,
     description: `89/1, 89/2 ve 89/3 haciz ihbarnamesi nedir? Aile bireyleri borçtan sorumlu olur mu, ihbarname gelirse ne yapılmalı?`,
     category: "İcra, Haciz ve Yasal Takip",
     bodyHtml: `<p class="lead">Kefil, ortak borçlu veya mirasçılık gibi özel bir durum yoksa aile bireyleri sadece akraba oldukları için borçtan sorumlu tutulamaz. Ancak alacaklı, üçüncü kişilerde para/mal/alacak olduğunu düşünürse İİK 89 kapsamında haciz ihbarnamesi gönderebilir. Biz ParaKarne ekibi olarak gördük ki, 89/1 ihbarnamesini önemsemeyip yanıtlamayan pek çok kişi, borçla hiçbir ilgisi olmadığı halde zor durumda kalabiliyor.</p>
@@ -72,8 +74,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -126,8 +128,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -197,8 +199,8 @@ export const articles: Article[] = [
   <p class="sayfa-ici-yonlendirme">ATM'de kartınız mı sıkıştı? <a href="/kartim-atm-de-kaldi-nasil-alirim">Kartım ATM'de Kaldı Nasıl Alırım?</a> rehberimize göz atın.</p>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -261,8 +263,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -316,8 +318,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -377,8 +379,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -442,8 +444,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -509,8 +511,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -564,8 +566,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -625,8 +627,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -680,8 +682,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -741,8 +743,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -795,8 +797,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -875,8 +877,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -933,8 +935,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1011,8 +1013,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1064,8 +1066,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1124,8 +1126,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1188,8 +1190,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1249,8 +1251,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1305,8 +1307,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1365,8 +1367,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1434,8 +1436,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1503,8 +1505,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1564,8 +1566,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1631,8 +1633,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1641,6 +1643,7 @@ export const articles: Article[] = [
   {
     slug: "kredi-karti-kullanimi-ve-yapilandirma",
     title: `Kredi Kartı Nasıl Kullanılmalı? Limit, Nakit Avans ve Yapılandırma`,
+    seoTitle: `Kredi Kartı Nasıl Kullanılmalı?`,
     description: `Kredi kartı limiti nasıl kullanılmalı, nakit avans risk oluşturur mu, kredi kartı ve ek hesap yapılandırması nasıl yapılır?`,
     category: "Kredi ve Kredi Kartı",
     bodyHtml: `<p class="lead">Kart limitinin tamamını sürekli kullanmak, düzenli ödeme yapılsa bile bankanın gözünde riskli bir görüntü oluşturabilir. Biz ParaKarne ekibi olarak yaptığımız araştırmalarda, kart limitini tamamen dolu tutmanın kredi notuna etkisinin çoğu kullanıcı tarafından hafife alındığını gördük.</p>
@@ -1698,8 +1701,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1753,8 +1756,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1820,8 +1823,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1885,8 +1888,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1956,8 +1959,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2032,8 +2035,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2042,6 +2045,7 @@ export const articles: Article[] = [
   {
     slug: "operator-evkur-finansman-borcu-findeks",
     title: `Telefon Aldım, Findeks'te Kredi Görünüyor: Operatör ve Evkur Borçları`,
+    seoTitle: `Telefon Borcu Findeks’te Kredi Görünür mü?`,
     description: `Turkcell, Vodafone, Türk Telekom, Evkur ve finansman şirketlerinden alınan ürünler Findeks ve Risk Merkezi'nde neden kredi gibi görünür?`,
     category: "Findeks ve KKB",
     bodyHtml: `<p class="lead">Birçok kişi Findeks raporunda bankadan kredi çekmediği halde kredi/finansman borcu görür — bunun nedeni çoğu zaman operatörlerden, mağazalardan veya finansman şirketlerinden alınan taksitli ürünlerdir. Biz ParaKarne ekibi olarak gördük ki, taksitli telefon veya eşya alımlarının Findeks'e yansıdığını bilmeyen kullanıcı sayısı hiç az değil.</p>
@@ -2096,8 +2100,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2150,8 +2154,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2160,6 +2164,7 @@ export const articles: Article[] = [
   {
     slug: "sim-kart-blokesi-bankaya-giremiyorum",
     title: `Telefon Değiştirince Banka Uygulamasına Nasıl Girilir? (SIM Blokesi)`,
+    seoTitle: `Telefon Değişince Banka Uygulamasına Giremiyorum`,
     description: `Yeni telefon aldığınızda veya hat taşıdığınızda banka mobil uygulamasına giremiyor musunuz? Şubeye gitmeden SIM kart blokesi kaldırma yöntemleri.`,
     category: "Hesap ve Mobil Bankacılık",
     bodyHtml: `<p class="on-cevap"><strong>Kısaca:</strong> Telefon değiştirince banka mobil uygulamasına giremiyorsanız, en garantili çözüm herhangi bir banka ATM'sine kartınızı takıp "Diğer İşlemler" → "Bilgi Güncelleme / SIM Kart Bloke Kaldırma" adımlarını izlemektir; cep telefonunuza gelecek onay koduyla bloke saniyeler içinde kalkar.</p>
@@ -2210,8 +2215,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2280,8 +2285,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2346,8 +2351,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2417,8 +2422,8 @@ export const articles: Article[] = [
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2623,8 +2628,8 @@ Ad Soyad:
   </ul>
 
   <div class="cta-box">
-    <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
