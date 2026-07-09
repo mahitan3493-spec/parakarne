@@ -16,7 +16,7 @@ export default function ContactPage() {
   return (
     <LegalPageLayout title="İletişim">
       <p>
-        Destek, içerik bildirimi, veri talebi ve kurum itirazları için aşağıdaki bilgileri kullanabilirsiniz. Canlı yayına çıkmadan önce e-posta adresini kendi gerçek destek adresinizle değiştirin.
+        Destek, içerik bildirimi, veri talebi ve kurum itirazları için aşağıdaki iletişim kanalını kullanabilirsiniz. Başvurularda ilgili banka/kurum adını, yorum bağlantısını ve talebinize ilişkin kısa açıklamayı eklemeniz sürecin daha hızlı değerlendirilmesine yardımcı olur.
       </p>
       <h2>Destek e-postası</h2>
       <p><a href="mailto:destek@parakarne.com">destek@parakarne.com</a></p>

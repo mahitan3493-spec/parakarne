@@ -1,5 +1,5 @@
 // Otomatik oluşturulmuştur: BankaYardım içeriğinden ParaKarne'ye taşınan
-// 39 bilgilendirme makalesi + Hakkımızda sayfası.
+// 40 bilgilendirme makalesi + Hakkımızda sayfası.
 export type Article = {
   slug: string;
   title: string;
@@ -2423,6 +2423,152 @@ export const articles: Article[] = [
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
     jsonLd: [{"@context": "https://schema.org", "@type": "Article", "headline": "Yasal Takipten Çıktım, Tekrar Kredi Kartı/Kredi Alabilir miyim?", "description": "Yasal takip borcu kapandıktan sonra Findeks, Risk Merkezi, avukat, icra dosyası ve banka bildirimleri nasıl kontrol edilir?", "url": "https://parakarne.com/yasal-takipten-cikma", "publisher": {"@type": "Organization", "name": "ParaKarne"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Avukata ödediğim tutara harç dahil mi olur?", "acceptedAnswer": {"@type": "Answer", "text": "Her zaman değil; ödeme öncesi avukata \"bu tutara harç, vekalet ücreti ve tüm kapanış giderleri dahil mi?\" diye mutlaka sorun."}}, {"@type": "Question", "name": "Dosya kapandıktan sonra ne kadar beklemeliyim?", "acceptedAnswer": {"@type": "Answer", "text": "7-10 gün bekleyip güncel Findeks/Risk Merkezi raporu almanız, dosyanın gerçekten kapalı statüye geçtiğini doğrulamanız önerilir."}}, {"@type": "Question", "name": "Hangi bankaya önce başvurmalıyım?", "acceptedAnswer": {"@type": "Answer", "text": "Yasal takip yaşadığınız bankayı en sona bırakıp önce maaş bankanızı veya aktif kullandığınız bankayı denemeniz daha mantıklı bir strateji."}}]}],
+  },
+
+  {
+    slug: "mal-bildirimi-beyani-nedir-nasil-yapilir",
+    title: `Mal Bildirimi Beyanı Nedir, Nasıl Yapılır?`,
+    description: `Mal bildirimi beyanı nedir, nereye verilir, hangi bilgiler yazılır? İcra dosyasında mal beyanı gelirse ne yapılmalı, bildirim yapılmazsa ne olur?`,
+    category: "İcra, Haciz ve Yasal Takip",
+    bodyHtml: `<p class="on-cevap"><strong>Kısaca:</strong> Mal bildirimi beyanı, icra veya resmi borç takibi sürecinde gelir ve mal varlığı bilgilerinizi ilgili kuruma bildirmenizdir. Evrakta yazan süreyi ve kurumu kontrol edip formu eksiksiz doldurmanız gerekir.</p>
+
+  <p class="lead">Mal bildirimi, çoğu kişinin icra dosyası, vergi borcu, kamu alacağı veya avukat takibi sırasında karşılaştığı resmi bir beyan sürecidir. ParaKarne ekibi olarak gördük ki, bu evrakı "sadece bilgi formu" sanıp önemsemeyen kullanıcılar daha sonra icra ceza, tazyik hapsi veya dosya takibi gibi daha stresli süreçlerle karşılaşabiliyor.</p>
+
+  <h3>Mal bildirimi beyanı nedir?</h3>
+  <p>Mal bildirimi beyanı, borçlunun gelirini, mal varlığını, alacaklarını ve borcunu nasıl ödeyebileceğine dair bilgileri ilgili kuruma bildirmesidir.</p>
+  <p>İcra dosyalarında bu işlem genellikle <strong>mal beyanı</strong> olarak geçer. Günlük kullanımda ise "mal bildirim beyannamesi", "mal bildirimi beyanı" veya "mal beyan formu" denebilir.</p>
+
+  <h3>Mal bildirimi neden istenir?</h3>
+  <ul>
+      <li>Banka veya finansman borcu için icra takibi başlatılması</li>
+      <li>Avukat veya hukuk bürosu üzerinden yürüyen borç takibi</li>
+      <li>Vergi dairesi veya kamu kurumlarına ait alacaklar</li>
+      <li>İcra dosyası, e-haciz veya resmi takip süreci</li>
+      <li>Borçlunun ödeme gücünün ve mal varlığının belirlenmek istenmesi</li>
+  </ul>
+
+  <h3>Mal bildirimi nereye verilir?</h3>
+  <p>Mal bildirimi, evrakta belirtilen kuruma göre verilir. Konu icra dosyasıysa genellikle ilgili <strong>icra müdürlüğüne</strong> gidilir. Konu vergi dairesi veya kamu alacağıysa evrakta yazan vergi dairesi ya da kamu kurumunun yönlendirmesi takip edilir.</p>
+
+  <h3>Mal bildirimi formunda hangi bilgiler olur?</h3>
+  <ul>
+      <li>Ad, soyad ve T.C. kimlik bilgisi</li>
+      <li>Adres ve iletişim bilgisi</li>
+      <li>Çalışma durumu ve aylık gelir</li>
+      <li>Maaş, emekli maaşı veya düzenli gelir bilgisi</li>
+      <li>Banka hesapları</li>
+      <li>Adınıza kayıtlı araç bilgileri</li>
+      <li>Ev, arsa, iş yeri gibi taşınmazlar</li>
+      <li>Kira geliri veya başka gelirler</li>
+      <li>Borcu ne şekilde ödeyebileceğinize dair açıklama</li>
+  </ul>
+
+  <h3>Üzerime ev veya araç yoksa ne yazmalıyım?</h3>
+  <p>Üzerinize kayıtlı ev, arsa, araç veya başka bir mal varlığı yoksa bunu açık ve doğru şekilde yazabilirsiniz.</p>
+  <p>Örneğin: <em>"Adıma kayıtlı taşınmaz bulunmamaktadır."</em> veya <em>"Adıma kayıtlı araç bulunmamaktadır."</em></p>
+  <p>Burada önemli olan şey, bilerek eksik veya yanlış beyanda bulunmamaktır.</p>
+
+  <h3>Çalışıyorsanız ne yazılır?</h3>
+  <p>Çalışıyorsanız iş yeriniz, mesleğiniz/göreviniz ve yaklaşık aylık geliriniz yazılır. Örneğin:</p>
+  <p><em>"Özel sektörde çalışıyorum. Aylık net gelirim yaklaşık ... TL'dir."</em></p>
+  <p>Kamu çalışanı, emekli, serbest meslek sahibi, esnaf veya çalışmayan kişiler de kendi durumuna göre gelir bilgisini doğru şekilde beyan etmelidir.</p>
+
+  <h3>Mal bildirimi yapılmazsa ne olur?</h3>
+  <p>Mal bildirimi evrakı geldiyse bunu yok saymak doğru değildir. İcra ve resmi takip süreçlerinde mal beyanı yasal sonuç doğurabilen bir konudur.</p>
+  <p>İcra ve İflas Kanunu'nda mal beyanı; borçlunun mal, alacak, hak, gelir ve borcunu ne şekilde ödeyebileceğine ilişkin bilgileri icra dairesine yazılı veya sözlü bildirmesi olarak düzenlenir.</p>
+  <p>Mal beyanında bulunmama durumunda, alacaklının talebiyle icra mahkemesi tarafından tazyik hapsi süreci gündeme gelebilir. Bu nedenle evrakın üzerindeki süre ve başvuru yeri mutlaka kontrol edilmelidir.</p>
+
+  <h3>Mal bildiriminden dolayı yakalama çıkar mı?</h3>
+  <p>Her dosyada otomatik olarak yakalama çıkacağı söylenemez. Ancak mal beyanı yapılmadığı için icra ceza veya tazyik hapsi süreci işletilmişse, kişinin GBT/kimlik kontrolünde sorun yaşaması mümkün olabilir.</p>
+  <p>Bu yüzden "nasıl olsa bir şey olmaz" diye beklemek yerine, evrak geldiyse ilgili icra dairesi veya kuruma zamanında başvurmak daha güvenlidir.</p>
+
+  <h3>Mal bildirimi nasıl yapılır?</h3>
+  <ol>
+      <li>Gelen evrakı saklayın ve dosya numarasını not edin</li>
+      <li>Evrakın hangi icra dairesi, vergi dairesi veya kurumdan geldiğini kontrol edin</li>
+      <li>Kimlik belgenizle ilgili kuruma başvurun</li>
+      <li>Mal bildirimi / mal beyanı formunu isteyin</li>
+      <li>Gelir, maaş, banka hesabı, araç, taşınmaz ve diğer bilgileri doğru şekilde doldurun</li>
+      <li>Formu teslim edin</li>
+      <li>Teslim ettiğinize dair kayıt, evrak numarası veya belge alın</li>
+  </ol>
+
+  <h3>Örnek mal bildirimi metni</h3>
+  <p>Aşağıdaki metin sadece örnek amaçlıdır. Her dosya farklı olduğu için resmi işlem yapmadan önce ilgili icra dairesi veya bir hukukçudan destek alınması daha güvenlidir.</p>
+  <pre class="ornek-metin">... İcra Müdürlüğü'ne
+
+Dosya No: ... / ...
+
+Borçlu: Ad Soyad
+T.C. Kimlik No: ...
+Adres: ...
+
+Konu: Mal bildiriminin sunulmasından ibarettir.
+
+Açıklamalar:
+Tarafıma ait gelir ve mal varlığı bilgileri aşağıda beyan edilmiştir.
+
+Çalışma durumu: ...
+Aylık gelir: ...
+Adıma kayıtlı taşınmaz: ...
+Adıma kayıtlı araç: ...
+Banka hesapları ve diğer mal varlığı: ...
+
+Yukarıda belirttiğim bilgilerin doğru olduğunu beyan ederim.
+
+Tarih:
+Ad Soyad:
+İmza:</pre>
+
+  <h3>Mal bildirimi yaparken dikkat edilecekler</h3>
+  <ul>
+      <li>Evrakı yırtıp atmayın</li>
+      <li>Evrakta yazan süreyi kaçırmayın</li>
+      <li>Dosya numarasını not alın</li>
+      <li>Hangi kuruma verileceğini öğrenin</li>
+      <li>Gelir ve mal varlığı bilgilerini eksiksiz yazın</li>
+      <li>Teslim ettiğinize dair belge alın</li>
+      <li>Yanlış veya eksik beyanda bulunmayın</li>
+      <li>Emin değilseniz icra dairesinden veya hukukçudan destek alın</li>
+  </ul>
+
+  <h3>Kaynaklar</h3>
+  <ul class="kaynaklar">
+      <li><a href="https://www.mevzuat.gov.tr/mevzuatmetin/1.3.2004.pdf" target="_blank" rel="noopener nofollow">2004 sayılı İcra ve İflas Kanunu - resmi mevzuat</a></li>
+      <li><a href="https://www.turkiye.gov.tr/adalet-icra-dosyasi-sorgulama" target="_blank" rel="noopener nofollow">e-Devlet icra dosyası sorgulama hizmeti</a></li>
+  </ul>
+
+  <h3>Sıkça Sorulan Sorular</h3>
+  <div class="sss-blok">
+    <div class="sss-item">
+      <p class="sss-soru">Mal bildirimi ile mal beyanı aynı şey mi?</p>
+      <p class="sss-cevap">Günlük kullanımda çoğu kişi aynı anlamda kullanır. İcra dosyalarında daha çok "mal beyanı" ifadesi geçer.</p>
+    </div>
+    <div class="sss-item">
+      <p class="sss-soru">Mal bildirimi e-Devlet'ten yapılır mı?</p>
+      <p class="sss-cevap">Her dosya için standart bir e-Devlet gönderim yolu olmayabilir. Evrakta yazan icra dairesi veya kurumdan nasıl teslim edileceğini teyit etmek gerekir.</p>
+    </div>
+    <div class="sss-item">
+      <p class="sss-soru">Üzerime hiçbir mal yoksa yine beyan vermeli miyim?</p>
+      <p class="sss-cevap">Evrak geldiyse, üzerinizde mal olmadığını da doğru şekilde beyan etmeniz gerekebilir. En doğru yol ilgili kurumdan dosya bazında bilgi almaktır.</p>
+    </div>
+  </div>
+
+  <h3>İlgili Konular</h3>
+  <ul class="ilgili-konular">
+      <li><a href="/icra-tebligati">İcra Tebligatı Geldi, Ne Yapmalıyım?</a></li>
+      <li><a href="/yasal-takipten-cikma">Yasal Takipten Çıkma</a></li>
+      <li><a href="/maas-haczi-ne-kadar-kesilir">Maaş Haczi Ne Kadar Kesilir?</a></li>
+      <li><a href="/borctan-dolayi-hapis-cezasi-var-mi">Borçtan Dolayı Hapis Cezası Var mı?</a></li>
+  </ul>
+
+  <div class="cta-box">
+    <p>Bankalarla ilgili kullanıcı deneyimlerini görmek, kredi/kart onay oranlarını karşılaştırmak ve banka karnelerini incelemek için:</p>
+    <a class="cta-btn" href="/#bankalar">Banka Karnelerine Bak →</a>
+  </div>
+
+  <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. İcra, vergi ve resmi takip süreçlerinde dosyanıza özel durumlar için ilgili kurumdan veya uzman bir hukukçudan destek alınız. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
+    jsonLd: [{"@context": "https://schema.org", "@type": "Article", "headline": "Mal Bildirimi Beyanı Nedir, Nasıl Yapılır?", "description": "Mal bildirimi beyanı nedir, nereye verilir, hangi bilgiler yazılır? İcra dosyasında mal beyanı gelirse ne yapılmalı, bildirim yapılmazsa ne olur?", "url": "https://parakarne.com/mal-bildirimi-beyani-nedir-nasil-yapilir", "publisher": {"@type": "Organization", "name": "ParaKarne"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Mal bildirimi ile mal beyanı aynı şey mi?", "acceptedAnswer": {"@type": "Answer", "text": "Günlük kullanımda çoğu kişi aynı anlamda kullanır. İcra dosyalarında daha çok mal beyanı ifadesi geçer."}}, {"@type": "Question", "name": "Mal bildirimi e-Devlet'ten yapılır mı?", "acceptedAnswer": {"@type": "Answer", "text": "Her dosya için standart bir e-Devlet gönderim yolu olmayabilir. Evrakta yazan icra dairesi veya kurumdan nasıl teslim edileceğini teyit etmek gerekir."}}, {"@type": "Question", "name": "Üzerime hiçbir mal yoksa yine beyan vermeli miyim?", "acceptedAnswer": {"@type": "Answer", "text": "Evrak geldiyse, üzerinizde mal olmadığını da doğru şekilde beyan etmeniz gerekebilir. En doğru yol ilgili kurumdan dosya bazında bilgi almaktır."}}]}],
   },
   {
     slug: "yurtdisinda-sms-onay-kodu-gelmiyor",

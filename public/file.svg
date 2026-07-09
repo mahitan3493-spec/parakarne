@@ -1,1 +1,11 @@
-<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f3eee0"/>
+  <path d="M0 80H1200M0 160H1200M0 240H1200M0 320H1200M0 400H1200M0 480H1200M0 560H1200" stroke="#ded3b4" stroke-width="2"/>
+  <circle cx="180" cy="180" r="76" fill="#16233d"/>
+  <circle cx="180" cy="180" r="56" fill="none" stroke="#c41f35" stroke-width="10"/>
+  <text x="180" y="206" text-anchor="middle" font-family="Georgia, serif" font-size="58" font-weight="900" fill="#ffffff">A+</text>
+  <text x="300" y="172" font-family="Georgia, serif" font-size="82" font-weight="800" fill="#16233d">Para<tspan fill="#c41f35">Karne</tspan></text>
+  <text x="304" y="238" font-family="Arial, sans-serif" font-size="30" fill="#4a5878">Banka yorumları, puanlama ve karşılaştırma</text>
+  <rect x="300" y="310" width="660" height="86" rx="10" fill="#fbf8ef" stroke="#16233d" stroke-width="3"/>
+  <text x="330" y="363" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#16233d">Gerçek kullanıcı deneyimlerine dayalı banka karnesi</text>
+</svg>

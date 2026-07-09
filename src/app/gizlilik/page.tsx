@@ -21,12 +21,13 @@ export default function PrivacyPage() {
       <h2>Toplanan bilgiler</h2>
       <ul>
         <li>Üyelik için e-posta, görünen ad ve Firebase kimlik bilgisi.</li>
-        <li>Kullanıcının yazdığı banka yorumu, verdiği yıldız puanı ve bildirim kayıtları.</li>
+        <li>Kullanıcının yazdığı banka yorumu, verdiği yıldız puanı, kategori puanları ve bildirim kayıtları.</li>
+        <li>Kredi başvurusu, kredi kartı başvurusu, çalışma/gelir durumu ve isteğe bağlı Findeks skor aralığı gibi kullanıcı tarafından paylaşılan deneyim bilgileri.</li>
         <li>Güvenlik, hata ayıklama ve temel performans için teknik kayıtlar.</li>
       </ul>
       <h2>Kullanım amacı</h2>
       <p>
-        Bilgiler üyelik işlemlerini yürütmek, yorumları göstermek, sahte/zararlı içerikleri azaltmak, kullanıcıların kendi yorumlarını yönetmesini sağlamak ve platform güvenliğini korumak amacıyla kullanılır.
+        Bilgiler üyelik işlemlerini yürütmek, yorumları göstermek, banka puanlarını ve kredi/kredi kartı onay oranlarını hesaplamak, sahte/zararlı içerikleri azaltmak, kullanıcıların kendi yorumlarını yönetmesini sağlamak ve platform güvenliğini korumak amacıyla kullanılır.
       </p>
       <h2>Üçüncü taraf servisler</h2>
       <p>
