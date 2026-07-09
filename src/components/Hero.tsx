@@ -10,7 +10,7 @@ import BankLogo from "./BankLogo";
 
 export default function Hero() {
   const { banks } = useBanks();
-  const { reviews } = useReviews();
+  const { reviews, loading: reviewsLoading } = useReviews();
 
   const updated = useMemo(() => applyReviewStatsToBanks(banks, reviews), [banks, reviews]);
 
@@ -81,17 +81,25 @@ export default function Hero() {
               <span className="lbl">banka karneye alındı</span>
             </div>
             <div>
-              <span className="num">{stats.reviewCount.toLocaleString("tr-TR")}</span>
+              <span className="num">{reviewsLoading ? "…" : stats.reviewCount.toLocaleString("tr-TR")}</span>
               <span className="lbl">toplam kullanıcı yorumu</span>
             </div>
             <div>
-              <span className="num">{stats.avg}</span>
+              <span className="num">{reviewsLoading ? "…" : stats.avg}</span>
               <span className="lbl">ortalama kullanıcı puanı</span>
             </div>
           </div>
         </div>
 
-        {topBank ? (
+        {reviewsLoading ? (
+          <div className="report-card report-card-empty">
+            <div className="hero-card-skeleton" aria-label="Karne hazırlanıyor">
+              <span className="skeleton-line wide" />
+              <span className="skeleton-line" />
+              <span className="skeleton-line short" />
+            </div>
+          </div>
+        ) : topBank ? (
           <div className="report-card">
             <div className="rc-head">
               <div className="bank-cell">

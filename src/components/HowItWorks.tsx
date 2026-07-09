@@ -18,27 +18,27 @@ export default function HowItWorks() {
       </div>
       <div className="steps wrap" style={{ padding: "0 28px" }}>
         <div className="step">
-          <div className="stamp-num">SORU 1</div>
-          <h4>Veri toplanır</h4>
+          <div className="stamp-num">ADIM 1</div>
+          <h4>Kullanıcı deneyimi alınır</h4>
           <p>
-            Faiz oranları, ücret tarifeleri ve uygulama performansı düzenli
-            olarak taranır.
+            Kullanıcı banka deneyimini; müşteri hizmetleri, ATM, güvenlik,
+            mobil uygulama ve şube başlıklarında puanlar.
           </p>
         </div>
         <div className="step">
-          <div className="stamp-num">SORU 2</div>
-          <h4>Kullanıcı katkısı</h4>
+          <div className="stamp-num">ADIM 2</div>
+          <h4>Yorum ve başvuru sonucu eklenir</h4>
           <p>
-            Üyeler gerçek deneyimlerini puanlar; sahte ve tekrar eden
-            yorumlar filtrelenir.
+            Kredi ve kredi kartı başvuru sonucu, gelir durumu ve yorum metni
+            karneye katkı olarak kaydedilir.
           </p>
         </div>
         <div className="step">
-          <div className="stamp-num">SORU 3</div>
-          <h4>Karne basılır</h4>
+          <div className="stamp-num">ADIM 3</div>
+          <h4>Karne güncellenir</h4>
           <p>
-            Ağırlıklı ortalama, harf notuna çevrilir ve karne her ay
-            güncellenir.
+            Bankanın puanı, yorum sayısı ve kategori notları gerçek kullanıcı
+            katkılarına göre otomatik güncellenir.
           </p>
         </div>
       </div>

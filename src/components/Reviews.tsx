@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { useReviews } from "@/lib/reviews-context";
 import { visibleReviews } from "@/lib/bank-stats";
 import ReviewItem from "./ReviewItem";
 
 export default function Reviews() {
-  const { reviews } = useReviews();
+  const { reviews, loading } = useReviews();
   const publishedReviews = useMemo(
     () => visibleReviews(reviews).filter((review) => review.status !== "hidden"),
     [reviews],
@@ -25,24 +26,30 @@ export default function Reviews() {
             </p>
           </div>
           <div className="review-cta-actions">
-            <a className="btn primary" href="/#bankalar">
+            <Link className="btn primary" href="/#bankalar">
               Bankanı Puanla
-            </a>
-            <a className="btn" href="/#karsilastir">
+            </Link>
+            <Link className="btn" href="/#karsilastir">
               Bankaları Karşılaştır
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className="review-only-layout">
           <div className="review-list review-list-wide">
-            {publishedReviews.length === 0 ? (
+            {loading ? (
+              <div className="empty-review-card review-skeleton-card">
+                <span className="skeleton-line wide" />
+                <span className="skeleton-line" />
+                <span className="skeleton-line short" />
+              </div>
+            ) : publishedReviews.length === 0 ? (
               <div className="empty-review-card">
                 <h3>Henüz yorum yok</h3>
                 <p>İlk puanı sen ver; yorumun burada görünsün.</p>
-                <a className="btn primary" href="/#bankalar">
+                <Link className="btn primary" href="/#bankalar">
                   İlk Bankayı Puanla
-                </a>
+                </Link>
               </div>
             ) : (
               publishedReviews.map((r) => <ReviewItem key={r.id} review={r} />)

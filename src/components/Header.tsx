@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
 import { useUI } from "@/lib/ui-context";
 import { initialsOf } from "@/lib/grades";
@@ -11,19 +12,19 @@ export default function Header() {
   return (
     <header className="site">
       <div className="nav wrap">
-        <a className="logo" href="/" aria-label="ParaKarne ana sayfa">
+        <Link className="logo" href="/" aria-label="ParaKarne ana sayfa">
           <div className="logo-mark">A+</div>
           <div className="logo-text">
             Para<span>Karne</span>
           </div>
-        </a>
+        </Link>
         <nav className="links" aria-label="Ana menü">
-          <a href="/">Ana Sayfa</a>
-          <a href="/#karsilastir">Karşılaştır</a>
-          <a href="/#bankalar">Bankalar</a>
-          <a href="/#yorumlar">Yorumlar</a>
-          <a href="/#nasil">Nasıl Çalışır</a>
-          <a href="/tum-konular/">Tüm Konular</a>
+          <Link href="/">Ana Sayfa</Link>
+          <Link href="/#karsilastir">Karşılaştır</Link>
+          <Link href="/#bankalar">Bankalar</Link>
+          <Link href="/#yorumlar">Yorumlar</Link>
+          <Link href="/#nasil">Nasıl Çalışır</Link>
+          <Link href="/tum-konular/">Tüm Konular</Link>
         </nav>
         <div className="nav-actions">
           {user ? (

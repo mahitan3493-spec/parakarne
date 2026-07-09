@@ -11,13 +11,12 @@ import {
   collection,
   limit,
   onSnapshot,
-  orderBy,
   query,
   type DocumentData,
   type QueryDocumentSnapshot,
 } from "firebase/firestore";
 import { db } from "./firebase";
-import type { Review } from "./types";
+import type { CategoryRatings, Review } from "./types";
 
 type ReviewsContextValue = {
   reviews: Review[];
@@ -31,34 +30,96 @@ const ReviewsContext = createContext<ReviewsContextValue | undefined>(
 function readLocalReviews(): Review[] {
   if (typeof window === "undefined") return [];
   try {
-    return JSON.parse(window.localStorage.getItem("parakarne-local-reviews") || "[]") as Review[];
+    const parsed = JSON.parse(window.localStorage.getItem("parakarne-local-reviews") || "[]");
+    return Array.isArray(parsed) ? (parsed as Review[]) : [];
   } catch {
     return [];
   }
 }
 
+function toNumber(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value.replace(",", "."));
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
+function toCategoryScore(value: unknown): number | undefined {
+  const score = toNumber(value);
+  if (score === null || score < 1 || score > 5) return undefined;
+  return score;
+}
+
+function normalizeCategories(raw: unknown): CategoryRatings {
+  if (!raw || typeof raw !== "object") return {};
+  const data = raw as Record<string, unknown>;
+  const categories: CategoryRatings = {};
+  const branch = toCategoryScore(data.branch ?? data.sube ?? data["Şube Hizmetleri"]);
+  const service = toCategoryScore(data.service ?? data.customerService ?? data.musteriHizmetleri ?? data["Müşteri Hizmetleri"]);
+  const app = toCategoryScore(data.app ?? data.mobileApp ?? data.mobilUygulama ?? data["Mobil Uygulama"]);
+  const atm = toCategoryScore(data.atm ?? data.atmServices ?? data["ATM Hizmetleri"]);
+  const security = toCategoryScore(data.security ?? data.guvenlik ?? data["Güvenlik"]);
+
+  if (branch) categories.branch = branch;
+  if (service) categories.service = service;
+  if (app) categories.app = app;
+  if (atm) categories.atm = atm;
+  if (security) categories.security = security;
+  return categories;
+}
+
+function scoreFromCategories(categories: CategoryRatings): number | null {
+  const values = Object.values(categories).filter((value): value is number => typeof value === "number");
+  if (values.length === 0) return null;
+  const avg = values.reduce((sum, value) => sum + value, 0) / values.length;
+  return Math.min(5, Math.max(1, Math.round(avg)));
+}
+
+function normalizeStars(data: Record<string, unknown>, categories: CategoryRatings): number {
+  const rawScore =
+    toNumber(data.stars) ??
+    toNumber(data.rating) ??
+    toNumber(data.overallRating) ??
+    toNumber(data.overall) ??
+    scoreFromCategories(categories) ??
+    0;
+
+  if (rawScore <= 0) return 0;
+  return Math.min(5, Math.max(1, Math.round(rawScore)));
+}
+
 function normalizeReview(d: QueryDocumentSnapshot<DocumentData>): Review {
   const data = d.data();
+  const categories = normalizeCategories(data.categories);
+  const createdAtMs =
+    data.createdAt?.toMillis?.() ??
+    toNumber(data.createdAtMs) ??
+    toNumber(data.createdAt) ??
+    toNumber(data.timestamp) ??
+    null;
+
   return {
     id: d.id,
-    uid: data.uid,
-    userName: data.userName,
-    bankId: data.bankId,
-    bankName: data.bankName,
-    stars: data.stars,
-    categories: data.categories ?? {},
-    creditOutcome: data.creditOutcome,
-    creditApplicationOutcome: data.creditApplicationOutcome,
-    creditCardApplicationOutcome: data.creditCardApplicationOutcome,
-    employmentStatus: data.employmentStatus,
-    findeksScoreRange: data.findeksScoreRange,
-    text: data.text,
-    note: data.note,
-    reportCount: data.reportCount ?? 0,
-    reportedBy: data.reportedBy ?? [],
-    status: data.status ?? "published",
-    createdAtMs: data.createdAt?.toMillis?.() ?? null,
-  } as Review;
+    uid: String(data.uid ?? data.userId ?? ""),
+    userName: String(data.userName ?? data.name ?? data.displayName ?? "Anonim"),
+    bankId: String(data.bankId ?? data.bankSlug ?? data.bank ?? ""),
+    bankName: String(data.bankName ?? data.bankTitle ?? "Banka"),
+    stars: normalizeStars(data, categories),
+    categories,
+    creditOutcome: data.creditOutcome as Review["creditOutcome"],
+    creditApplicationOutcome: data.creditApplicationOutcome as Review["creditApplicationOutcome"],
+    creditCardApplicationOutcome: data.creditCardApplicationOutcome as Review["creditCardApplicationOutcome"],
+    employmentStatus: data.employmentStatus as Review["employmentStatus"],
+    findeksScoreRange: data.findeksScoreRange as Review["findeksScoreRange"],
+    text: String(data.text ?? data.comment ?? data.review ?? data.message ?? ""),
+    note: String(data.note ?? "Bu yorum karne ortalamasına eklendi."),
+    reportCount: toNumber(data.reportCount) ?? 0,
+    reportedBy: Array.isArray(data.reportedBy) ? data.reportedBy : [],
+    status: data.status === "hidden" ? "hidden" : "published",
+    createdAtMs,
+  };
 }
 
 function newestFirst(reviews: Review[]): Review[] {
@@ -71,7 +132,10 @@ export function ReviewsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!db) {
-      const syncLocal = () => setReviews(readLocalReviews());
+      const syncLocal = () => {
+        setReviews(newestFirst(readLocalReviews()));
+        setLoading(false);
+      };
       const timer = window.setTimeout(syncLocal, 0);
       window.addEventListener("parakarne:local-reviews", syncLocal);
       return () => {
@@ -80,41 +144,25 @@ export function ReviewsProvider({ children }: { children: ReactNode }) {
       };
     }
 
+    // orderBy("createdAt") eski yorumlarda createdAt alanı yoksa o dokümanları
+    // tamamen dışarıda bırakır. Bu yüzden tüm yorumlar düz sorguyla okunur,
+    // sıralama tarayıcıda yapılır. Böylece daha önce girilmiş tek yorum bile
+    // ana sayaçlara ve banka puanına yansır.
     const reviewsRef = collection(db, "reviews");
-    const orderedQuery = query(reviewsRef, orderBy("createdAt", "desc"), limit(250));
-
-    let fallbackUnsub: (() => void) | null = null;
-    const orderedUnsub = onSnapshot(
-      orderedQuery,
+    const unsub = onSnapshot(
+      query(reviewsRef, limit(500)),
       (snap) => {
-        setReviews(snap.docs.map(normalizeReview));
+        setReviews(newestFirst(snap.docs.map(normalizeReview)));
         setLoading(false);
       },
       (error) => {
-        // Bazı projelerde eski yorum dokümanlarında createdAt eksik/bozuk
-        // olabiliyor ya da orderBy sorgusu rules/index yüzünden hata verebiliyor.
-        // Sessizce boş liste göstermek yerine düz koleksiyona düşüyoruz; böylece
-        // ana sayfadaki sayaçlar ve yorum listesi gerçek reviews verisini yine okur.
-        console.warn("ParaKarne reviews ordered query failed; using fallback query.", error);
-        fallbackUnsub = onSnapshot(
-          query(reviewsRef, limit(250)),
-          (snap) => {
-            setReviews(newestFirst(snap.docs.map(normalizeReview)));
-            setLoading(false);
-          },
-          (fallbackError) => {
-            console.error("ParaKarne reviews fallback query failed.", fallbackError);
-            setReviews([]);
-            setLoading(false);
-          },
-        );
+        console.error("ParaKarne reviews query failed.", error);
+        setReviews([]);
+        setLoading(false);
       },
     );
 
-    return () => {
-      orderedUnsub();
-      fallbackUnsub?.();
-    };
+    return unsub;
   }, []);
 
   return (

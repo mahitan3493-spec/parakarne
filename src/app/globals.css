@@ -2516,3 +2516,82 @@ tbody tr,
     font-size: 15px;
   }
 }
+
+/* ===== ParaKarne loading/disclaimer fixes ===== */
+.skeleton-bank-grid .skeleton-card {
+  cursor: default;
+  pointer-events: none;
+  min-height: 138px;
+}
+.skeleton-line {
+  display: block;
+  height: 13px;
+  width: 64%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(22, 35, 61, 0.08), rgba(22, 35, 61, 0.16), rgba(22, 35, 61, 0.08));
+  background-size: 220% 100%;
+  animation: parakarne-skeleton 1.2s ease-in-out infinite;
+  margin-bottom: 14px;
+}
+.skeleton-line.wide {
+  width: 86%;
+  height: 18px;
+}
+.skeleton-line.short {
+  width: 42%;
+}
+.ledger-skeleton {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 0;
+}
+.ledger-skeleton-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 2fr) minmax(80px, 1fr) minmax(70px, 0.7fr);
+  gap: 18px;
+  align-items: center;
+  padding: 10px 0;
+}
+.hero-card-skeleton {
+  padding: 22px 8px 10px;
+}
+.data-note {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  margin-top: 14px;
+}
+.footer-disclaimer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--paper-line);
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+.legal {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  border-color: rgba(22, 35, 61, 0.22);
+  box-shadow: 6px 6px 0 rgba(22, 35, 61, 0.05);
+}
+.legal h4 {
+  font-size: 18px;
+}
+@keyframes parakarne-skeleton {
+  0% { background-position: 220% 0; }
+  100% { background-position: -220% 0; }
+}
+@media (max-width: 700px) {
+  .ledger-skeleton-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    border: 1px solid var(--paper-line);
+    padding: 14px;
+    background: var(--card);
+  }
+  .footer-disclaimer {
+    font-size: 13px;
+  }
+}

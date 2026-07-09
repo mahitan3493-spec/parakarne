@@ -32,8 +32,8 @@ export default function TumKonularPage() {
             <h1>Tüm Konular</h1>
             <p className="lead">
               Kredi, kredi kartı, Findeks/KKB, yasal takip, icra, haciz, hesap ve mobil bankacılık
-              sorunlarınızla ilgili tüm rehberlerin tam listesi. Bir konuya tıklayarak adım adım
-              yol haritasını okuyabilirsiniz.
+              sorunlarınızla ilgili tüm rehberlerin tam listesi. Bir konuya tıklayarak ilgili açıklamaları
+              ve yapılabilecek genel adımları okuyabilirsiniz.
             </p>
             {CATEGORY_ORDER.map((cat) => {
               const items = articles.filter((a) => a.category === cat);

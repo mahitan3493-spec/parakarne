@@ -27,6 +27,11 @@ export default function Footer() {
           <Link href="/iletisim">İletişim</Link>
         </div>
       </div>
+      <div className="wrap footer-disclaimer">
+        ParaKarne bir bankanın resmî temsilcisi değildir. Platformdaki bilgiler
+        yatırım tavsiyesi, kredi tavsiyesi veya kesin finansal yönlendirme
+        değildir; nihai karar öncesinde bankaların resmî kanallarını kontrol edin.
+      </div>
     </footer>
   );
 }

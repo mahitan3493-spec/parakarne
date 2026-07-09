@@ -128,7 +128,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
                 {bank.name} kullanıcı yorumları; müşteri hizmetleri, ATM hizmetleri, güvenlik,
                 mobil uygulama ve şube deneyimi gibi başlıklarda verilen gerçek kullanıcı
                 puanlarından oluşur. ParaKarne, yorumları bankaya özel işler ve bankanın genel
-                notunu bu canlı veriye göre günceller.
+                notunu bu kullanıcı katkılarına göre günceller.
               </p>
 
               <div className="bank-seo-grid">
@@ -203,7 +203,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
                   <summary>{bank.name} kredi kartı onay oranı nasıl hesaplanır?</summary>
                   <p>
                     Kredi ve kredi kartı onay oranı, kullanıcıların başvuru sonucunu “onaylandı”,
-                    “reddedildi” veya “başvurmadım” olarak işaretlemesiyle oluşan canlı veriden
+                    “reddedildi” veya “başvurmadım” olarak işaretlemesiyle oluşan kullanıcı katkılarından
                     hesaplanır. Başvuru sayısı arttıkça oran daha anlamlı hale gelir.
                   </p>
                 </details>

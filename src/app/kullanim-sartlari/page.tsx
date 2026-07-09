@@ -26,7 +26,7 @@ export default function TermsPage() {
       </ul>
       <h2>Sorumluluk sınırı</h2>
       <p>
-        Sitedeki puanlar kullanıcı yorumları ve örnek verilerle oluşur. Faiz, ücret ve kampanya bilgileri değişebilir. Resmî işlem yapmadan önce ilgili bankanın kendi kanallarından teyit alınmalıdır.
+        Sitedeki puanlar gerçek kullanıcı yorumlarıyla oluşur. Buradaki bilgiler yatırım tavsiyesi, kredi tavsiyesi veya kesin finansal yönlendirme niteliği taşımaz. Faiz, ücret ve kampanya bilgileri değişebilir; resmî işlem yapmadan önce ilgili bankanın kendi kanallarından teyit alınmalıdır.
       </p>
       <h2>Hesap işlemleri</h2>
       <p>

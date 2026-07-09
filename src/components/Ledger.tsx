@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
@@ -14,10 +15,12 @@ import CompareBanks from "./CompareBanks";
 type SortKey = "name" | "grade" | "rating" | "reviews";
 
 export default function Ledger() {
-  const { banks, loading, usingDemoData } = useBanks();
-  const { reviews } = useReviews();
+  const { banks, loading } = useBanks();
+  const { reviews, loading: reviewsLoading } = useReviews();
   const [sortKey, setSortKey] = useState<SortKey>("grade");
   const [sortDir, setSortDir] = useState<1 | -1>(1);
+
+  const isLoading = loading || reviewsLoading;
 
   const banksWithStats = useMemo(
     () => applyReviewStatsToBanks(banks, reviews),
@@ -67,11 +70,6 @@ export default function Ledger() {
             </p>
           </div>
         </div>
-        {usingDemoData && (
-          <div className="info-strip">
-            Firebase banka koleksiyonu boş ya da bağlı değil. Şimdilik yerel 32 bankalık yedek veri gösteriliyor.
-          </div>
-        )}
         <CompareBanks />
         <div className="ledger ledger-desktop">
           <table>
@@ -90,10 +88,10 @@ export default function Ledger() {
               </tr>
             </thead>
             <tbody>
-              {loading ? (
+              {isLoading ? (
                 <tr>
-                  <td colSpan={5} className="skeleton-row">
-                    Bankalar yükleniyor…
+                  <td colSpan={5}>
+                    <LedgerSkeleton />
                   </td>
                 </tr>
               ) : sorted.length === 0 ? (
@@ -110,8 +108,8 @@ export default function Ledger() {
         </div>
 
         <div className="mobile-bank-list">
-          {loading ? (
-            <p className="skeleton-row">Bankalar yükleniyor…</p>
+          {isLoading ? (
+            <LedgerSkeleton />
           ) : sorted.length === 0 ? (
             <p className="skeleton-row">Henüz banka verisi eklenmedi.</p>
           ) : (
@@ -119,10 +117,9 @@ export default function Ledger() {
           )}
         </div>
         <p
-          style={{ fontSize: "11.5px", color: "var(--ink-faint)", marginTop: "10px" }}
-          className="mono"
+          className="data-note mono"
         >
-          * Örnek puanlar tanıtım verisidir; kullanıcı yorumları geldikçe ekrandaki karne ortalaması güncellenir.
+          Banka puanları yalnızca kullanıcı yorumlarıyla oluşur. Faiz, ücret ve kampanya bilgileri değişebileceği için resmi banka kanallarından teyit edilmelidir.
         </p>
       </div>
     </section>
@@ -130,11 +127,12 @@ export default function Ledger() {
 }
 
 function LedgerRow({ bank }: { bank: Bank }) {
+  const router = useRouter();
   const { openBankModal } = useUI();
   const bankUrl = `/banka/${bank.id}/`;
 
   function goToBankPage() {
-    window.location.href = bankUrl;
+    router.push(bankUrl);
   }
 
   return (
@@ -186,11 +184,12 @@ function LedgerRow({ bank }: { bank: Bank }) {
 }
 
 function MobileBankCard({ bank }: { bank: Bank }) {
+  const router = useRouter();
   const { openBankModal } = useUI();
   const bankUrl = `/banka/${bank.id}/`;
 
   function goToBankPage() {
-    window.location.href = bankUrl;
+    router.push(bankUrl);
   }
 
   return (
@@ -237,5 +236,20 @@ function MobileBankCard({ bank }: { bank: Bank }) {
         </button>
       </div>
     </article>
+  );
+}
+
+
+function LedgerSkeleton() {
+  return (
+    <div className="ledger-skeleton" aria-label="Banka listesi hazırlanıyor">
+      {[0, 1, 2].map((item) => (
+        <div className="ledger-skeleton-row" key={item}>
+          <span className="skeleton-line wide" />
+          <span className="skeleton-line" />
+          <span className="skeleton-line short" />
+        </div>
+      ))}
+    </div>
   );
 }

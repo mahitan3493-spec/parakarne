@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
@@ -9,12 +10,13 @@ import { applyReviewStatsToBanks } from "@/lib/bank-stats";
 import BankLogo from "./BankLogo";
 
 export default function BankGrid() {
+  const router = useRouter();
   const { banks, loading } = useBanks();
-  const { reviews } = useReviews();
+  const { reviews, loading: reviewsLoading } = useReviews();
   const { openBankModal } = useUI();
 
   function goToBankPage(bankId: string) {
-    window.location.href = `/banka/${bankId}/`;
+    router.push(`/banka/${bankId}/`);
   }
   // "Öne çıkanlar" gerçekten en yüksek puanlı, gerçekten yorum almış
   // bankalar olmalı — dizideki ilk 6 banka değil. Henüz yorum almamış
@@ -43,13 +45,13 @@ export default function BankGrid() {
             <h2>Sınıf birincileri</h2>
           </div>
         </div>
-        {loading && <p className="skeleton-row">Bankalar yükleniyor…</p>}
-        {!loading && top.length === 0 && (
+        {(loading || reviewsLoading) && <BankGridSkeleton />}
+        {!loading && !reviewsLoading && top.length === 0 && (
           <p className="skeleton-row">
             Henüz hiçbir bankaya yorum yapılmadı — ilk notu sen ver, burada ilk sen görün.
           </p>
         )}
-        {!loading && top.length > 0 && (
+        {!loading && !reviewsLoading && top.length > 0 && (
           <div className="bank-grid">
             {top.map((b) => (
               <article
@@ -92,5 +94,20 @@ export default function BankGrid() {
         )}
       </div>
     </section>
+  );
+}
+
+
+function BankGridSkeleton() {
+  return (
+    <div className="bank-grid skeleton-bank-grid" aria-label="Banka kartları hazırlanıyor">
+      {[0, 1, 2].map((item) => (
+        <div className="bcard skeleton-card" key={item}>
+          <span className="skeleton-line wide" />
+          <span className="skeleton-line" />
+          <span className="skeleton-line short" />
+        </div>
+      ))}
+    </div>
   );
 }

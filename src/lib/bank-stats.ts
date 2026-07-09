@@ -19,7 +19,17 @@ export function gradeFromRating(rating: number): string {
 }
 
 export function visibleReviews(reviews: Review[]): Review[] {
-  return reviews.filter((review) => review.status !== "hidden" && review.reportCount < 3);
+  return reviews.filter(
+    (review) =>
+      review.status !== "hidden" &&
+      review.reportCount < 3 &&
+      typeof review.bankId === "string" &&
+      review.bankId.length > 0 &&
+      typeof review.stars === "number" &&
+      Number.isFinite(review.stars) &&
+      review.stars >= 1 &&
+      review.stars <= 5,
+  );
 }
 
 function liveCategoryScores(bank: Bank, bankReviews: Review[]): SubGrades {

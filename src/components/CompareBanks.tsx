@@ -18,7 +18,7 @@ type Row = {
 
 export default function CompareBanks() {
   const { banks } = useBanks();
-  const { reviews } = useReviews();
+  const { reviews, loading: reviewsLoading } = useReviews();
   const stats = useMemo(() => applyReviewStatsToBanks(banks, reviews), [banks, reviews]);
 
   const [idA, setIdA] = useState("");
@@ -28,6 +28,17 @@ export default function CompareBanks() {
   const bankB = stats.find((b) => b.id === idB) ?? stats[1];
 
   if (!bankA || !bankB) return null;
+
+  if (reviewsLoading) {
+    return (
+      <div className="compare-card compare-skeleton-card" aria-label="Karşılaştırma hazırlanıyor">
+        <div className="compare-title">İki Bankayı Karşılaştır</div>
+        <span className="skeleton-line wide" />
+        <span className="skeleton-line" />
+        <span className="skeleton-line short" />
+      </div>
+    );
+  }
 
   const rows = buildRows(bankA, bankB);
 

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
@@ -79,6 +81,7 @@ function StarPicker({ value, onChange }: { value: number | undefined; onChange: 
 }
 
 export default function BankDetailModal() {
+  const router = useRouter();
   const { user } = useAuth();
   const { bankDetailId, bankModalMode, closeBankModal, openAuthModal } = useUI();
   const { banks } = useBanks();
@@ -102,6 +105,7 @@ export default function BankDetailModal() {
     [rawBank, reviews],
   );
 
+  /* eslint-disable react-hooks/set-state-in-effect -- Modal her açıldığında form alanlarını sıfırlıyoruz. */
   useEffect(() => {
     setStep(bankModalMode === "rating" ? 2 : 1);
     setCategories({});
@@ -114,6 +118,7 @@ export default function BankDetailModal() {
     setSubmitting(false);
     setLastSubmittedBankName("");
   }, [bankDetailId, bankModalMode]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   if (!bankDetailId || !bank) return null;
 
@@ -135,17 +140,17 @@ export default function BankDetailModal() {
 
   function goBackToBankList() {
     closeBankModal();
-    window.location.href = "/#bankalar";
+    router.push("/#bankalar");
   }
 
   function goHome() {
     closeBankModal();
-    window.location.href = "/";
+    router.push("/");
   }
 
   function goToBankPage() {
     closeBankModal();
-    window.location.href = `/banka/${bank!.id}/`;
+    router.push(`/banka/${bank!.id}/`);
   }
 
   function handleNextFromRatings() {
@@ -282,12 +287,12 @@ export default function BankDetailModal() {
             </button>
             <p className="modal-footnote">🔒 Yorum ve puan sadece bu bankaya kaydedilir.</p>
             <div className="modal-secondary-actions detail-action-bar">
-              <a className="btn" href={`/banka/${bank.id}/`}>
+              <Link className="btn" href={`/banka/${bank.id}/`} onClick={closeBankModal}>
                 Banka sayfasını aç
-              </a>
-              <a className="btn" href="/#karsilastir" onClick={closeBankModal}>
+              </Link>
+              <Link className="btn" href="/#karsilastir" onClick={closeBankModal}>
                 Karşılaştırmaya git
-              </a>
+              </Link>
             </div>
             <div className="detail-reviews">
               {bankReviews.length ? (

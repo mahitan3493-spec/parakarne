@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Legal() {
   return (
     <section id="guven" style={{ paddingTop: 0, paddingBottom: "56px" }}>
@@ -5,11 +7,12 @@ export default function Legal() {
         <div className="legal">
           <h4>Notlar nasıl güvenilir tutulur?</h4>
           <p>
-            Buradaki puanlar ve yorumlar kullanıcılar tarafından oluşturulur;
-            ParaKarne bir bankanın resmî temsilcisi değildir ve verilen
-            notlar kurumların kendi açıklamalarıyla farklılık gösterebilir.
-            Faiz oranı gibi güncel veriler için bankanın kendi kanallarını da
-            kontrol etmenizi öneririz.
+            ParaKarne bir bankanın resmî temsilcisi değildir. Platformdaki
+            puanlar, yorumlar ve karşılaştırmalar kullanıcı deneyimlerine
+            dayalıdır. Buradaki bilgiler yatırım tavsiyesi, kredi tavsiyesi
+            veya kesin finansal yönlendirme niteliği taşımaz. Faiz, ücret,
+            kampanya ve ürün bilgileri değişebileceği için nihai karar öncesinde
+            ilgili bankanın resmî kanalları kontrol edilmelidir.
           </p>
           <ul>
             <li>
@@ -23,7 +26,7 @@ export default function Legal() {
             </li>
             <li>
               Bankalar, kendileriyle ilgili yorumlara{" "}
-              <a href="/itiraz-sureci">itiraz süreci</a> üzerinden yanıt verebilir.
+              <Link href="/itiraz-sureci">itiraz süreci</Link> üzerinden yanıt verebilir.
             </li>
           </ul>
         </div>

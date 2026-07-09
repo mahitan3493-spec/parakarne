@@ -2568,8 +2568,8 @@ Ad Soyad:
   </ul>
 
   <div class="cta-box">
-    <p>Bankalarla ilgili kullanıcı deneyimlerini görmek, kredi/kart onay oranlarını karşılaştırmak ve banka karnelerini incelemek için:</p>
-    <a class="cta-btn" href="/#bankalar">Banka Karnelerine Bak →</a>
+    <p>Bu konuda hangi bankanın kullanıcılarına daha iyi hizmet verdiğini gerçek yorumlar ve puanlarla görmek için:</p>
+    <a class="cta-btn" href="/#karsilastir">Bankaları Karşılaştır →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. İcra, vergi ve resmi takip süreçlerinde dosyanıza özel durumlar için ilgili kurumdan veya uzman bir hukukçudan destek alınız. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
