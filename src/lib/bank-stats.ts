@@ -15,45 +15,39 @@ const APPLICATION_SCORE: Record<Exclude<ApplicationOutcome, "not_applied">, numb
 };
 
 export function gradeFromRating(rating: number): string {
-  return letterFromScore(rating);
+  return rating > 0 ? letterFromScore(rating) : "—";
 }
 
 export function visibleReviews(reviews: Review[]): Review[] {
-  return reviews.filter((review) => review.reportCount < 3);
+  return reviews.filter((review) => review.status !== "hidden" && review.reportCount < 3);
 }
 
-// Bir bankanın kategori puanlarını (bank.sub) o bankaya ait yorumlardaki
-// kategori puanlarıyla harmanlayıp güncel sayısal ortalamayı döndürür.
-// null iki farklı anlama gelebilir: (1) hiç veri yok henüz — ilk gerçek
-// yorum geldiğinde dolacak, ağırlığı 0 kabul edilir; (2) şubesiz bankada
-// branch/atm gibi hiç geçerli olmayan bir kategori — bu durumda kalıcı
-// olarak null kalır, review.categories'te zaten hiç gönderilmez.
-function nextCategoryScores(bank: Bank, bankReviews: Review[]): SubGrades {
-  const result = { ...bank.sub };
+function liveCategoryScores(bank: Bank, bankReviews: Review[]): SubGrades {
+  const result: SubGrades = {
+    branch: null,
+    service: null,
+    app: null,
+    atm: null,
+    security: null,
+  };
 
   for (const key of CATEGORY_KEYS) {
-    if (!bank.hasBranch && (key === "branch" || key === "atm")) continue; // kalıcı olarak geçersiz
+    if (!bank.hasBranch && (key === "branch" || key === "atm")) continue;
 
     const liveValues = bankReviews
       .map((r) => r.categories[key])
-      .filter((v): v is number => typeof v === "number");
+      .filter((v): v is number => typeof v === "number" && v >= 1 && v <= 5);
 
-    if (liveValues.length === 0) continue; // henüz yeni veri yok, mevcut değer (null olabilir) korunur
+    if (liveValues.length === 0) continue;
 
-    const baseScore = bank.sub[key];
-    const baseTotal = (baseScore ?? 0) * bank.reviewCount;
     const liveTotal = liveValues.reduce((sum, v) => sum + v, 0);
-    const nextCount = bank.reviewCount + liveValues.length;
-    result[key] = Number(((baseTotal + liveTotal) / nextCount).toFixed(2));
+    result[key] = Number((liveTotal / liveValues.length).toFixed(2));
   }
 
   return result;
 }
 
-// Kredi/kredi kartı onay oranını günceller. Bu, genel yorum sayısından
-// bağımsız bir sayaçtır çünkü herkes bu opsiyonel soruyu yanıtlamaz —
-// sadece "creditOutcome" alanı dolu olan yorumlar hesaba katılır.
-function nextCreditApproval(bank: Bank, bankReviews: Review[]): { rate: number; count: number } {
+function liveCreditApproval(bankReviews: Review[]): { rate: number; count: number } {
   const legacyScores = bankReviews
     .map((r) => r.creditOutcome)
     .filter((v): v is CreditOutcome => !!v)
@@ -70,35 +64,49 @@ function nextCreditApproval(bank: Bank, bankReviews: Review[]): { rate: number; 
 
   const scores = [...legacyScores, ...applicationScores];
 
-  if (scores.length === 0) {
-    return { rate: bank.creditApprovalRate, count: bank.creditApprovalCount };
-  }
+  if (scores.length === 0) return { rate: 0, count: 0 };
 
-  const baseTotal = bank.creditApprovalRate * bank.creditApprovalCount;
   const liveTotal = scores.reduce((sum, score) => sum + score, 0);
-  const nextCount = bank.creditApprovalCount + scores.length;
-  const nextRate = Number(((baseTotal + liveTotal) / nextCount).toFixed(1));
+  const nextRate = Number((liveTotal / scores.length).toFixed(1));
 
-  return { rate: nextRate, count: nextCount };
+  return { rate: nextRate, count: scores.length };
 }
 
 export function applyReviewStats(bank: Bank, reviews: Review[]): Bank {
   const bankReviews = visibleReviews(reviews).filter((review) => review.bankId === bank.id);
 
-  if (bankReviews.length === 0) return bank;
+  // ParaKarne'de kullanıcı verisi tek kaynak olsun: Firestore `banks`
+  // dokümanlarında kalan eski demo reviewCount/rating/category değerleri
+  // sıralama, karşılaştırma ve lider kartını etkilemesin. Banka hakkında
+  // gerçek yorum yoksa not/yorum sayısı boş görünür.
+  if (bankReviews.length === 0) {
+    return {
+      ...bank,
+      rating: 0,
+      reviewCount: 0,
+      grade: "—",
+      sub: {
+        branch: !bank.hasBranch ? null : null,
+        service: null,
+        app: null,
+        atm: !bank.hasBranch ? null : null,
+        security: null,
+      },
+      creditApprovalRate: 0,
+      creditApprovalCount: 0,
+    };
+  }
 
-  const baseRatingTotal = bank.rating * bank.reviewCount;
   const liveRatingTotal = bankReviews.reduce((sum, review) => sum + review.stars, 0);
-  const nextReviewCount = bank.reviewCount + bankReviews.length;
-  const nextRating = Number(((baseRatingTotal + liveRatingTotal) / nextReviewCount).toFixed(1));
-  const credit = nextCreditApproval(bank, bankReviews);
+  const nextRating = Number((liveRatingTotal / bankReviews.length).toFixed(1));
+  const credit = liveCreditApproval(bankReviews);
 
   return {
     ...bank,
     rating: nextRating,
-    reviewCount: nextReviewCount,
+    reviewCount: bankReviews.length,
     grade: gradeFromRating(nextRating),
-    sub: nextCategoryScores(bank, bankReviews),
+    sub: liveCategoryScores(bank, bankReviews),
     creditApprovalRate: credit.rate,
     creditApprovalCount: credit.count,
   };
@@ -108,11 +116,6 @@ export function applyReviewStatsToBanks(banks: Bank[], reviews: Review[]): Bank[
   return banks.map((bank) => applyReviewStats(bank, reviews));
 }
 
-// Kullanıcının verdiği kategori puanlarının (1-5) ortalamasını "genel puan"a
-// çevirir. Bir bankada geçersiz olan kategoriler (örn. şubesiz bankada
-// Şube Hizmetleri) zaten forma hiç girmez, bu yüzden burada ekstra filtre
-// gerekmiyor — gelen tüm değerlerin ortalaması alınır ve en yakın tam sayıya
-// yuvarlanır (review.stars her zaman 1-5 arası tam sayı olmalı).
 export function overallFromCategories(categories: Partial<Record<CategoryKey, number>>): number {
   const values = Object.values(categories).filter((v): v is number => typeof v === "number");
   if (values.length === 0) return 0;
