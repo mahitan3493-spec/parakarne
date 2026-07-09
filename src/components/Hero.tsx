@@ -139,7 +139,7 @@ export default function Hero() {
               ?
             </div>
             <p style={{ textAlign: "center", fontWeight: 700, marginBottom: "8px" }}>
-              Henüz kimse not vermedi
+              Henüz kullanıcı puanı yok
             </p>
             <p
               style={{
@@ -149,7 +149,7 @@ export default function Hero() {
                 marginBottom: "16px",
               }}
             >
-              İlk yorumu sen bırak, karneyi sen başlat.
+              İlk puanı ve yorumunu bırak, karneyi sen başlat.
             </p>
             <button className="btn primary" style={{ width: "100%" }} onClick={handleBankaniPuanla}>
               İlk Bankayı Puanla

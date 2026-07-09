@@ -17,8 +17,6 @@ type UIContextValue = {
   profileOpen: boolean;
   openProfileModal: () => void;
   closeProfileModal: () => void;
-  reviewFormBank: string | null;
-  setReviewFormBank: (name: string) => void;
 };
 
 const UIContext = createContext<UIContextValue | undefined>(undefined);
@@ -28,7 +26,6 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [bankDetailId, setBankDetailId] = useState<string | null>(null);
   const [bankModalMode, setBankModalMode] = useState<BankModalMode>("detail");
   const [profileOpen, setProfileOpen] = useState(false);
-  const [reviewFormBank, setReviewFormBank] = useState<string | null>(null);
 
   return (
     <UIContext.Provider
@@ -49,8 +46,6 @@ export function UIProvider({ children }: { children: ReactNode }) {
         profileOpen,
         openProfileModal: () => setProfileOpen(true),
         closeProfileModal: () => setProfileOpen(false),
-        reviewFormBank,
-        setReviewFormBank: (name) => setReviewFormBank(name),
       }}
     >
       {children}

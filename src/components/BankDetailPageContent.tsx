@@ -108,7 +108,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
               )}
               {bank.reviewCount === 0 && (
                 <p style={{ fontSize: "12.5px", color: "var(--ink-faint)", padding: "8px 0" }}>
-                  Bu banka için henüz not yok — ilk yorumu sen bırakınca kategoriler burada belirecek.
+                  Bu banka için henüz kullanıcı puanı yok — ilk yorumu sen bırakınca kategoriler burada belirecek.
                 </p>
               )}
             </div>
@@ -128,7 +128,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
                 {bank.name} kullanıcı yorumları; müşteri hizmetleri, ATM hizmetleri, güvenlik,
                 mobil uygulama ve şube deneyimi gibi başlıklarda verilen gerçek kullanıcı
                 puanlarından oluşur. ParaKarne, yorumları bankaya özel işler ve bankanın genel
-                notunu bu kullanıcı katkılarına göre günceller.
+                karne puanını bu kullanıcı katkılarına göre günceller.
               </p>
 
               <div className="bank-seo-grid">
