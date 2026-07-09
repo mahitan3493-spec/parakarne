@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
-import { applyReviewStatsToBanks } from "@/lib/bank-stats";
+import { applyReviewStatsToBanks, visibleReviews } from "@/lib/bank-stats";
 import { gradeClassOf, letterFromScore } from "@/lib/grades";
 import { CATEGORY_META } from "@/lib/types";
 import BankLogo from "./BankLogo";
@@ -14,20 +14,22 @@ export default function Hero() {
 
   const updated = useMemo(() => applyReviewStatsToBanks(banks, reviews), [banks, reviews]);
 
+  const liveReviews = useMemo(
+    () => visibleReviews(reviews).filter((review) => review.status !== "hidden"),
+    [reviews],
+  );
+
   const stats = useMemo(() => {
-    const reviewed = updated.filter((bank) => bank.reviewCount > 0);
-    const reviewCount = updated.reduce((sum, bank) => sum + bank.reviewCount, 0);
-    // Ortalamayı sadece gerçekten yorum almış bankalar üzerinden, yorum
-    // sayısıyla ağırlıklandırarak hesaplıyoruz — yoksa henüz yorum almamış
-    // bankaların 0 puanı ortalamayı yanlış şekilde aşağı çekerdi.
+    // Ana sayaçlar doğrudan Firestore'daki reviews koleksiyonundan hesaplanır.
+    // Böylece banka dokümanlarındaki eski/sıfırlanmış reviewCount alanı yüzünden
+    // "0 yorum" görünmez; gerçek yorum kaydı varsa sayaç hemen güncellenir.
+    const reviewCount = liveReviews.length;
     const avg =
       reviewCount > 0
-        ? (
-            reviewed.reduce((sum, bank) => sum + bank.rating * bank.reviewCount, 0) / reviewCount
-          ).toFixed(1)
+        ? (liveReviews.reduce((sum, review) => sum + review.stars, 0) / reviewCount).toFixed(1)
         : "0.0";
     return { bankCount: updated.length, reviewCount, avg };
-  }, [updated]);
+  }, [updated.length, liveReviews]);
 
   // Kartta gösterilen banka her zaman gerçek, canlı veri: en yüksek puanlı,
   // gerçekten yorum almış banka (eşitlikte daha çok yorumu olan öne çıkar).
