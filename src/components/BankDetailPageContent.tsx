@@ -50,14 +50,14 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
   return (
     <>
       <Header />
-      <main className="legal-page">
-        <div className="wrap">
-          <article className="content-article">
+      <main className="legal-page bank-detail-page">
+        <div className="wrap bank-detail-wrap">
+          <article className="content-article bank-detail-article">
             <p className="mono" style={{ fontSize: 12, color: "var(--ink-faint)", marginBottom: 12 }}>
               <Link href="/">Ana sayfa</Link> / {bank.name} Karnesi
             </p>
             <h1>{bank.name} Karnesi</h1>
-            <p className="lead">
+            <p className="lead bank-detail-lead">
               {bank.name} için gerçek kullanıcı yorumlarına dayalı güncel puan, kategori notları ve
               kredi/kredi kartı onay oranı. Aşağıdan siz de not verebilirsiniz.
             </p>
@@ -112,27 +112,14 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
               )}
             </div>
 
-            <p style={{ fontSize: "13px", color: "var(--ink-soft)", fontStyle: "italic", margin: "18px 0" }}>
-              <span
-                style={{
-                  display: "block",
-                  fontStyle: "normal",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  color: "var(--ink-faint)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  marginBottom: "4px",
-                }}
-              >
-                Editör notu
-              </span>
-              {bank.summary}
-            </p>
-
-            <button className="btn primary" onClick={handleReviewCta}>
+            <button className="btn primary bank-detail-primary-cta" onClick={handleReviewCta}>
               Bu Bankayı Puanla
             </button>
+
+            <p className="bank-detail-editor-note">
+              <span className="bank-detail-editor-label">Editör notu</span>
+              {bank.summary}
+            </p>
 
             <h2 style={{ marginTop: 32 }}>Kullanıcı Yorumları</h2>
             <div className="detail-reviews">
