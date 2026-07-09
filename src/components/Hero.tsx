@@ -53,12 +53,12 @@ export default function Hero() {
         <div>
           <div className="eyebrow">Türkiye&apos;nin Banka Karnesi</div>
           <h1>
-            Bankanız <em>sınıfı geçiyor mu?</em>
+            Bankaları kullanıcı yorumlarına göre <em>puanlayın ve karşılaştırın</em>
           </h1>
           <p className="lead">
-            Gerçek kullanıcı deneyimlerine dayalı, karne gibi net bir sistemle
-            bankaları puanlıyoruz. Faiz oranından mobil uygulamaya, şube
-            hizmetinden şikayet çözümüne — her başlığa ayrı not.
+            ParaKarne ile Türkiye’deki bankaları gerçek kullanıcı yorumlarıyla inceleyin.
+            Mobil uygulama, müşteri hizmetleri, ATM, güvenlik, şube hizmetleri ve
+            kredi/kredi kartı onay oranlarını tek ekranda karşılaştırın.
           </p>
           <div className="hero-ctas">
             <button

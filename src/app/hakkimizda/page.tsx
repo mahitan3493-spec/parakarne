@@ -3,19 +3,19 @@ import LegalPageLayout from "@/components/LegalPageLayout";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
-  description: "ParaKarne nedir, kimin için hazırlandı, hangi konularda yardımcı olur? Hakkımızda ve Biz Kimiz sayfası.",
+  description: "ParaKarne, bankaları kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimleriyle karşılaştırmaya yardımcı olan bağımsız banka değerlendirme platformudur.",
   alternates: { canonical: "/hakkimizda" },
   openGraph: {
     url: "/hakkimizda",
     title: "Hakkımızda | ParaKarne",
-    description: "ParaKarne nedir, kimin için hazırlandı, hangi konularda yardımcı olur? Hakkımızda ve Biz Kimiz sayfası.",
+    description: "ParaKarne, bankaları kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimleriyle karşılaştırmaya yardımcı olan bağımsız banka değerlendirme platformudur.",
   },
 };
 
 export default function HakkimizdaPage() {
   return (
     <LegalPageLayout title="Hakkımızda">
-      <div dangerouslySetInnerHTML={{ __html: `<p class="lead">ParaKarne, bankacılık sorunları yaşayan kişiler için hazırlanmış akıllı bir yardım platformudur. Amacımız sadece makale yayınlamak değil; kullanıcıların kredi, kredi kartı, Findeks/KKB, Risk Merkezi, yasal takip, icra, haciz, hesap blokesi, mobil bankacılık, kredi sigortası, harcama itirazı ve varlık şirketleri gibi konularda ne yapması gerektiğini sade ve anlaşılır şekilde öğrenmesini sağlamaktır.</p>
+      <div dangerouslySetInnerHTML={{ __html: `<p class="lead">ParaKarne, Türkiye’deki bankaları gerçek kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimlerine göre karşılaştırmanızı sağlayan bağımsız bir banka değerlendirme platformudur. Kullanıcılar bankaların müşteri hizmetleri, ATM hizmetleri, güvenlik, mobil uygulama, şube hizmetleri ve kredi/kredi kartı onay oranlarını tek yerde inceleyebilir; kendi deneyimini paylaşarak banka karnesine katkıda bulunabilir.</p>
 
   <h3>Biz Kimiz?</h3>
   <p>Türkiye'de insanların bankacılık süreçlerinde en çok zorlandığı konuları sadeleştirmek için ParaKarne'yi oluşturduk. Bankacılıkta birçok kişi aynı sorunları yaşıyor: kredi başvurusu reddediliyor ama sebebi bilinmiyor; borç kapatılıyor ama Findeks raporunda hâlâ açık takip görünüyor; hesapta bloke var ama hangi kurumun koyduğu öğrenilemiyor; icra tebligatı geliyor ama itiraz süresi kaçırılıyor; aileye 89 haciz ihbarnamesi geliyor ama ne anlama geldiği bilinmiyor. Hedefimiz, bankacılık ve icra süreçlerinde insanların çaresiz kalmasını önlemektir — amacımız korkutmak değil, sakinleştirmek ve doğru yola yönlendirmektir. Çünkü çoğu bankacılık sorunu, doğru raporu kontrol ederek, doğru kuruma başvurarak ve doğru şekilde takip edilerek çözülebilir.</p>

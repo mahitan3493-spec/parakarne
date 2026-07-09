@@ -16,12 +16,22 @@ export async function generateMetadata({
   const bank = demoBanks.find((b) => b.id === bankId);
   if (!bank) return {};
 
-  const title = `${bank.name} Karnesi - Kullanıcı Puanları ve Yorumları`;
-  const description = `${bank.name} için gerçek kullanıcı yorumlarına dayalı güncel puan, şube/mobil/müşteri hizmetleri kategorileri ve kredi/kredi kartı onay oranı.`;
+  const title = `${bank.name} Kullanıcı Yorumları, Puanı ve Banka Karnesi`;
+  const description = `${bank.name} kullanıcı yorumları, mobil uygulama puanı, müşteri hizmetleri yorumları, ATM ve şube hizmetleri ile kredi/kredi kartı onay oranını ParaKarne’de inceleyin.`;
 
   return {
     title: { absolute: title },
     description,
+    keywords: [
+      `${bank.name} kullanıcı yorumları`,
+      `${bank.name} banka yorumları`,
+      `${bank.name} mobil uygulama yorumları`,
+      `${bank.name} müşteri hizmetleri yorumları`,
+      `${bank.name} kredi kartı onay oranı`,
+      `${bank.name} kredi onay oranı`,
+      `${bank.name} şikayetleri`,
+      `${bank.name} karnesi`,
+    ],
     alternates: { canonical: `/banka/${bank.id}` },
     openGraph: {
       url: `/banka/${bank.id}`,
