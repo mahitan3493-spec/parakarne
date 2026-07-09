@@ -1,0 +1,17 @@
+{
+  "name": "ParaKarne",
+  "short_name": "ParaKarne",
+  "description": "Türkiye'nin banka karnesi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3eee0",
+  "theme_color": "#33477A",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

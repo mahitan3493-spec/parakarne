@@ -1,0 +1,72 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // categories map'inde her anahtar isteğe bağlıdır (şubesiz bankalarda
+    // 'branch' ve 'atm' hiç gönderilmez), ama gönderilen her değer 1-5
+    // arası tam sayı olmalıdır.
+    function validCategoryValue(categories, key) {
+      return !(key in categories)
+        || (categories[key] is int && categories[key] >= 1 && categories[key] <= 5);
+    }
+
+    match /banks/{bankId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+
+      allow create: if isSignedIn()
+        && request.resource.data.keys().hasOnly([
+          'uid', 'userName', 'bankId', 'bankName', 'stars', 'categories', 'creditOutcome', 'text', 'note',
+          'status', 'reportCount', 'reportedBy', 'createdAt'
+        ])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.stars is int
+        && request.resource.data.stars >= 1
+        && request.resource.data.stars <= 5
+        && request.resource.data.categories is map
+        && request.resource.data.categories.keys().hasOnly(['branch', 'service', 'app', 'atm', 'security'])
+        && request.resource.data.categories.keys().hasAll(['service', 'app', 'security'])
+        && validCategoryValue(request.resource.data.categories, 'branch')
+        && validCategoryValue(request.resource.data.categories, 'service')
+        && validCategoryValue(request.resource.data.categories, 'app')
+        && validCategoryValue(request.resource.data.categories, 'atm')
+        && validCategoryValue(request.resource.data.categories, 'security')
+        && (!('creditOutcome' in request.resource.data)
+            || request.resource.data.creditOutcome in ['approved', 'conditional', 'rejected'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() >= 25
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.status == 'published'
+        && request.resource.data.reportCount == 0
+        && request.resource.data.reportedBy is list
+        && request.resource.data.reportedBy.size() == 0;
+
+      allow update: if isAdmin()
+        || (
+          isSignedIn()
+          && request.auth.uid != resource.data.uid
+          && resource.data.status == 'published'
+          && !(request.auth.uid in resource.data.reportedBy)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reportCount', 'reportedBy'])
+          && request.resource.data.reportCount == resource.data.reportCount + 1
+          && request.resource.data.reportedBy.size() == resource.data.reportedBy.size() + 1
+          && request.auth.uid in request.resource.data.reportedBy
+        );
+
+      allow delete: if isAdmin() || (isSignedIn() && request.auth.uid == resource.data.uid);
+    }
+  }
+}

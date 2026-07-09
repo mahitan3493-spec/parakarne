@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Karne — Bankanızın Notu Ne?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE0;
+    --paper-line:#DED3B4;
+    --ink:#16233D;
+    --ink-soft:#4A5878;
+    --ink-faint:#8992A8;
+    --red:#C41F35;
+    --red-soft:#E4536A;
+    --gold:#B8862B;
+    --green:#2F6F4E;
+    --card:#FBF8EF;
+    --shadow: 0 1px 0 rgba(22,35,61,.06);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; overflow-x:hidden; max-width:100%;}
+  body{
+    background:
+      repeating-linear-gradient(180deg, transparent, transparent 27px, rgba(22,35,61,0.045) 28px),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    max-width:100%;
+    width:100%;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Fraunces', serif;}
+
+  /* ===== reduced motion ===== */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ===== NAV ===== */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,238,224,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 28px;}
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo-mark{
+    width:38px; height:38px; border:2px solid var(--ink); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-weight:900; font-size:18px; color:var(--red);
+    transform:rotate(-8deg);
+  }
+  .logo-text{font-family:'Fraunces', serif; font-weight:700; font-size:20px; letter-spacing:-0.01em;}
+  .logo-text span{color:var(--red);}
+  nav.links{display:flex; gap:32px; font-size:14.5px; font-weight:500; color:var(--ink-soft);}
+  nav.links a:hover{color:var(--ink);}
+  .nav-actions{display:flex; gap:12px; align-items:center;}
+  .btn{
+    padding:10px 18px; border-radius:var(--radius); font-size:14px; font-weight:600;
+    cursor:pointer; border:1.5px solid var(--ink); background:transparent; color:var(--ink);
+    font-family:'Inter',sans-serif; transition:all .15s ease;
+  }
+  .btn:hover{background:var(--ink); color:var(--paper);}
+  .btn.primary{background:var(--red); border-color:var(--red); color:#fff;}
+  .btn.primary:hover{background:#a3182b; border-color:#a3182b;}
+  .btn.small{padding:7px 13px; font-size:12.5px;}
+  @media (max-width:860px){ nav.links{display:none;} }
+
+  /* ===== HERO ===== */
+  .hero{padding:76px 0 40px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--red); font-weight:600; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:26px; height:1px; background:var(--red);}
+  .hero h1{
+    font-family:'Fraunces', serif; font-weight:700; font-size:clamp(38px,5vw,60px);
+    line-height:1.04; letter-spacing:-0.015em; margin-bottom:22px;
+  }
+  .hero h1 em{font-style:italic; font-weight:500; color:var(--red);}
+  .hero p.lead{font-size:17.5px; line-height:1.65; color:var(--ink-soft); max-width:480px; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:14px; margin-bottom:36px; flex-wrap:wrap;}
+  .hero-stats{display:flex; gap:36px; padding-top:26px; border-top:1px solid var(--paper-line);}
+  .hero-stats div{display:flex; flex-direction:column; gap:2px;}
+  .hero-stats .num{font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:700;}
+  .hero-stats .lbl{font-size:12.5px; color:var(--ink-faint);}
+
+  /* ===== REPORT CARD (signature element) ===== */
+  .report-card{
+    background:var(--card);
+    border:1px solid var(--paper-line);
+    box-shadow: 8px 8px 0 rgba(22,35,61,0.08);
+    padding:30px 30px 26px;
+    position:relative;
+    transform:rotate(1.3deg);
+    overflow:hidden;
+    margin:0 auto;
+    max-width:100%;
+  }
+  .report-card::before{
+    content:'RESMİ KARNE — ÖRNEK';
+    position:absolute; top:14px; right:-46px; width:160px; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:.08em;
+    color:var(--ink-faint); transform:rotate(45deg);
+  }
+  @media (max-width:900px){
+    .report-card{ transform:rotate(0deg); margin-top:20px; }
+  }
+  .rc-head{display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px;}
+  .rc-bank{font-family:'Fraunces', serif; font-weight:700; font-size:22px;}
+  .rc-sub{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-faint); margin-top:4px;}
+  .rc-stamp{
+    width:64px; height:64px; border-radius:50%; border:3px solid var(--green);
+    color:var(--green); display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-weight:900; font-size:26px;
+    transform:rotate(-12deg); flex-shrink:0;
+    animation: stampIn .5s cubic-bezier(.2,1.4,.4,1) .3s both;
+  }
+  @keyframes stampIn{ from{transform:rotate(-12deg) scale(2.6); opacity:0;} to{transform:rotate(-12deg) scale(1); opacity:1;} }
+  .rc-row{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed var(--paper-line); font-size:14.5px;}
+  .rc-row:last-of-type{border-bottom:none;}
+  .rc-row .subj{color:var(--ink-soft);}
+  .rc-grade{font-family:'IBM Plex Mono', monospace; font-weight:700; padding:2px 9px; border-radius:2px; font-size:13px;}
+  .g-A{background:#E5F1EA; color:var(--green);}
+  .g-B{background:#E8ECF5; color:#33477A;}
+  .g-C{background:#FBF0DA; color:var(--gold);}
+  .g-D{background:#FBE4E7; color:var(--red);}
+  .rc-note{
+    margin-top:16px; padding-top:14px; border-top:1px solid var(--paper-line);
+    font-family:'Fraunces', serif; font-style:italic; font-size:13.5px; color:var(--red-soft);
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  section{padding:64px 0;}
+  .sec-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:38px; gap:20px; flex-wrap:wrap;}
+  .sec-head h2{font-family:'Fraunces', serif; font-weight:700; font-size:clamp(26px,3vw,34px); letter-spacing:-0.01em;}
+  .sec-head p{color:var(--ink-soft); font-size:14.5px; max-width:420px; margin-top:6px;}
+  .sec-num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); letter-spacing:.1em;}
+
+  /* ===== COMPARISON TABLE (ledger style) ===== */
+  .ledger{border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  table{width:100%; border-collapse:collapse;}
+  thead th{
+    text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-faint); padding:12px 10px; font-weight:600;
+    cursor:pointer; user-select:none; white-space:nowrap;
+  }
+  thead th:hover{color:var(--ink);}
+  thead th.sorted{color:var(--red);}
+  tbody tr{border-top:1px solid var(--paper-line); transition:background .12s;}
+  tbody tr:hover{background:rgba(184,134,43,0.06);}
+  tbody td{padding:16px 10px; font-size:14.5px; vertical-align:middle;}
+  .bank-cell{display:flex; align-items:center; gap:12px;}
+  .bank-swatch{width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; color:#fff; font-size:14px; flex-shrink:0;}
+  .bank-name{font-weight:600;}
+  .bank-name small{display:block; font-weight:400; color:var(--ink-faint); font-size:11.5px;}
+  .grade-pill{
+    display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px;
+    border-radius:50%; font-family:'Fraunces',serif; font-weight:800; font-size:15px; border:2px solid currentColor;
+  }
+  .stars{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--gold); letter-spacing:1px;}
+  .rate-num{font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  @media (max-width:760px){
+    thead th:nth-child(4), tbody td:nth-child(4){display:none;}
+  }
+
+  /* ===== BANK GRID ===== */
+  .bank-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+  @media (max-width:900px){ .bank-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .bank-grid{grid-template-columns:1fr;} }
+  .bcard{
+    background:var(--card); border:1px solid var(--paper-line); padding:22px;
+    display:flex; flex-direction:column; gap:14px; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .bcard:hover{transform:translateY(-3px); box-shadow:6px 6px 0 rgba(22,35,61,0.08);}
+  .bcard-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .bcard-quote{font-size:13.5px; color:var(--ink-soft); line-height:1.55; font-style:italic; border-left:2px solid var(--red-soft); padding-left:12px;}
+  .bcard-foot{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:var(--ink-faint); border-top:1px solid var(--paper-line); padding-top:12px; font-family:'IBM Plex Mono',monospace;}
+
+  /* ===== REVIEWS ===== */
+  .review-layout{display:grid; grid-template-columns:1fr 1.6fr; gap:44px;}
+  @media (max-width:860px){ .review-layout{grid-template-columns:1fr;} }
+  .review-form{background:var(--card); border:1px solid var(--paper-line); padding:26px;}
+  .review-form h3{font-family:'Fraunces',serif; font-size:19px; margin-bottom:6px;}
+  .review-form p.hint{font-size:13px; color:var(--ink-faint); margin-bottom:18px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:12.5px; font-weight:600; margin-bottom:6px; color:var(--ink-soft);}
+  select, textarea, input[type=text]{
+    width:100%; padding:10px 12px; border:1.5px solid var(--paper-line); background:#fff;
+    font-family:'Inter',sans-serif; font-size:14px; border-radius:var(--radius); color:var(--ink);
+  }
+  textarea{resize:vertical; min-height:80px;}
+  select:focus, textarea:focus, input:focus{outline:2px solid var(--red-soft); outline-offset:1px; border-color:var(--red-soft);}
+  .star-picker{display:flex; gap:6px; font-size:26px; cursor:pointer;}
+  .star-picker span{color:var(--paper-line); transition:color .1s;}
+  .star-picker span.active{color:var(--gold);}
+
+  .review-list{display:flex; flex-direction:column; gap:0;}
+  .review-item{padding:20px 0; border-bottom:1px solid var(--paper-line); position:relative;}
+  .review-item:first-child{padding-top:0;}
+  .rev-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+  .rev-user{font-weight:600; font-size:14.5px;}
+  .rev-bank{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;}
+  .rev-stars{color:var(--gold); font-family:'IBM Plex Mono',monospace; font-size:13px; margin-bottom:8px;}
+  .rev-text{font-size:14.5px; line-height:1.6; color:var(--ink-soft);}
+  .rev-margin{
+    font-family:'Fraunces',serif; font-style:italic; color:var(--red); font-size:13px; margin-top:8px;
+  }
+  .rev-margin::before{content:'✎ ';}
+  .new-tag{background:var(--red); color:#fff; font-size:9.5px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:2px; letter-spacing:.06em; margin-left:8px; vertical-align:middle;}
+
+  /* ===== HOW IT WORKS ===== */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);}
+  @media (max-width:760px){ .steps{grid-template-columns:1fr;} }
+  .step{padding:30px 28px; border-right:1px solid var(--paper-line);}
+  .steps .step:last-child{border-right:none;}
+  .step .stamp-num{font-family:'IBM Plex Mono',monospace; color:var(--red); font-size:13px; margin-bottom:12px;}
+  .step h4{font-family:'Fraunces',serif; font-size:19px; margin-bottom:8px;}
+  .step p{font-size:13.5px; color:var(--ink-soft); line-height:1.6;}
+
+  /* ===== CTA / FOOTER ===== */
+  .cta-band{background:var(--ink); color:var(--paper); padding:64px 0; text-align:center;}
+  .cta-band h2{font-family:'Fraunces',serif; font-size:clamp(26px,3.4vw,38px); margin-bottom:14px;}
+  .cta-band p{color:#B8C0D4; margin-bottom:26px; font-size:15px;}
+  .cta-band .btn{border-color:var(--paper); color:var(--paper);}
+  .cta-band .btn:hover{background:var(--paper); color:var(--ink);}
+  .cta-band .btn.primary{background:var(--red); border-color:var(--red); color:#fff;}
+
+  footer{padding:40px 0 50px; border-top:1px solid var(--paper-line); font-size:13px; color:var(--ink-faint);}
+  .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;}
+
+  /* ===== MODAL ===== */
+  .overlay{
+    position:fixed; inset:0; background:rgba(22,35,61,0.55); display:none; align-items:center; justify-content:center;
+    z-index:100; padding:20px;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    background:var(--card); max-width:400px; width:100%; padding:32px 28px; position:relative;
+    border-top:4px solid var(--red);
+  }
+  .modal h3{font-family:'Fraunces',serif; font-size:22px; margin-bottom:6px;}
+  .modal p.hint{font-size:13px; color:var(--ink-faint); margin-bottom:22px;}
+  .modal-close{position:absolute; top:14px; right:16px; cursor:pointer; font-size:20px; color:var(--ink-faint); background:none; border:none;}
+  .tabs{display:flex; gap:0; margin-bottom:20px; border-bottom:1px solid var(--paper-line);}
+  .tab{flex:1; text-align:center; padding:10px; font-size:13.5px; font-weight:600; cursor:pointer; color:var(--ink-faint); border-bottom:2px solid transparent;}
+  .tab.active{color:var(--ink); border-bottom-color:var(--red);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(10px);
+    background:var(--ink); color:var(--paper); padding:13px 22px; font-size:13.5px; border-radius:2px;
+    opacity:0; pointer-events:none; transition:all .25s ease; z-index:200; font-family:'IBM Plex Mono',monospace;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* ===== clickable rows/cards ===== */
+  tbody tr, .bcard{cursor:pointer;}
+
+  /* ===== profile menu ===== */
+  .profile-chip{display:flex; align-items:center; gap:8px; cursor:pointer; padding:6px 10px 6px 6px; border:1.5px solid var(--ink); border-radius:20px;}
+  .profile-avatar{width:26px; height:26px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:12px;}
+  .profile-chip span{font-size:13px; font-weight:600;}
+
+  /* ===== bank detail modal ===== */
+  .modal.wide{max-width:560px;}
+  .detail-head{display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:16px;}
+  .detail-grades{display:grid; grid-template-columns:1fr 1fr; gap:0; margin-bottom:18px;}
+  .detail-grades .rc-row{padding:8px 4px;}
+  .detail-reviews{max-height:220px; overflow-y:auto; border-top:1px solid var(--paper-line); padding-top:10px;}
+
+  /* ===== review report/moderation ===== */
+  .rev-actions{display:flex; justify-content:space-between; align-items:center; margin-top:10px;}
+  .report-btn{background:none; border:none; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); cursor:pointer; text-decoration:underline;}
+  .report-btn:hover{color:var(--red);}
+  .review-flag{background:#FBE4E7; color:var(--red); font-size:9.5px; font-family:'IBM Plex Mono',monospace; padding:2px 7px; border-radius:2px; letter-spacing:.05em;}
+
+  /* ===== legal/disclaimer ===== */
+  .legal{background:var(--card); border:1px solid var(--paper-line); padding:24px 28px; font-size:13px; color:var(--ink-soft); line-height:1.7;}
+  .legal h4{font-family:'Fraunces',serif; font-size:16px; color:var(--ink); margin-bottom:8px;}
+  .legal ul{margin:10px 0 0 18px;}
+  .legal a{color:var(--red); text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav wrap">
+    <div class="logo">
+      <div class="logo-mark">A+</div>
+      <div class="logo-text">Para<span>Karne</span></div>
+    </div>
+    <nav class="links">
+      <a href="#karsilastir">Karşılaştır</a>
+      <a href="#bankalar">Bankalar</a>
+      <a href="#yorumlar">Yorumlar</a>
+      <a href="#nasil">Nasıl Çalışır</a>
+    </nav>
+    <div class="nav-actions" id="navActions">
+      <button class="btn small" onclick="openModal('login')">Giriş Yap</button>
+      <button class="btn small primary" onclick="openModal('signup')">Üye Ol</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Türkiye'nin Banka Karnesi</div>
+      <h1>Bankanız <em>sınıfı<br>geçiyor mu?</em></h1>
+      <p class="lead">Gerçek kullanıcı deneyimlerine dayalı, karne gibi net bir sistemle bankaları puanlıyoruz. Faiz oranından mobil uygulamaya, şube hizmetinden şikayet çözümüne — her başlığa ayrı not.</p>
+      <div class="hero-ctas">
+        <button class="btn primary" onclick="document.getElementById('karsilastir').scrollIntoView()">Bankaları Karşılaştır</button>
+        <button class="btn" onclick="openModal('signup')">Sen de Not Ver</button>
+      </div>
+      <div class="hero-stats">
+        <div><span class="num">27</span><span class="lbl">banka karneye alındı</span></div>
+        <div><span class="num">14.382</span><span class="lbl">kullanıcı yorumu</span></div>
+        <div><span class="num">4.2M</span><span class="lbl">aylık ziyaretçi*</span></div>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="rc-head">
+        <div>
+          <div class="rc-bank">Örnek Banka A.Ş.</div>
+          <div class="rc-sub">KARNE NO: PK-2026-00417 · DÖNEM: 2026/2</div>
+        </div>
+        <div class="rc-stamp">A</div>
+      </div>
+      <div class="rc-row"><span class="subj">Mevduat Faiz Oranı</span><span class="rc-grade g-A">A−</span></div>
+      <div class="rc-row"><span class="subj">Mobil Uygulama</span><span class="rc-grade g-A">A+</span></div>
+      <div class="rc-row"><span class="subj">Müşteri Hizmetleri</span><span class="rc-grade g-B">B</span></div>
+      <div class="rc-row"><span class="subj">Şube Deneyimi</span><span class="rc-grade g-B">B+</span></div>
+      <div class="rc-row"><span class="subj">Kredi Kartı Avantajları</span><span class="rc-grade g-C">C+</span></div>
+      <div class="rc-note">"Mobil uygulaması sınıf birincisi, ama şube kuyrukları hâlâ ödev gibi." — 1.204 yorumun özeti</div>
+    </div>
+  </div>
+</section>
+
+<section id="karsilastir">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">01 — KARŞILAŞTIRMA</div>
+        <h2>Banka defteri</h2>
+        <p>Sütun başlıklarına tıklayarak sıralayın. Notlar; faiz, uygulama, hizmet ve kullanıcı puanlarının ağırlıklı ortalamasıdır.</p>
+      </div>
+    </div>
+    <div class="ledger">
+      <table id="ledgerTable">
+        <thead>
+          <tr>
+            <th data-key="name">Banka</th>
+            <th data-key="grade">Genel Not</th>
+            <th data-key="rate">Mevduat Faizi</th>
+            <th data-key="app">Uygulama</th>
+            <th data-key="rating">Kullanıcı Puanı</th>
+            <th data-key="reviews">Yorum</th>
+          </tr>
+        </thead>
+        <tbody id="ledgerBody"></tbody>
+      </table>
+    </div>
+    <p style="font-size:11.5px; color:var(--ink-faint); margin-top:10px;" class="mono">* Bu sayfadaki veriler tanıtım amaçlı örnek verilerdir.</p>
+  </div>
+</section>
+
+<section id="bankalar" style="background:var(--card); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">02 — ÖNE ÇIKANLAR</div>
+        <h2>Bu ay sınıf birincileri</h2>
+      </div>
+    </div>
+    <div class="bank-grid" id="bankGrid"></div>
+  </div>
+</section>
+
+<section id="yorumlar">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">03 — YORUMLAR</div>
+        <h2>Kullanıcılar ne diyor</h2>
+        <p>Deneyimini paylaş, banka notuna katkıda bulun. Yorumun anında listeye eklenir.</p>
+      </div>
+    </div>
+    <div class="review-layout">
+      <div class="review-form">
+        <h3>Notunu ver</h3>
+        <p class="hint">Yorum yapmak için üye olman gerekir — deneme için formu doldurup gönderebilirsin.</p>
+        <div class="field">
+          <label>Banka</label>
+          <select id="revBank">
+            <option>Kuzey Finans Bankası</option>
+            <option>Anadolu Emek Bankası</option>
+            <option>Liman Katılım</option>
+            <option>Değirmen Bankası</option>
+            <option>Vira Dijital Banka</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Genel Puan</label>
+          <div class="star-picker" id="starPicker">
+            <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Yorumun</label>
+          <textarea id="revText" placeholder="Bu bankayla yaşadığın deneyimi anlat..."></textarea>
+        </div>
+        <button class="btn primary" style="width:100%;" onclick="submitReview()">Yorumu Yayınla</button>
+      </div>
+
+      <div class="review-list" id="reviewList"></div>
+    </div>
+  </div>
+</section>
+
+<section id="nasil" style="background:var(--card); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--ink);">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">04 — SÜREÇ</div>
+        <h2>Not nasıl hesaplanıyor</h2>
+      </div>
+    </div>
+  </div>
+  <div class="steps wrap" style="padding:0 28px;">
+    <div class="step">
+      <div class="stamp-num">SORU 1</div>
+      <h4>Veri toplanır</h4>
+      <p>Faiz oranları, ücret tarifeleri ve uygulama performansı düzenli olarak taranır.</p>
+    </div>
+    <div class="step">
+      <div class="stamp-num">SORU 2</div>
+      <h4>Kullanıcı katkısı</h4>
+      <p>Üyeler gerçek deneyimlerini puanlar; sahte ve tekrar eden yorumlar filtrelenir.</p>
+    </div>
+    <div class="step">
+      <div class="stamp-num">SORU 3</div>
+      <h4>Karne basılır</h4>
+      <p>Ağırlıklı ortalama, harf notuna çevrilir ve karne her ay güncellenir.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Bankanı henüz karneye almadık mı?</h2>
+    <p>Üye ol, ilk yorumu sen yaz — herkes senin notunla karar versin.</p>
+    <div class="hero-ctas" style="justify-content:center;">
+      <button class="btn primary" onclick="openModal('signup')">Ücretsiz Üye Ol</button>
+      <button class="btn" onclick="document.getElementById('karsilastir').scrollIntoView()">Karneleri İncele</button>
+    </div>
+  </div>
+</section>
+
+<section id="guven" style="padding-top:0; padding-bottom:56px;">
+  <div class="wrap">
+    <div class="legal">
+      <h4>Notlar nasıl güvenilir tutulur?</h4>
+      <p>Buradaki puanlar ve yorumlar kullanıcılar tarafından oluşturulur; ParaKarne bir bankanın resmî temsilcisi değildir ve verilen notlar kurumların kendi açıklamalarıyla farklılık gösterebilir. Faiz oranı gibi güncel veriler için bankanın kendi kanallarını da kontrol etmenizi öneririz.</p>
+      <ul>
+        <li>Yanlış, hakaret içeren veya sahte olduğunu düşündüğün bir yorumu "Bildir" butonuyla işaretleyebilirsin.</li>
+        <li>3'ten fazla bildirim alan yorumlar otomatik olarak incelemeye alınır ve moderatör onayına kadar "İncelemede" etiketiyle gösterilir.</li>
+        <li>Bankalar, kendileriyle ilgili yorumlara <a href="#">itiraz süreci</a> üzerinden yanıt verebilir.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="logo"><div class="logo-mark" style="width:30px;height:30px;font-size:13px;">A+</div><div class="logo-text" style="font-size:16px;">Para<span>Karne</span></div></div>
+    <div class="mono">© 2026 ParaKarne.com — Bağımsız banka değerlendirme platformu (tanıtım prototipi)</div>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="tabs">
+      <div class="tab" data-tab="login" onclick="switchTab('login')">Giriş Yap</div>
+      <div class="tab" data-tab="signup" onclick="switchTab('signup')">Üye Ol</div>
+    </div>
+    <div class="tab-panel" id="panel-login">
+      <h3>Tekrar hoş geldin</h3>
+      <p class="hint">Notlarına ve favori bankalarına devam et.</p>
+      <div class="field"><label>E-posta</label><input type="text" id="loginEmail" placeholder="ornek@eposta.com"></div>
+      <div class="field"><label>Şifre</label><input type="text" id="loginPass" placeholder="••••••••"></div>
+      <button class="btn primary" style="width:100%;" onclick="doLogin()">Giriş Yap</button>
+    </div>
+    <div class="tab-panel active" id="panel-signup">
+      <h3>Karneye katıl</h3>
+      <p class="hint">Puan ver, yorum yaz, bankaları listene ekle.</p>
+      <div class="field"><label>Ad Soyad</label><input type="text" id="signupName" placeholder="Ad Soyad"></div>
+      <div class="field"><label>E-posta</label><input type="text" id="signupEmail" placeholder="ornek@eposta.com"></div>
+      <div class="field"><label>Şifre</label><input type="text" id="signupPass" placeholder="••••••••"></div>
+      <button class="btn primary" style="width:100%;" onclick="doSignup()">Üye Ol</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- Bank Detail Modal -->
+<div class="overlay" id="bankOverlay">
+  <div class="modal wide">
+    <button class="modal-close" onclick="closeBankModal()">✕</button>
+    <div id="bankDetailContent"></div>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div class="overlay" id="profileOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeProfileModal()">✕</button>
+    <h3>Profilim</h3>
+    <p class="hint">Bilgilerini güncelle ya da çıkış yap.</p>
+    <div class="field"><label>Ad Soyad</label><input type="text" id="profName"></div>
+    <div class="field"><label>E-posta</label><input type="text" id="profEmail"></div>
+    <p style="font-size:12.5px; color:var(--ink-faint); margin-bottom:16px;">Yorum sayın: <strong id="profReviewCount">0</strong></p>
+    <button class="btn primary" style="width:100%; margin-bottom:10px;" onclick="saveProfile()">Kaydet</button>
+    <button class="btn" style="width:100%;" onclick="logout()">Çıkış Yap</button>
+  </div>
+</div>
+
+<script>
+/* ===== static bank data (grades + breakdown) ===== */
+const colors = ['#33477A','#2F6F4E','#B8862B','#C41F35','#5A4A8C','#2F7A7A'];
+const banks = [
+  {id:'kuzey', name:'Kuzey Finans Bankası', grade:'A+', gradeClass:'g-A', rate:47.5, app:9.4, rating:4.7, reviews:2140,
+   quote:'"Havale-EFT ücretsiz, para transferi göz açıp kapayana kadar."',
+   sub:{rate:'A−', app:'A+', service:'B', branch:'B+', card:'C+'},
+   summary:'Mobil uygulaması sınıf birincisi, ama şube kuyrukları hâlâ ödev gibi.'},
+  {id:'anadolu', name:'Anadolu Emek Bankası', grade:'A', gradeClass:'g-A', rate:46.2, app:9.1, rating:4.6, reviews:1876,
+   quote:'"Şube hizmeti çok kişisel, ama uygulama ara sıra takılıyor."',
+   sub:{rate:'A', app:'B+', service:'A', branch:'A−', card:'B'},
+   summary:'Şube deneyimi yüksek not alıyor, dijital tarafta gelişim payı var.'},
+  {id:'liman', name:'Liman Katılım', grade:'A-', gradeClass:'g-A', rate:45.0, app:8.8, rating:4.4, reviews:1502,
+   quote:'"Kâr payı oranları rakiplerinden bir adım önde."',
+   sub:{rate:'A', app:'B', service:'B+', branch:'B', card:'B−'},
+   summary:'Kâr payı oranlarıyla öne çıkıyor, uygulama arayüzü sadeleştirilebilir.'},
+  {id:'degirmen', name:'Değirmen Bankası', grade:'B+', gradeClass:'g-B', rate:44.1, app:8.2, rating:4.1, reviews:2310,
+   quote:'"Kredi kartı avantajları güçlü, müşteri hattı biraz yavaş."',
+   sub:{rate:'B+', app:'B', service:'C+', branch:'B', card:'A−'},
+   summary:'Kredi kartı avantajlarıyla öne çıkıyor, çağrı merkezi yanıt süresi zayıf notu düşürüyor.'},
+  {id:'vira', name:'Vira Dijital Banka', grade:'B', gradeClass:'g-B', rate:43.0, app:9.6, rating:4.0, reviews:987,
+   quote:'"Şubesi yok ama uygulama tasarımı gerçekten harika."',
+   sub:{rate:'B−', app:'A+', service:'B', branch:'—', card:'B'},
+   summary:'Şubesiz model dijital deneyimde en yüksek notu alıyor.'},
+  {id:'besevler', name:'Beşevler Bankası', grade:'C+', gradeClass:'g-C', rate:41.8, app:7.4, rating:3.6, reviews:1349,
+   quote:'"Faiz makul, ama işlem ücretleri sürpriz yapabiliyor."',
+   sub:{rate:'C+', app:'C+', service:'C', branch:'B−', card:'C'},
+   summary:'İşlem ücretlerindeki şeffaflık eksikliği genel notu aşağı çekiyor.'},
+];
+
+const defaultReviews = [
+  {id:'r1', user:'Elif K.', bank:'Kuzey Finans Bankası', stars:5, text:'Ev kredisi başvurumu 2 günde sonuçlandırdılar, hiç beklemedim. Şube personeli gerçekten ilgiliydi.', note:'Hızlı süreç, yüksek not hak ediyor.', reportCount:0},
+  {id:'r2', user:'Mert A.', bank:'Değirmen Bankası', stars:3, text:'Kredi kartı avantajları iyi ama çağrı merkezine ulaşmak 25 dakikamı aldı.', note:'İletişim kanalları geliştirilmeli.', reportCount:0},
+  {id:'r3', user:'Sude Y.', bank:'Vira Dijital Banka', stars:5, text:'Şubesiz banka olmasına rağmen her sorunumu uygulama üzerinden 10 dakikada çözdüm.', note:'Dijital deneyimde örnek gösterilebilir.', reportCount:0},
+];
+
+let reviews = [...defaultReviews];
+let profile = null; // {name, email}
+let storageOk = true;
+
+/* ===== storage helpers ===== */
+async function loadState(){
+  try{
+    const p = await window.storage.get('profile', false);
+    if(p && p.value) profile = JSON.parse(p.value);
+  }catch(e){ /* no profile yet */ }
+  try{
+    const r = await window.storage.get('reviews', true);
+    if(r && r.value){
+      const parsed = JSON.parse(r.value);
+      if(Array.isArray(parsed) && parsed.length) reviews = parsed;
+    } else {
+      await window.storage.set('reviews', JSON.stringify(reviews), true);
+    }
+  }catch(e){
+    storageOk = false;
+    showToast('Depolama şu an kullanılamıyor, değişiklikler kalıcı olmayacak.');
+  }
+  renderNav();
+  renderLedger();
+  renderBankGrid();
+  renderReviews();
+}
+
+async function saveReviews(){
+  try{
+    await window.storage.set('reviews', JSON.stringify(reviews), true);
+  }catch(e){
+    showToast('Yorum kaydedilemedi, bağlantıyı kontrol et.');
+  }
+}
+async function saveProfileState(){
+  try{
+    await window.storage.set('profile', JSON.stringify(profile), false);
+  }catch(e){
+    showToast('Profil kaydedilemedi.');
+  }
+}
+
+/* ===== nav / auth ===== */
+function renderNav(){
+  const el = document.getElementById('navActions');
+  if(profile){
+    const initials = profile.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    el.innerHTML = `<div class="profile-chip" onclick="openProfileModal()">
+      <div class="profile-avatar">${initials}</div><span>${profile.name.split(' ')[0]}</span>
+    </div>`;
+  } else {
+    el.innerHTML = `
+      <button class="btn small" onclick="openModal('login')">Giriş Yap</button>
+      <button class="btn small primary" onclick="openModal('signup')">Üye Ol</button>`;
+  }
+}
+
+function doSignup(){
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  if(!name || !email){ showToast('Ad ve e-posta gerekli.'); return; }
+  profile = {name, email};
+  saveProfileState();
+  renderNav();
+  closeModal();
+  showToast('Aramıza hoş geldin, ' + name.split(' ')[0] + '!');
+}
+function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  if(!email){ showToast('E-posta gerekli.'); return; }
+  const name = profile && profile.email===email ? profile.name : email.split('@')[0];
+  profile = {name, email};
+  saveProfileState();
+  renderNav();
+  closeModal();
+  showToast('Tekrar hoşgeldin.');
+}
+function logout(){
+  profile = null;
+  saveProfileState();
+  renderNav();
+  closeProfileModal();
+  showToast('Çıkış yapıldı.');
+}
+function openProfileModal(){
+  document.getElementById('profName').value = profile.name;
+  document.getElementById('profEmail').value = profile.email;
+  const count = reviews.filter(r=>r.user===profile.name).length;
+  document.getElementById('profReviewCount').textContent = count;
+  document.getElementById('profileOverlay').classList.add('open');
+}
+function closeProfileModal(){ document.getElementById('profileOverlay').classList.remove('open'); }
+function saveProfile(){
+  profile.name = document.getElementById('profName').value.trim() || profile.name;
+  profile.email = document.getElementById('profEmail').value.trim() || profile.email;
+  saveProfileState();
+  renderNav();
+  showToast('Profil güncellendi.');
+}
+
+/* ===== ledger ===== */
+let sortKey = 'grade';
+let sortDir = 1;
+const gradeOrder = {'A+':7,'A':6,'A-':5,'B+':4,'B':3,'B-':2,'C+':1,'C':0};
+
+function renderLedger(){
+  const tbody = document.getElementById('ledgerBody');
+  const sorted = [...banks].sort((a,b)=>{
+    let av = sortKey==='grade' ? gradeOrder[a.grade] : a[sortKey];
+    let bv = sortKey==='grade' ? gradeOrder[b.grade] : b[sortKey];
+    if(sortKey==='name') return sortDir * a.name.localeCompare(b.name);
+    return sortDir * (bv - av);
+  });
+  tbody.innerHTML = sorted.map((b)=>{
+    const initials = b.name.split(' ').map(w=>w[0]).slice(0,2).join('');
+    const color = colors[banks.indexOf(b)%colors.length];
+    return `<tr onclick="openBankModal('${b.id}')">
+      <td><div class="bank-cell">
+        <div class="bank-swatch" style="background:${color}">${initials}</div>
+        <div class="bank-name">${b.name}<small>Ticari & Bireysel Bankacılık</small></div>
+      </div></td>
+      <td><span class="grade-pill ${b.gradeClass}">${b.grade}</span></td>
+      <td class="rate-num">%${b.rate.toFixed(1)}</td>
+      <td class="rate-num">${b.app.toFixed(1)}/10</td>
+      <td><span class="stars">${'★'.repeat(Math.round(b.rating))}${'☆'.repeat(5-Math.round(b.rating))}</span> <span class="rate-num" style="color:var(--ink-faint); font-size:12px;">${b.rating}</span></td>
+      <td class="rate-num" style="color:var(--ink-faint);">${b.reviews.toLocaleString('tr-TR')}</td>
+    </tr>`;
+  }).join('');
+}
+
+document.querySelectorAll('#ledgerTable thead th').forEach(th=>{
+  th.addEventListener('click', ()=>{
+    const key = th.dataset.key;
+    if(sortKey===key){ sortDir *= -1; } else { sortKey = key; sortDir = 1; }
+    document.querySelectorAll('#ledgerTable thead th').forEach(t=>t.classList.remove('sorted'));
+    th.classList.add('sorted');
+    renderLedger();
+  });
+});
+
+/* ===== bank grid ===== */
+function renderBankGrid(){
+  const grid = document.getElementById('bankGrid');
+  grid.innerHTML = banks.slice(0,6).map((b,i)=>{
+    const color = colors[i%colors.length];
+    const initials = b.name.split(' ').map(w=>w[0]).slice(0,2).join('');
+    return `<div class="bcard" onclick="openBankModal('${b.id}')">
+      <div class="bcard-top">
+        <div class="bank-cell">
+          <div class="bank-swatch" style="background:${color}">${initials}</div>
+          <div class="bank-name">${b.name}</div>
+        </div>
+        <span class="grade-pill ${b.gradeClass}">${b.grade}</span>
+      </div>
+      <div class="bcard-quote">${b.quote}</div>
+      <div class="bcard-foot"><span>${'★'.repeat(Math.round(b.rating))} ${b.rating}/5</span><span>${b.reviews.toLocaleString('tr-TR')} yorum</span></div>
+    </div>`;
+  }).join('');
+}
+
+/* ===== bank detail modal ===== */
+function gradeClassOf(letter){
+  if(!letter || letter==='—') return 'g-B';
+  const l = letter[0];
+  if(l==='A') return 'g-A';
+  if(l==='B') return 'g-B';
+  if(l==='C') return 'g-C';
+  return 'g-D';
+}
+function openBankModal(id){
+  const b = banks.find(x=>x.id===id);
+  if(!b) return;
+  const bankReviews = reviews.filter(r=>r.bank===b.name);
+  const html = `
+    <div class="detail-head">
+      <div>
+        <div class="rc-bank">${b.name}</div>
+        <div class="rc-sub">${bankReviews.length} yorum · Genel ${b.rating}/5</div>
+      </div>
+      <div class="grade-pill ${b.gradeClass}" style="width:52px;height:52px;font-size:18px;">${b.grade}</div>
+    </div>
+    <div class="detail-grades">
+      <div class="rc-row"><span class="subj">Mevduat Faizi</span><span class="rc-grade ${gradeClassOf(b.sub.rate)}">${b.sub.rate}</span></div>
+      <div class="rc-row"><span class="subj">Mobil Uygulama</span><span class="rc-grade ${gradeClassOf(b.sub.app)}">${b.sub.app}</span></div>
+      <div class="rc-row"><span class="subj">Müşteri Hizmetleri</span><span class="rc-grade ${gradeClassOf(b.sub.service)}">${b.sub.service}</span></div>
+      <div class="rc-row"><span class="subj">Şube Deneyimi</span><span class="rc-grade ${gradeClassOf(b.sub.branch)}">${b.sub.branch}</span></div>
+      <div class="rc-row"><span class="subj">Kredi Kartı</span><span class="rc-grade ${gradeClassOf(b.sub.card)}">${b.sub.card}</span></div>
+    </div>
+    <p style="font-size:13px; color:var(--ink-soft); font-style:italic; margin-bottom:14px;">"${b.summary}"</p>
+    <button class="btn primary small" style="margin-bottom:14px;" onclick="closeBankModal(); document.getElementById('revBank').value='${b.name}'; document.getElementById('yorumlar').scrollIntoView();">Bu Bankaya Yorum Yap</button>
+    <div class="detail-reviews">
+      ${bankReviews.length ? bankReviews.map(r=>reviewHtml(r)).join('') : '<p style="font-size:13px; color:var(--ink-faint);">Henüz yorum yok — ilk yorumu sen yaz.</p>'}
+    </div>
+  `;
+  document.getElementById('bankDetailContent').innerHTML = html;
+  document.getElementById('bankOverlay').classList.add('open');
+}
+function closeBankModal(){ document.getElementById('bankOverlay').classList.remove('open'); }
+
+/* ===== reviews ===== */
+function reviewHtml(r){
+  const flagged = r.reportCount >= 3;
+  return `
+    <div class="review-item">
+      <div class="rev-head">
+        <span class="rev-user">${r.user}${flagged ? '<span class="review-flag">İNCELEMEDE</span>' : ''}</span>
+        <span class="rev-bank">${r.bank}</span>
+      </div>
+      <div class="rev-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <div class="rev-text">${flagged ? 'Bu yorum, birden fazla bildirim aldığı için incelemeye alındı.' : r.text}</div>
+      ${!flagged ? `<div class="rev-margin">${r.note}</div>` : ''}
+      <div class="rev-actions">
+        <button class="report-btn" onclick="reportReview('${r.id}')">Bildir</button>
+        <span class="mono" style="font-size:10.5px; color:var(--ink-faint);">${r.reportCount ? r.reportCount+' bildirim' : ''}</span>
+      </div>
+    </div>`;
+}
+function renderReviews(){
+  const list = document.getElementById('reviewList');
+  list.innerHTML = reviews.map(r=>reviewHtml(r)).join('');
+}
+function reportReview(id){
+  const r = reviews.find(x=>x.id===id);
+  if(!r) return;
+  r.reportCount = (r.reportCount||0) + 1;
+  saveReviews();
+  renderReviews();
+  showToast(r.reportCount>=3 ? 'Yorum incelemeye alındı.' : 'Bildirimin alındı, teşekkürler.');
+}
+
+let selectedStars = 0;
+document.querySelectorAll('#starPicker span').forEach(s=>{
+  s.addEventListener('click', ()=>{
+    selectedStars = parseInt(s.dataset.v);
+    document.querySelectorAll('#starPicker span').forEach(x=>{
+      x.classList.toggle('active', parseInt(x.dataset.v) <= selectedStars);
+    });
+  });
+});
+
+function submitReview(){
+  if(!profile){ showToast('Yorum yapmak için üye olman gerekiyor.'); openModal('signup'); return; }
+  const bank = document.getElementById('revBank').value;
+  const text = document.getElementById('revText').value.trim();
+  if(selectedStars===0){ showToast('Lütfen bir puan seç.'); return; }
+  if(!text){ showToast('Lütfen yorumunu yaz.'); return; }
+  reviews.unshift({id:'r'+Date.now(), user:profile.name, bank, stars:selectedStars, text, note:'Bu yorum karne ortalamasına eklendi.', reportCount:0});
+  saveReviews();
+  renderReviews();
+  document.getElementById('revText').value = '';
+  selectedStars = 0;
+  document.querySelectorAll('#starPicker span').forEach(x=>x.classList.remove('active'));
+  showToast('Yorumun yayınlandı — teşekkürler!');
+}
+
+/* ===== auth modal ===== */
+function openModal(tab){
+  document.getElementById('overlay').classList.add('open');
+  switchTab(tab);
+}
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+document.getElementById('overlay').addEventListener('click', e=>{ if(e.target.id==='overlay') closeModal(); });
+document.getElementById('bankOverlay').addEventListener('click', e=>{ if(e.target.id==='bankOverlay') closeBankModal(); });
+document.getElementById('profileOverlay').addEventListener('click', e=>{ if(e.target.id==='profileOverlay') closeProfileModal(); });
+
+/* ===== toast ===== */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+loadState();
+</script>
+</body>
+</html>

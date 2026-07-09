@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="ON Dijital rozet">
+  <rect width="128" height="128" rx="64" fill="#fbf8ef"/>
+  <circle cx="64" cy="64" r="56" fill="#4A6741" opacity="0.95"/>
+  <circle cx="64" cy="64" r="46" fill="none" stroke="#ffffff" stroke-opacity="0.72" stroke-width="3"/>
+  <text x="64" y="71" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" fill="#ffffff">OD</text>
+</svg>
