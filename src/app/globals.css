@@ -2331,3 +2331,108 @@ tbody tr,
     flex-basis: 25px;
   }
 }
+
+/* ===== modal inline validation + Findeks score chips ===== */
+.modal-inline-alert {
+  border: 1.5px solid #c9182f;
+  background: #fff0f1;
+  color: #a80f1f;
+  padding: 10px 12px;
+  margin: 0 0 12px;
+  border-radius: 2px;
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.compact-field {
+  margin-bottom: 14px;
+}
+.field-error {
+  border-left: 3px solid #c9182f;
+  padding-left: 10px;
+}
+.optional-label {
+  color: var(--ink-faint);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+.score-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.score-picker button {
+  padding: 10px 12px;
+  border: 1.5px solid var(--paper-line);
+  background: #fff;
+  color: var(--ink-soft);
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+.score-picker button:hover,
+.score-picker button.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .compact-field {
+    margin-bottom: 10px;
+  }
+  .compact-field label {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .modal-inline-alert {
+    margin: 0 0 8px;
+    padding: 8px 9px;
+    font-size: 11.5px;
+  }
+  .modal-outcomes {
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .modal-outcomes .outcome-btn {
+    min-width: 0;
+    padding: 8px 7px;
+    font-size: 11.5px;
+    line-height: 1.1;
+  }
+  .income-picker,
+  .score-picker {
+    gap: 6px;
+  }
+  .income-picker button,
+  .score-picker button {
+    padding: 8px 9px;
+    font-size: 11.5px;
+    line-height: 1.1;
+  }
+  .score-picker button {
+    flex: 1 1 calc(33.333% - 6px);
+    min-width: 92px;
+  }
+  .income-picker button {
+    flex: 1 1 calc(33.333% - 6px);
+    min-width: 92px;
+  }
+}
+
+@media (max-width: 380px) {
+  .modal-outcomes .outcome-btn,
+  .income-picker button,
+  .score-picker button {
+    font-size: 10.5px;
+    padding: 7px 6px;
+  }
+  .score-picker button,
+  .income-picker button {
+    min-width: 82px;
+  }
+}

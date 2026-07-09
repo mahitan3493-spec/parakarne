@@ -15,6 +15,7 @@ import {
   type CategoryKey,
   type CategoryRatings,
   type EmploymentStatus,
+  type FindeksScoreRange,
 } from "@/lib/types";
 import ReviewItem from "./ReviewItem";
 import BankLogo from "./BankLogo";
@@ -35,6 +36,16 @@ const EMPLOYMENT_OPTIONS: { value: EmploymentStatus; label: string }[] = [
   { value: "not_working", label: "Çalışmıyor" },
   { value: "student", label: "Öğrenci" },
   { value: "business_owner", label: "Esnaf / Şirket Sahibi" },
+];
+
+const FINDEKS_OPTIONS: { value: FindeksScoreRange; label: string }[] = [
+  { value: "unknown", label: "Bilmiyorum" },
+  { value: "0_699", label: "0 - 699" },
+  { value: "700_1099", label: "700 - 1099" },
+  { value: "1100_1299", label: "1100 - 1299" },
+  { value: "1300_1499", label: "1300 - 1499" },
+  { value: "1500_1699", label: "1500 - 1699" },
+  { value: "1700_1900", label: "1700 - 1900" },
 ];
 
 function StepDots({ step }: { step: ModalStep }) {
@@ -79,6 +90,8 @@ export default function BankDetailModal() {
   const [creditApplicationOutcome, setCreditApplicationOutcome] = useState<ApplicationOutcome | undefined>();
   const [creditCardApplicationOutcome, setCreditCardApplicationOutcome] = useState<ApplicationOutcome | undefined>();
   const [employmentStatus, setEmploymentStatus] = useState<EmploymentStatus | undefined>();
+  const [findeksScoreRange, setFindeksScoreRange] = useState<FindeksScoreRange | undefined>();
+  const [modalError, setModalError] = useState("");
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [lastSubmittedBankName, setLastSubmittedBankName] = useState("");
@@ -95,6 +108,8 @@ export default function BankDetailModal() {
     setCreditApplicationOutcome(undefined);
     setCreditCardApplicationOutcome(undefined);
     setEmploymentStatus(undefined);
+    setFindeksScoreRange(undefined);
+    setModalError("");
     setText("");
     setSubmitting(false);
     setLastSubmittedBankName("");
@@ -114,6 +129,7 @@ export default function BankDetailModal() {
   }
 
   function goToStep(nextStep: ModalStep) {
+    setModalError("");
     setStep(nextStep);
   }
 
@@ -134,19 +150,15 @@ export default function BankDetailModal() {
 
   function handleNextFromRatings() {
     if (filledCount < applicableCategories.length) {
-      showToast("Lütfen tüm hizmet kategorilerine puan ver.");
+      setModalError("Devam etmek için tüm hizmet kategorilerine puan ver.");
       return;
     }
     goToStep(3);
   }
 
   function handleNextFromApproval() {
-    if (!creditApplicationOutcome || !creditCardApplicationOutcome) {
-      showToast("Kredi ve kredi kartı başvuru sonucunu seç.");
-      return;
-    }
-    if (!employmentStatus) {
-      showToast("Lütfen çalışma / gelir durumunu seç.");
+    if (!creditApplicationOutcome || !creditCardApplicationOutcome || !employmentStatus) {
+      setModalError("Devam etmek için kredi/kart sonucu ve gelir durumunu seç.");
       return;
     }
     goToStep(4);
@@ -159,17 +171,17 @@ export default function BankDetailModal() {
       return;
     }
     if (filledCount < applicableCategories.length) {
-      showToast("Lütfen tüm hizmet kategorilerine puan ver.");
+      setModalError("Devam etmek için tüm hizmet kategorilerine puan ver.");
       setStep(2);
       return;
     }
     if (!creditApplicationOutcome || !creditCardApplicationOutcome || !employmentStatus) {
-      showToast("Lütfen onay ve gelir bilgilerini tamamla.");
+      setModalError("Devam etmek için kredi/kart sonucu ve gelir durumunu seç.");
       setStep(3);
       return;
     }
     if (text.trim().length < 25) {
-      showToast("Yorum en az 25 karakter olmalı.");
+      setModalError("Yorum en az 25 karakter olmalı.");
       return;
     }
 
@@ -184,10 +196,11 @@ export default function BankDetailModal() {
         creditApplicationOutcome,
         creditCardApplicationOutcome,
         employmentStatus,
+        findeksScoreRange,
         text: text.trim(),
       });
       setLastSubmittedBankName(bank!.name);
-      showToast(`${bank!.name} için puanın ve yorumun kaydedildi.`);
+      setModalError("");
       setStep(5);
     } catch (err) {
       showToast(err instanceof Error ? err.message : "Yorum gönderilemedi, tekrar dene.");
@@ -293,6 +306,7 @@ export default function BankDetailModal() {
             <div className="rating-modal-title">Adım 2 • Hizmet Puanları</div>
             <StepDots step={2} />
             <p className="modal-step-count">2 / 4</p>
+            {modalError && <div className="modal-inline-alert">{modalError}</div>}
             <p className="hint">Aşağıdaki hizmet kategorilerini 1 ile 5 yıldız arasında puanla.</p>
             <div className="rating-fields">
               {applicableCategories.map((cat) => (
@@ -310,7 +324,7 @@ export default function BankDetailModal() {
               <strong>
                 {filledCount === applicableCategories.length
                   ? `${liveOverall}/5 · ${letterFromScore(liveOverall)}`
-                  : `${applicableCategories.length - filledCount} kategori kaldı`}
+                  : `${applicableCategories.length - filledCount} kategori puanlanacak`}
               </strong>
             </div>
             <div className="modal-actions">
@@ -329,7 +343,8 @@ export default function BankDetailModal() {
             <div className="rating-modal-title">Adım 3 • Onay ve Gelir Bilgileri</div>
             <StepDots step={3} />
             <p className="modal-step-count">3 / 4</p>
-            <div className="field">
+            {modalError && <div className="modal-inline-alert">{modalError}</div>}
+            <div className={`field compact-field ${modalError && !creditApplicationOutcome ? "field-error" : ""}`}>
               <label>Kredi Başvurusu</label>
               <div className="outcome-picker modal-outcomes">
                 {APPLICATION_OPTIONS.map((opt) => (
@@ -337,14 +352,14 @@ export default function BankDetailModal() {
                     type="button"
                     key={opt.value}
                     className={`outcome-btn tone-${opt.tone} ${creditApplicationOutcome === opt.value ? "active" : ""}`}
-                    onClick={() => setCreditApplicationOutcome(opt.value)}
+                    onClick={() => { setCreditApplicationOutcome(opt.value); setModalError(""); }}
                   >
                     {opt.label}
                   </button>
                 ))}
               </div>
             </div>
-            <div className="field">
+            <div className={`field compact-field ${modalError && !creditCardApplicationOutcome ? "field-error" : ""}`}>
               <label>Kredi Kartı Başvurusu</label>
               <div className="outcome-picker modal-outcomes">
                 {APPLICATION_OPTIONS.map((opt) => (
@@ -352,14 +367,29 @@ export default function BankDetailModal() {
                     type="button"
                     key={opt.value}
                     className={`outcome-btn tone-${opt.tone} ${creditCardApplicationOutcome === opt.value ? "active" : ""}`}
-                    onClick={() => setCreditCardApplicationOutcome(opt.value)}
+                    onClick={() => { setCreditCardApplicationOutcome(opt.value); setModalError(""); }}
                   >
                     {opt.label}
                   </button>
                 ))}
               </div>
             </div>
-            <div className="field">
+            <div className="field compact-field">
+              <label>Findeks Skorun <span className="optional-label">Opsiyonel</span></label>
+              <div className="score-picker">
+                {FINDEKS_OPTIONS.map((opt) => (
+                  <button
+                    type="button"
+                    key={opt.value}
+                    className={findeksScoreRange === opt.value ? "active" : ""}
+                    onClick={() => setFindeksScoreRange(opt.value)}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className={`field compact-field ${modalError && !employmentStatus ? "field-error" : ""}`}>
               <label>Çalışma / Gelir Durumu</label>
               <div className="income-picker">
                 {EMPLOYMENT_OPTIONS.map((opt) => (
@@ -367,7 +397,7 @@ export default function BankDetailModal() {
                     type="button"
                     key={opt.value}
                     className={employmentStatus === opt.value ? "active" : ""}
-                    onClick={() => setEmploymentStatus(opt.value)}
+                    onClick={() => { setEmploymentStatus(opt.value); setModalError(""); }}
                   >
                     {opt.label}
                   </button>
@@ -390,6 +420,7 @@ export default function BankDetailModal() {
             <div className="rating-modal-title">Adım 4 • Yorum ve Kaydet</div>
             <StepDots step={4} />
             <p className="modal-step-count">4 / 4</p>
+            {modalError && <div className="modal-inline-alert">{modalError}</div>}
             <p className="hint">
               {bank.name} hakkındaki deneyimini paylaşarak diğer kullanıcılara yardımcı olabilirsin.
             </p>
@@ -413,7 +444,7 @@ export default function BankDetailModal() {
               {submitting ? "Kaydediliyor…" : "Puanı ve Yorumu Kaydet"}
             </button>
             <button className="btn modal-back-detail" onClick={() => goToStep(1)}>
-              Banka detayına dön
+              Bankayı İncele
             </button>
           </>
         )}
@@ -433,6 +464,11 @@ export default function BankDetailModal() {
               <span>
                 Gelir: {EMPLOYMENT_OPTIONS.find((o) => o.value === employmentStatus)?.label}
               </span>
+              {findeksScoreRange && (
+                <span>
+                  Findeks: {FINDEKS_OPTIONS.find((o) => o.value === findeksScoreRange)?.label}
+                </span>
+              )}
             </div>
             <div className="success-actions">
               <button className="btn primary" onClick={goToBankPage}>

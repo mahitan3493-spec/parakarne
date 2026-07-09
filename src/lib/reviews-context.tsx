@@ -73,6 +73,7 @@ export function ReviewsProvider({ children }: { children: ReactNode }) {
               creditApplicationOutcome: data.creditApplicationOutcome,
               creditCardApplicationOutcome: data.creditCardApplicationOutcome,
               employmentStatus: data.employmentStatus,
+              findeksScoreRange: data.findeksScoreRange,
               text: data.text,
               note: data.note,
               reportCount: data.reportCount ?? 0,

@@ -32,6 +32,15 @@ export type EmploymentStatus =
   | "student"
   | "business_owner";
 
+export type FindeksScoreRange =
+  | "unknown"
+  | "0_699"
+  | "700_1099"
+  | "1100_1299"
+  | "1300_1499"
+  | "1500_1699"
+  | "1700_1900";
+
 export type Bank = {
   id: string;
   name: string;
@@ -71,6 +80,7 @@ export type Review = {
   creditApplicationOutcome?: ApplicationOutcome;
   creditCardApplicationOutcome?: ApplicationOutcome;
   employmentStatus?: EmploymentStatus;
+  findeksScoreRange?: FindeksScoreRange;
   text: string;
   note: string;
   reportCount: number;

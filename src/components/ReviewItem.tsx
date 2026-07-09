@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/lib/toast-context";
 import { useUI } from "@/lib/ui-context";
 import { reportReview } from "@/lib/reviews";
-import type { ApplicationOutcome, CreditOutcome, EmploymentStatus, Review } from "@/lib/types";
+import type { ApplicationOutcome, CreditOutcome, EmploymentStatus, FindeksScoreRange, Review } from "@/lib/types";
 
 const CREDIT_LABELS: Record<CreditOutcome, string> = {
   approved: "Kredi Onaylandı",
@@ -27,6 +27,16 @@ const EMPLOYMENT_LABELS: Record<EmploymentStatus, string> = {
   not_working: "Çalışmıyor",
   student: "Öğrenci",
   business_owner: "Esnaf / Şirket Sahibi",
+};
+
+const FINDEKS_LABELS: Record<FindeksScoreRange, string> = {
+  unknown: "Findeks: Bilmiyorum",
+  "0_699": "Findeks: 0-699",
+  "700_1099": "Findeks: 700-1099",
+  "1100_1299": "Findeks: 1100-1299",
+  "1300_1499": "Findeks: 1300-1499",
+  "1500_1699": "Findeks: 1500-1699",
+  "1700_1900": "Findeks: 1700-1900",
 };
 
 export default function ReviewItem({ review }: { review: Review }) {
@@ -90,6 +100,11 @@ export default function ReviewItem({ review }: { review: Review }) {
         {review.employmentStatus && (
           <span className="credit-badge credit-info">
             {EMPLOYMENT_LABELS[review.employmentStatus]}
+          </span>
+        )}
+        {review.findeksScoreRange && (
+          <span className="credit-badge credit-info">
+            {FINDEKS_LABELS[review.findeksScoreRange]}
           </span>
         )}
       </div>
