@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
@@ -125,7 +126,16 @@ function LedgerRow({ bank }: { bank: Bank }) {
         <div className="bank-cell">
           <BankLogo bank={bank} small />
           <div className="bank-name">
-            {bank.name}
+            <Link
+              href={`/banka/${bank.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openBankModal(bank.id);
+              }}
+            >
+              {bank.name}
+            </Link>
             <small>Ticari &amp; Bireysel Bankacılık</small>
           </div>
         </div>
@@ -134,10 +144,16 @@ function LedgerRow({ bank }: { bank: Bank }) {
         <span className={`grade-pill ${gradeClassOf(bank.grade)}`}>{bank.grade}</span>
       </td>
       <td>
-        <span className="stars">{starString(bank.rating)}</span>{" "}
-        <span className="rate-num" style={{ color: "var(--ink-faint)", fontSize: "12px" }}>
-          {bank.rating}
-        </span>
+        {bank.reviewCount > 0 ? (
+          <>
+            <span className="stars">{starString(bank.rating)}</span>{" "}
+            <span className="rate-num" style={{ color: "var(--ink-faint)", fontSize: "12px" }}>
+              {bank.rating}
+            </span>
+          </>
+        ) : (
+          <span style={{ fontSize: "12px", color: "var(--ink-faint)" }}>Henüz not yok</span>
+        )}
       </td>
       <td className="rate-num" style={{ color: "var(--ink-faint)" }}>
         {bank.reviewCount.toLocaleString("tr-TR")}

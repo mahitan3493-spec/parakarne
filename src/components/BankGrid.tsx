@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
@@ -12,10 +13,16 @@ export default function BankGrid() {
   const { banks, loading } = useBanks();
   const { reviews } = useReviews();
   const { openBankModal } = useUI();
-  const top = useMemo(
-    () => applyReviewStatsToBanks(banks, reviews).slice(0, 6),
-    [banks, reviews],
-  );
+  // "Öne çıkanlar" gerçekten en yüksek puanlı, gerçekten yorum almış
+  // bankalar olmalı — dizideki ilk 6 banka değil. Henüz yorum almamış
+  // bankalar bu listeye hiç girmez.
+  const top = useMemo(() => {
+    const updated = applyReviewStatsToBanks(banks, reviews);
+    return updated
+      .filter((b) => b.reviewCount > 0)
+      .sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount)
+      .slice(0, 6);
+  }, [banks, reviews]);
 
   return (
     <section
@@ -30,14 +37,27 @@ export default function BankGrid() {
         <div className="sec-head">
           <div>
             <div className="sec-num">02 — ÖNE ÇIKANLAR</div>
-            <h2>Bu ay sınıf birincileri</h2>
+            <h2>Sınıf birincileri</h2>
           </div>
         </div>
-        <div className="bank-grid">
-          {loading && <p className="skeleton-row">Bankalar yükleniyor…</p>}
-          {!loading &&
-            top.map((b) => (
-              <div key={b.id} className="bcard" onClick={() => openBankModal(b.id)}>
+        {loading && <p className="skeleton-row">Bankalar yükleniyor…</p>}
+        {!loading && top.length === 0 && (
+          <p className="skeleton-row">
+            Henüz hiçbir bankaya yorum yapılmadı — ilk notu sen ver, burada ilk sen görün.
+          </p>
+        )}
+        {!loading && top.length > 0 && (
+          <div className="bank-grid">
+            {top.map((b) => (
+              <Link
+                key={b.id}
+                href={`/banka/${b.id}`}
+                className="bcard"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openBankModal(b.id);
+                }}
+              >
                 <div className="bcard-top">
                   <div className="bank-cell">
                     <BankLogo bank={b} />
@@ -54,9 +74,10 @@ export default function BankGrid() {
                   </span>
                   <span>{b.reviewCount.toLocaleString("tr-TR")} yorum</span>
                 </div>
-              </div>
+              </Link>
             ))}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );

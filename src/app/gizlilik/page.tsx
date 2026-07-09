@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import LegalPageLayout from "@/components/LegalPageLayout";
 
 export const metadata: Metadata = {
-  title: "Gizlilik Politikası",
+  title: { absolute: "Gizlilik Politikası - ParaKarne" },
   description: "ParaKarne gizlilik politikası ve veri işleme bilgilendirmesi.",
   alternates: { canonical: "/gizlilik" },
   openGraph: {
     url: "/gizlilik",
-    title: "Gizlilik Politikası | ParaKarne",
+    title: "Gizlilik Politikası - ParaKarne",
     description: "ParaKarne gizlilik politikası ve veri işleme bilgilendirmesi.",
   },
 };

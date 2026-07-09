@@ -86,10 +86,10 @@ function buildRows(bankA: Bank, bankB: Bank): Row[] {
   const rows: Row[] = [
     {
       label: "Genel Puan",
-      aValue: bankA.rating,
-      bValue: bankB.rating,
-      aDisplay: `${bankA.rating}/5`,
-      bDisplay: `${bankB.rating}/5`,
+      aValue: bankA.reviewCount > 0 ? bankA.rating : null,
+      bValue: bankB.reviewCount > 0 ? bankB.rating : null,
+      aDisplay: bankA.reviewCount > 0 ? `${bankA.rating}/5` : "—",
+      bDisplay: bankB.reviewCount > 0 ? `${bankB.rating}/5` : "—",
     },
     {
       label: "Yorum Sayısı",
@@ -101,7 +101,8 @@ function buildRows(bankA: Bank, bankB: Bank): Row[] {
   ];
 
   // İki bankanın herhangi birinde geçerli olan kategorileri birleştirip
-  // göster; geçerli olmayan tarafta "—" yazsın (örn. şubesiz banka).
+  // göster; geçerli olmayan tarafta "—" yazsın (örn. şubesiz banka ya da
+  // henüz o kategoriye hiç gerçek yorum gelmemiş banka).
   for (const cat of CATEGORY_META) {
     const aScore = bankA.sub[cat.key];
     const bScore = bankB.sub[cat.key];
@@ -116,13 +117,15 @@ function buildRows(bankA: Bank, bankB: Bank): Row[] {
     });
   }
 
-  rows.push({
-    label: "Kredi/Kredi Kartı Onayı",
-    aValue: bankA.creditApprovalRate,
-    bValue: bankB.creditApprovalRate,
-    aDisplay: `%${Math.round(bankA.creditApprovalRate)}`,
-    bDisplay: `%${Math.round(bankB.creditApprovalRate)}`,
-  });
+  if (bankA.creditApprovalCount > 0 || bankB.creditApprovalCount > 0) {
+    rows.push({
+      label: "Kredi/Kredi Kartı Onayı",
+      aValue: bankA.creditApprovalCount > 0 ? bankA.creditApprovalRate : null,
+      bValue: bankB.creditApprovalCount > 0 ? bankB.creditApprovalRate : null,
+      aDisplay: bankA.creditApprovalCount > 0 ? `%${Math.round(bankA.creditApprovalRate)}` : "—",
+      bDisplay: bankB.creditApprovalCount > 0 ? `%${Math.round(bankB.creditApprovalRate)}` : "—",
+    });
+  }
 
   return rows;
 }

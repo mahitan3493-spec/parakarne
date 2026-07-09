@@ -50,7 +50,9 @@ export default function BankDetailModal() {
             <div>
               <div className="rc-bank">{bank.name}</div>
               <div className="rc-sub">
-                {bank.reviewCount.toLocaleString("tr-TR")} yorum · Genel {bank.rating}/5
+                {bank.reviewCount > 0
+                  ? `${bank.reviewCount.toLocaleString("tr-TR")} yorum · Genel ${bank.rating}/5`
+                  : "Henüz yorum yok"}
               </div>
             </div>
           </div>
@@ -72,15 +74,24 @@ export default function BankDetailModal() {
               </div>
             );
           })}
-          <div className="rc-row">
-            <span className="subj">Kredi / Kredi Kartı Onay Oranı</span>
-            <span className={`rc-grade ${approvalClass(bank.creditApprovalRate)}`}>
-              %{Math.round(bank.creditApprovalRate)}
-            </span>
-          </div>
-          <div className="rc-approval-note">
-            {bank.creditApprovalCount.toLocaleString("tr-TR")} başvurudan derlendi
-          </div>
+          {bank.creditApprovalCount > 0 && (
+            <>
+              <div className="rc-row">
+                <span className="subj">Kredi / Kredi Kartı Onay Oranı</span>
+                <span className={`rc-grade ${approvalClass(bank.creditApprovalRate)}`}>
+                  %{Math.round(bank.creditApprovalRate)}
+                </span>
+              </div>
+              <div className="rc-approval-note">
+                {bank.creditApprovalCount.toLocaleString("tr-TR")} başvurudan derlendi
+              </div>
+            </>
+          )}
+          {bank.reviewCount === 0 && (
+            <p style={{ fontSize: "12.5px", color: "var(--ink-faint)", padding: "8px 0" }}>
+              Bu banka için henüz not yok — ilk yorumu sen bırakınca kategoriler burada belirecek.
+            </p>
+          )}
         </div>
         <p
           style={{
@@ -90,7 +101,21 @@ export default function BankDetailModal() {
             marginBottom: "14px",
           }}
         >
-          &quot;{bank.summary}&quot;
+          <span
+            style={{
+              display: "block",
+              fontStyle: "normal",
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              color: "var(--ink-faint)",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+              marginBottom: "4px",
+            }}
+          >
+            Editör notu
+          </span>
+          {bank.summary}
         </p>
         <button className="btn primary small" style={{ marginBottom: "14px" }} onClick={handleReviewCta}>
           Bu Bankaya Yorum Yap

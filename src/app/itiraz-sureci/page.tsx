@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import LegalPageLayout from "@/components/LegalPageLayout";
 
 export const metadata: Metadata = {
-  title: "Yorum İtiraz Süreci",
+  title: { absolute: "ParaKarne Yorum ve Puan İtiraz Süreci" },
   description: "ParaKarne yorum bildirim ve itiraz süreci.",
   alternates: { canonical: "/itiraz-sureci" },
   openGraph: {
     url: "/itiraz-sureci",
-    title: "Yorum İtiraz Süreci | ParaKarne",
+    title: "ParaKarne Yorum ve Puan İtiraz Süreci",
     description: "ParaKarne yorum bildirim ve itiraz süreci.",
   },
 };

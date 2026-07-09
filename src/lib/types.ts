@@ -1,12 +1,12 @@
-// Kategori bazlı puanlama: her değer 1-5 arası ağırlıklı ortalama.
-// branch (Şube Hizmetleri) fiziksel şubesi olmayan bankalarda null'dur —
-// bu kategori o banka için hiç gösterilmez ve genel puana katılmaz.
+// Kategori bazlı puanlama: her değer 1-5 arası ağırlıklı ortalama, ya da
+// null ("henüz veri yok"). branch/atm ayrıca hasBranch=false olan
+// bankalarda kalıcı olarak null'dur (o kategori hiç geçerli değil).
 export type SubGrades = {
   branch: number | null;
-  service: number;
-  app: number;
+  service: number | null;
+  app: number | null;
   atm: number | null;
-  security: number;
+  security: number | null;
 };
 
 export type CategoryKey = keyof SubGrades;

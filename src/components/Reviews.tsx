@@ -182,8 +182,7 @@ export default function Reviews() {
               />
             </div>
             <button
-              className="btn primary"
-              style={{ width: "100%" }}
+              className="btn primary review-submit-btn"
               onClick={handleSubmit}
               disabled={submitting}
             >

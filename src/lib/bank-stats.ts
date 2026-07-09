@@ -19,22 +19,24 @@ export function visibleReviews(reviews: Review[]): Review[] {
 
 // Bir bankanın kategori puanlarını (bank.sub) o bankaya ait yorumlardaki
 // kategori puanlarıyla harmanlayıp güncel sayısal ortalamayı döndürür.
-// bank.sub, Firestore'daki "taban" (editöryel/başlangıç) değer olarak kullanılır;
-// bank.reviewCount bu tabanın ağırlığıdır — tıpkı applyReviewStats'taki genel puan mantığı gibi.
+// null iki farklı anlama gelebilir: (1) hiç veri yok henüz — ilk gerçek
+// yorum geldiğinde dolacak, ağırlığı 0 kabul edilir; (2) şubesiz bankada
+// branch/atm gibi hiç geçerli olmayan bir kategori — bu durumda kalıcı
+// olarak null kalır, review.categories'te zaten hiç gönderilmez.
 function nextCategoryScores(bank: Bank, bankReviews: Review[]): SubGrades {
   const result = { ...bank.sub };
 
   for (const key of CATEGORY_KEYS) {
-    const baseScore = bank.sub[key];
-    if (baseScore === null) continue; // bu kategori bu banka için geçerli değil
+    if (!bank.hasBranch && (key === "branch" || key === "atm")) continue; // kalıcı olarak geçersiz
 
     const liveValues = bankReviews
       .map((r) => r.categories[key])
       .filter((v): v is number => typeof v === "number");
 
-    if (liveValues.length === 0) continue;
+    if (liveValues.length === 0) continue; // henüz yeni veri yok, mevcut değer (null olabilir) korunur
 
-    const baseTotal = baseScore * bank.reviewCount;
+    const baseScore = bank.sub[key];
+    const baseTotal = (baseScore ?? 0) * bank.reviewCount;
     const liveTotal = liveValues.reduce((sum, v) => sum + v, 0);
     const nextCount = bank.reviewCount + liveValues.length;
     result[key] = Number(((baseTotal + liveTotal) / nextCount).toFixed(2));

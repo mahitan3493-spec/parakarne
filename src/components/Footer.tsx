@@ -18,6 +18,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-links">
+          <Link href="/tum-konular">Tüm Konular</Link>
+          <Link href="/hakkimizda">Hakkımızda</Link>
           <Link href="/gizlilik">Gizlilik</Link>
           <Link href="/kvkk">KVKK</Link>
           <Link href="/kullanim-sartlari">Kullanım Şartları</Link>

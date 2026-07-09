@@ -19,19 +19,28 @@ export default function Hero() {
   const updated = useMemo(() => applyReviewStatsToBanks(banks, reviews), [banks, reviews]);
 
   const stats = useMemo(() => {
+    const reviewed = updated.filter((bank) => bank.reviewCount > 0);
     const reviewCount = updated.reduce((sum, bank) => sum + bank.reviewCount, 0);
-    const avg = updated.length
-      ? (updated.reduce((sum, bank) => sum + bank.rating, 0) / updated.length).toFixed(1)
-      : "0.0";
+    // Ortalamayı sadece gerçekten yorum almış bankalar üzerinden, yorum
+    // sayısıyla ağırlıklandırarak hesaplıyoruz — yoksa henüz yorum almamış
+    // bankaların 0 puanı ortalamayı yanlış şekilde aşağı çekerdi.
+    const avg =
+      reviewCount > 0
+        ? (
+            reviewed.reduce((sum, bank) => sum + bank.rating * bank.reviewCount, 0) / reviewCount
+          ).toFixed(1)
+        : "0.0";
     return { bankCount: updated.length, reviewCount, avg };
   }, [updated]);
 
-  // Kartta gösterilen banka her zaman gerçek, canlı veri: en yüksek puanlı
-  // banka (eşitlikte daha çok yorumu olan öne çıkar). Statik/sahte örnek
-  // veri kullanmıyoruz ki sitenin geri kalanıyla çelişmesin.
+  // Kartta gösterilen banka her zaman gerçek, canlı veri: en yüksek puanlı,
+  // gerçekten yorum almış banka (eşitlikte daha çok yorumu olan öne çıkar).
+  // Henüz hiçbir bankaya gerçek yorum yapılmadıysa kart hiç gösterilmez —
+  // sahte/örnek veri kullanmıyoruz.
   const topBank = useMemo(() => {
-    if (updated.length === 0) return null;
-    return [...updated].sort(
+    const reviewed = updated.filter((bank) => bank.reviewCount > 0);
+    if (reviewed.length === 0) return null;
+    return [...reviewed].sort(
       (a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount,
     )[0];
   }, [updated]);
@@ -88,7 +97,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {topBank && (
+        {topBank ? (
           <div className="report-card">
             <div className="rc-head">
               <div className="bank-cell">
@@ -96,7 +105,7 @@ export default function Hero() {
                 <div>
                   <div className="rc-bank">{topBank.name}</div>
                   <div className="rc-sub">
-                    BU AYIN LİDERİ · {topBank.reviewCount.toLocaleString("tr-TR")} YORUM
+                    ŞU AN LİDER · {topBank.reviewCount.toLocaleString("tr-TR")} YORUM
                   </div>
                 </div>
               </div>
@@ -111,11 +120,38 @@ export default function Hero() {
                 </div>
               );
             })}
-            <div className="rc-row">
-              <span className="subj">Kredi/Kredi Kartı Onayı</span>
-              <span className="rc-grade g-A">%{Math.round(topBank.creditApprovalRate)}</span>
+            {topBank.creditApprovalCount > 0 && (
+              <div className="rc-row">
+                <span className="subj">Kredi/Kredi Kartı Onayı</span>
+                <span className="rc-grade g-A">%{Math.round(topBank.creditApprovalRate)}</span>
+              </div>
+            )}
+            <div className="rc-note">
+              <span className="rc-note-label">Editör notu</span>
+              {topBank.quote.replace(/^"|"$/g, "")}
             </div>
-            <div className="rc-note">&quot;{topBank.quote.replace(/^"|"$/g, "")}&quot;</div>
+          </div>
+        ) : (
+          <div className="report-card report-card-empty">
+            <div className="rc-stamp" style={{ margin: "0 auto 16px" }}>
+              ?
+            </div>
+            <p style={{ textAlign: "center", fontWeight: 700, marginBottom: "8px" }}>
+              Henüz kimse not vermedi
+            </p>
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "13px",
+                color: "var(--ink-soft)",
+                marginBottom: "16px",
+              }}
+            >
+              İlk yorumu sen bırak, karneyi sen başlat.
+            </p>
+            <button className="btn primary" style={{ width: "100%" }} onClick={handleNotVer}>
+              İlk Notu Ver
+            </button>
           </div>
         )}
       </div>

@@ -11,16 +11,23 @@ const siteUrl = "https://parakarne.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ParaKarne — Bankanızın Notu Ne?",
+    default: "ParaKarne - Banka Puanlama ve Karşılaştırma Platformu",
     template: "%s | ParaKarne",
   },
   description:
-    "Türkiye'nin banka karnesi. Gerçek kullanıcı deneyimlerine dayalı, karne gibi net bir sistemle bankaları puanlayın ve karşılaştırın.",
+    "Bankaları kullanıcı deneyimlerine göre puanlayın, yorumlayın ve karşılaştırın. Banka müşteri hizmetleri, mobil bankacılık, şube hizmetleri ve kredi/kart onay oranlarını gerçek kullanıcı yorumlarıyla görün.",
   applicationName: "ParaKarne",
   keywords: [
-    "banka karşılaştırma",
+    "banka puanlama",
     "banka yorumları",
-    "banka puanı",
+    "banka karşılaştırma",
+    "en iyi banka",
+    "banka müşteri hizmetleri yorumları",
+    "kredi onayı veren bankalar",
+    "kart onayı veren bankalar",
+    "mobil bankacılık yorumları",
+    "banka şube hizmetleri",
+    "banka karnesi",
     "kredi kartı yorumları",
     "ParaKarne",
   ],
@@ -33,9 +40,9 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: siteUrl,
     siteName: "ParaKarne",
-    title: "ParaKarne — Bankanızın Notu Ne?",
+    title: "ParaKarne - Banka Puanlama ve Karşılaştırma Platformu",
     description:
-      "Türkiye'nin banka karnesi. Bankaları kullanıcı deneyimlerine göre puanlayın ve karşılaştırın.",
+      "Bankaları kullanıcı deneyimlerine göre puanlayın, yorumlayın ve karşılaştırın.",
     images: [
       {
         url: "/og-image.svg",
@@ -47,7 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ParaKarne — Bankanızın Notu Ne?",
+    title: "ParaKarne - Banka Puanlama ve Karşılaştırma Platformu",
     description: "Bankaları kullanıcı puanları ve yorumlarla karşılaştırın.",
     images: ["/og-image.svg"],
   },

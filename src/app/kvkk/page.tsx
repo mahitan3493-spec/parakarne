@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import LegalPageLayout from "@/components/LegalPageLayout";
 
 export const metadata: Metadata = {
-  title: "KVKK Aydınlatma Metni",
+  title: { absolute: "KVKK Aydınlatma Metni - ParaKarne" },
   description: "ParaKarne KVKK aydınlatma metni.",
   alternates: { canonical: "/kvkk" },
   openGraph: {
     url: "/kvkk",
-    title: "KVKK Aydınlatma Metni | ParaKarne",
+    title: "KVKK Aydınlatma Metni - ParaKarne",
     description: "ParaKarne KVKK aydınlatma metni.",
   },
 };
