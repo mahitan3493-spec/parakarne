@@ -127,12 +127,8 @@ function LedgerRow({ bank }: { bank: Bank }) {
           <BankLogo bank={bank} small />
           <div className="bank-name">
             <Link
-              href={`/banka/${bank.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                openBankModal(bank.id);
-              }}
+              href={`/banka/${bank.id}/`}
+              onClick={(e) => e.stopPropagation()}
             >
               {bank.name}
             </Link>

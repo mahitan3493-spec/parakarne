@@ -1,4 +1,4 @@
-import type { Bank, CategoryKey, CreditOutcome, Review, SubGrades } from "./types";
+import type { ApplicationOutcome, Bank, CategoryKey, CreditOutcome, Review, SubGrades } from "./types";
 import { letterFromScore } from "./grades";
 
 const CATEGORY_KEYS: CategoryKey[] = ["branch", "service", "app", "atm", "security"];
@@ -6,6 +6,11 @@ const CATEGORY_KEYS: CategoryKey[] = ["branch", "service", "app", "atm", "securi
 const OUTCOME_SCORE: Record<CreditOutcome, number> = {
   approved: 100,
   conditional: 50,
+  rejected: 0,
+};
+
+const APPLICATION_SCORE: Record<Exclude<ApplicationOutcome, "not_applied">, number> = {
+  approved: 100,
   rejected: 0,
 };
 
@@ -49,17 +54,29 @@ function nextCategoryScores(bank: Bank, bankReviews: Review[]): SubGrades {
 // bağımsız bir sayaçtır çünkü herkes bu opsiyonel soruyu yanıtlamaz —
 // sadece "creditOutcome" alanı dolu olan yorumlar hesaba katılır.
 function nextCreditApproval(bank: Bank, bankReviews: Review[]): { rate: number; count: number } {
-  const outcomes = bankReviews
+  const legacyScores = bankReviews
     .map((r) => r.creditOutcome)
-    .filter((v): v is CreditOutcome => !!v);
+    .filter((v): v is CreditOutcome => !!v)
+    .map((o) => OUTCOME_SCORE[o]);
 
-  if (outcomes.length === 0) {
+  const applicationScores = bankReviews.flatMap((r) => {
+    const outcomes = [r.creditApplicationOutcome, r.creditCardApplicationOutcome];
+    return outcomes
+      .filter((o): o is Exclude<ApplicationOutcome, "not_applied"> =>
+        o === "approved" || o === "rejected",
+      )
+      .map((o) => APPLICATION_SCORE[o]);
+  });
+
+  const scores = [...legacyScores, ...applicationScores];
+
+  if (scores.length === 0) {
     return { rate: bank.creditApprovalRate, count: bank.creditApprovalCount };
   }
 
   const baseTotal = bank.creditApprovalRate * bank.creditApprovalCount;
-  const liveTotal = outcomes.reduce((sum, o) => sum + OUTCOME_SCORE[o], 0);
-  const nextCount = bank.creditApprovalCount + outcomes.length;
+  const liveTotal = scores.reduce((sum, score) => sum + score, 0);
+  const nextCount = bank.creditApprovalCount + scores.length;
   const nextRate = Number(((baseTotal + liveTotal) / nextCount).toFixed(1));
 
   return { rate: nextRate, count: nextCount };

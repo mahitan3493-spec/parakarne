@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db, firebaseMissingMessage } from "./firebase";
 import { overallFromCategories } from "./bank-stats";
-import type { CategoryRatings, CreditOutcome } from "./types";
+import type { ApplicationOutcome, CategoryRatings, CreditOutcome, EmploymentStatus } from "./types";
 
 function requireDb() {
   if (!db) throw new Error(firebaseMissingMessage);
@@ -24,6 +24,9 @@ export async function submitReview(params: {
   bankName: string;
   categories: CategoryRatings;
   creditOutcome?: CreditOutcome;
+  creditApplicationOutcome?: ApplicationOutcome;
+  creditCardApplicationOutcome?: ApplicationOutcome;
+  employmentStatus?: EmploymentStatus;
   text: string;
 }) {
   const stars = overallFromCategories(params.categories);
@@ -38,6 +41,13 @@ export async function submitReview(params: {
     // bu yüzden kullanıcı bu opsiyonel soruyu yanıtlamadıysa alanı hiç
     // eklemiyoruz (sadece koşullu spread ile).
     ...(params.creditOutcome ? { creditOutcome: params.creditOutcome } : {}),
+    ...(params.creditApplicationOutcome
+      ? { creditApplicationOutcome: params.creditApplicationOutcome }
+      : {}),
+    ...(params.creditCardApplicationOutcome
+      ? { creditCardApplicationOutcome: params.creditCardApplicationOutcome }
+      : {}),
+    ...(params.employmentStatus ? { employmentStatus: params.employmentStatus } : {}),
     text: params.text,
     note: "Bu yorum karne ortalamasına eklendi.",
     status: "published",

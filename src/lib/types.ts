@@ -12,16 +12,25 @@ export type SubGrades = {
 export type CategoryKey = keyof SubGrades;
 
 export const CATEGORY_META: { key: CategoryKey; label: string; hint: string }[] = [
-  { key: "branch", label: "Şube Hizmetleri", hint: "Bekleme süresi, ilgi" },
   { key: "service", label: "Müşteri Hizmetleri", hint: "Çağrı merkezi, çözüm hızı" },
-  { key: "app", label: "Mobil Uygulama", hint: "Hız, arayüz, stabilite" },
   { key: "atm", label: "ATM Hizmetleri", hint: "Erişim, arıza sıklığı" },
   { key: "security", label: "Güvenlik", hint: "Dolandırıcılık koruması, güven" },
+  { key: "app", label: "Mobil Uygulama", hint: "Hız, arayüz, stabilite" },
+  { key: "branch", label: "Şube Hizmetleri", hint: "Bekleme süresi, ilgi" },
 ];
 
 // Kredi / kredi kartı başvurusunun sonucu. Yıldızla değil onay/red ile
 // ölçülür çünkü bu sübjektif bir memnuniyet değil, somut bir sonuçtur.
 export type CreditOutcome = "approved" | "conditional" | "rejected";
+export type ApplicationOutcome = "approved" | "rejected" | "not_applied";
+export type EmploymentStatus =
+  | "private_sector"
+  | "public_sector"
+  | "self_employed"
+  | "retired"
+  | "not_working"
+  | "student"
+  | "business_owner";
 
 export type Bank = {
   id: string;
@@ -59,6 +68,9 @@ export type Review = {
   // Opsiyonel: kullanıcı kredi/kredi kartı başvurusu yaptıysa sonucu.
   // Başvurmadıysa hiç gönderilmez.
   creditOutcome?: CreditOutcome;
+  creditApplicationOutcome?: ApplicationOutcome;
+  creditCardApplicationOutcome?: ApplicationOutcome;
+  employmentStatus?: EmploymentStatus;
   text: string;
   note: string;
   reportCount: number;

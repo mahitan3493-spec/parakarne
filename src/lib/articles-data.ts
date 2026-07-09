@@ -73,7 +73,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=89-1-89-2-89-3-haciz-ihbarnamesi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -127,7 +127,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=atm-kartsiz-para-yatirma-hatasi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -198,7 +198,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=atm-parayi-yuttu-ne-yapmaliyim">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -262,7 +262,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=banka-hesabinda-kisitlama-nasil-kalkar">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -317,7 +317,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=banka-hesabinda-yasal-takip-kisitlamasi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -378,7 +378,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=banka-musteri-hizmetlerine-direkt-baglanma">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -443,7 +443,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=borc-kapandi-kayit-acik">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -510,7 +510,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=borctan-dolayi-hapis-cezasi-var-mi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -565,7 +565,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=cihaz-dogrulama-hatasi-banka-uygulamasi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -626,7 +626,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=ev-esyalarina-haciz-gelir-mi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -681,7 +681,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=fast-ile-yanlis-hesaba-para-gonderme">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -742,7 +742,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=findeks-rehberi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -796,7 +796,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=goruntulu-gorusmede-nfc-hatasi-cozumu">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -876,7 +876,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=hesap-blokesi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -934,7 +934,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=hesap-kapatma">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1012,7 +1012,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=icra-tebligati">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1065,7 +1065,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=internet-bankaciligi-sifre-blokesi-kaldirma">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1125,7 +1125,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kart-aidati-iadesi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1189,7 +1189,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kart-borcu-gecikmede">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1250,7 +1250,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kartim-atm-de-kaldi-nasil-alirim">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1306,7 +1306,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=karttan-bilgim-disinda-para-cekilmesi-itiraz">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1366,7 +1366,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kkb-findeks-kaydi-hatali">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1435,7 +1435,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kredi-basvurum-neden-reddedildi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1504,7 +1504,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kredi-basvurusu-oncesi-kontrol">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1565,7 +1565,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kredi-borcu-maasa-mi-esyaya-mi-haciz-gelir">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1632,7 +1632,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kredi-karti-harcama-itirazi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1699,7 +1699,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kredi-karti-kullanimi-ve-yapilandirma">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1754,7 +1754,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kredi-karti-nakit-avansa-neden-kapanir">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1821,7 +1821,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=kredi-sigortasi-ve-hayat-sigortasi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1886,7 +1886,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=maas-haczi-ne-kadar-kesilir">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -1957,7 +1957,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=maas-hesabina-tam-blokaj-konulabilir-mi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2033,7 +2033,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=mobil-bankaciliga-giremiyorum">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2097,7 +2097,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=operator-evkur-finansman-borcu-findeks">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2151,7 +2151,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=ortak-hesaba-haciz-gelir-mi">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2211,7 +2211,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=sim-kart-blokesi-bankaya-giremiyorum">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2281,7 +2281,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=varlik-sirketine-devredilen-borclar">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2347,7 +2347,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=yanlislikla-gelen-parayi-harcamak-suc-mu">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2418,7 +2418,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=yasal-takipten-cikma">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,
@@ -2478,7 +2478,7 @@ export const articles: Article[] = [
 
   <div class="cta-box">
     <p>Durumunuzu ayrıntılı anlatıp size özel yol haritası almak veya gerekirse dilekçe taslağı hazırlatmak için:</p>
-    <a class="cta-btn" href="/?konu=yurtdisinda-sms-onay-kodu-gelmiyor">ParaKarne'ye Sor →</a>
+    <a class="cta-btn" href="/#yorumlar">ParaKarne'ye Sor →</a>
   </div>
 
   <p class="disclaimer">ParaKarne genel bilgilendirme sağlar; hukuki veya yatırım tavsiyesi vermez. Kişisel bilgilerinizi (T.C. kimlik no, IBAN, şifre, CVV) paylaşmayınız.</p>`,

@@ -11,17 +11,19 @@ export default function Header() {
   return (
     <header className="site">
       <div className="nav wrap">
-        <div className="logo">
+        <a className="logo" href="/" aria-label="ParaKarne ana sayfa">
           <div className="logo-mark">A+</div>
           <div className="logo-text">
             Para<span>Karne</span>
           </div>
-        </div>
-        <nav className="links">
-          <a href="#karsilastir">Karşılaştır</a>
-          <a href="#bankalar">Bankalar</a>
-          <a href="#yorumlar">Yorumlar</a>
-          <a href="#nasil">Nasıl Çalışır</a>
+        </a>
+        <nav className="links" aria-label="Ana menü">
+          <a href="/">Ana Sayfa</a>
+          <a href="/#karsilastir">Karşılaştır</a>
+          <a href="/#bankalar">Bankalar</a>
+          <a href="/#yorumlar">Yorumlar</a>
+          <a href="/#nasil">Nasıl Çalışır</a>
+          <a href="/tum-konular/">Tüm Konular</a>
         </nav>
         <div className="nav-actions">
           {user ? (

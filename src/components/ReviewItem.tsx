@@ -5,12 +5,28 @@ import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/lib/toast-context";
 import { useUI } from "@/lib/ui-context";
 import { reportReview } from "@/lib/reviews";
-import type { CreditOutcome, Review } from "@/lib/types";
+import type { ApplicationOutcome, CreditOutcome, EmploymentStatus, Review } from "@/lib/types";
 
 const CREDIT_LABELS: Record<CreditOutcome, string> = {
   approved: "Kredi Onaylandı",
   conditional: "Şartlı Onay",
   rejected: "Kredi Reddedildi",
+};
+
+const APPLICATION_LABELS: Record<ApplicationOutcome, string> = {
+  approved: "Onaylandı",
+  rejected: "Reddedildi",
+  not_applied: "Başvurmadı",
+};
+
+const EMPLOYMENT_LABELS: Record<EmploymentStatus, string> = {
+  private_sector: "Özel Sektör",
+  public_sector: "Kamu",
+  self_employed: "Serbest Meslek",
+  retired: "Emekli",
+  not_working: "Çalışmıyor",
+  student: "Öğrenci",
+  business_owner: "Esnaf / Şirket Sahibi",
 };
 
 export default function ReviewItem({ review }: { review: Review }) {
@@ -59,6 +75,21 @@ export default function ReviewItem({ review }: { review: Review }) {
         {review.creditOutcome && (
           <span className={`credit-badge credit-${review.creditOutcome}`}>
             {CREDIT_LABELS[review.creditOutcome]}
+          </span>
+        )}
+        {review.creditApplicationOutcome && (
+          <span className={`credit-badge credit-${review.creditApplicationOutcome}`}>
+            Kredi: {APPLICATION_LABELS[review.creditApplicationOutcome]}
+          </span>
+        )}
+        {review.creditCardApplicationOutcome && (
+          <span className={`credit-badge credit-${review.creditCardApplicationOutcome}`}>
+            Kart: {APPLICATION_LABELS[review.creditCardApplicationOutcome]}
+          </span>
+        )}
+        {review.employmentStatus && (
+          <span className="credit-badge credit-info">
+            {EMPLOYMENT_LABELS[review.employmentStatus]}
           </span>
         )}
       </div>
