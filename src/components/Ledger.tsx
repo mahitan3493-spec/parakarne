@@ -73,7 +73,7 @@ export default function Ledger() {
           </div>
         )}
         <CompareBanks />
-        <div className="ledger">
+        <div className="ledger ledger-desktop">
           <table>
             <thead>
               <tr>
@@ -108,6 +108,16 @@ export default function Ledger() {
             </tbody>
           </table>
         </div>
+
+        <div className="mobile-bank-list">
+          {loading ? (
+            <p className="skeleton-row">Bankalar yükleniyor…</p>
+          ) : sorted.length === 0 ? (
+            <p className="skeleton-row">Henüz banka verisi eklenmedi.</p>
+          ) : (
+            sorted.map((b) => <MobileBankCard key={b.id} bank={b} />)
+          )}
+        </div>
         <p
           style={{ fontSize: "11.5px", color: "var(--ink-faint)", marginTop: "10px" }}
           className="mono"
@@ -121,14 +131,20 @@ export default function Ledger() {
 
 function LedgerRow({ bank }: { bank: Bank }) {
   const { openBankModal } = useUI();
+  const bankUrl = `/banka/${bank.id}/`;
+
+  function goToBankPage() {
+    window.location.href = bankUrl;
+  }
+
   return (
-    <tr onClick={() => openBankModal(bank.id, "detail")}>
+    <tr onClick={goToBankPage}>
       <td>
         <div className="bank-cell">
           <BankLogo bank={bank} small />
           <div className="bank-name">
             <Link
-              href={`/banka/${bank.id}/`}
+              href={bankUrl}
               onClick={(e) => e.stopPropagation()}
             >
               {bank.name}
@@ -157,7 +173,7 @@ function LedgerRow({ bank }: { bank: Bank }) {
       </td>
       <td>
         <div className="ledger-actions" onClick={(e) => e.stopPropagation()}>
-          <button className="ledger-action" onClick={() => openBankModal(bank.id, "detail")}>
+          <button className="ledger-action" onClick={goToBankPage}>
             İncele
           </button>
           <button className="ledger-action primary" onClick={() => openBankModal(bank.id, "rating")}>
@@ -166,5 +182,60 @@ function LedgerRow({ bank }: { bank: Bank }) {
         </div>
       </td>
     </tr>
+  );
+}
+
+function MobileBankCard({ bank }: { bank: Bank }) {
+  const { openBankModal } = useUI();
+  const bankUrl = `/banka/${bank.id}/`;
+
+  function goToBankPage() {
+    window.location.href = bankUrl;
+  }
+
+  return (
+    <article className="mobile-bank-card">
+      <button className="mobile-bank-main" type="button" onClick={goToBankPage}>
+        <div className="bank-cell">
+          <BankLogo bank={bank} small />
+          <div className="bank-name">
+            <span>{bank.name}</span>
+            <small>Ticari &amp; Bireysel Bankacılık</small>
+          </div>
+        </div>
+        <span className={`grade-pill ${gradeClassOf(bank.grade)}`}>{bank.grade}</span>
+      </button>
+
+      <div className="mobile-bank-stats">
+        <div>
+          <span className="mobile-stat-label">Kullanıcı puanı</span>
+          {bank.reviewCount > 0 ? (
+            <strong>
+              <span className="stars">{starString(bank.rating)}</span>{" "}
+              <span>{bank.rating}</span>
+            </strong>
+          ) : (
+            <strong>Henüz not yok</strong>
+          )}
+        </div>
+        <div>
+          <span className="mobile-stat-label">Yorum</span>
+          <strong>{bank.reviewCount.toLocaleString("tr-TR")}</strong>
+        </div>
+      </div>
+
+      <div className="mobile-bank-actions">
+        <button className="ledger-action" type="button" onClick={goToBankPage}>
+          İncele
+        </button>
+        <button
+          className="ledger-action primary"
+          type="button"
+          onClick={() => openBankModal(bank.id, "rating")}
+        >
+          Puanla
+        </button>
+      </div>
+    </article>
   );
 }

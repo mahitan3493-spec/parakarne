@@ -12,6 +12,10 @@ export default function BankGrid() {
   const { banks, loading } = useBanks();
   const { reviews } = useReviews();
   const { openBankModal } = useUI();
+
+  function goToBankPage(bankId: string) {
+    window.location.href = `/banka/${bankId}/`;
+  }
   // "Öne çıkanlar" gerçekten en yüksek puanlı, gerçekten yorum almış
   // bankalar olmalı — dizideki ilk 6 banka değil. Henüz yorum almamış
   // bankalar bu listeye hiç girmez.
@@ -53,9 +57,9 @@ export default function BankGrid() {
                 className="bcard"
                 role="button"
                 tabIndex={0}
-                onClick={() => openBankModal(b.id, "detail")}
+                onClick={() => goToBankPage(b.id)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") openBankModal(b.id, "detail");
+                  if (e.key === "Enter" || e.key === " ") goToBankPage(b.id);
                 }}
               >
                 <div className="bcard-top">
@@ -75,7 +79,7 @@ export default function BankGrid() {
                   <span>{b.reviewCount.toLocaleString("tr-TR")} yorum</span>
                 </div>
                 <div className="bcard-actions" onClick={(e) => e.stopPropagation()}>
-                  <button className="ledger-action" onClick={() => openBankModal(b.id, "detail")}>
+                  <button className="ledger-action" onClick={() => goToBankPage(b.id)}>
                     İncele
                   </button>
                   <button className="ledger-action primary" onClick={() => openBankModal(b.id, "rating")}>

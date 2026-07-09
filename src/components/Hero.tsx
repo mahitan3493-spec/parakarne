@@ -1,18 +1,14 @@
 "use client";
 
 import { useMemo } from "react";
-import { useAuth } from "@/lib/auth-context";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { applyReviewStatsToBanks } from "@/lib/bank-stats";
 import { gradeClassOf, letterFromScore } from "@/lib/grades";
 import { CATEGORY_META } from "@/lib/types";
-import { useUI } from "@/lib/ui-context";
 import BankLogo from "./BankLogo";
 
 export default function Hero() {
-  const { user } = useAuth();
-  const { openAuthModal } = useUI();
   const { banks } = useBanks();
   const { reviews } = useReviews();
 
@@ -45,12 +41,8 @@ export default function Hero() {
     )[0];
   }, [updated]);
 
-  function handleNotVer() {
-    if (user) {
-      document.getElementById("yorumlar")?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      openAuthModal("signup");
-    }
+  function handleBankaniPuanla() {
+    document.getElementById("bankalar")?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
@@ -77,8 +69,8 @@ export default function Hero() {
             >
               Bankaları Karşılaştır
             </button>
-            <button className="btn" onClick={handleNotVer}>
-              Sen de Not Ver
+            <button className="btn" onClick={handleBankaniPuanla}>
+              Bankanı Puanla
             </button>
           </div>
           <div className="hero-stats">
@@ -149,8 +141,8 @@ export default function Hero() {
             >
               İlk yorumu sen bırak, karneyi sen başlat.
             </p>
-            <button className="btn primary" style={{ width: "100%" }} onClick={handleNotVer}>
-              İlk Notu Ver
+            <button className="btn primary" style={{ width: "100%" }} onClick={handleBankaniPuanla}>
+              İlk Bankayı Puanla
             </button>
           </div>
         )}

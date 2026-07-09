@@ -127,6 +127,11 @@ export default function BankDetailModal() {
     window.location.href = "/";
   }
 
+  function goToBankPage() {
+    closeBankModal();
+    window.location.href = `/banka/${bank!.id}/`;
+  }
+
   function handleNextFromRatings() {
     if (filledCount < applicableCategories.length) {
       showToast("Lütfen tüm hizmet kategorilerine puan ver.");
@@ -430,7 +435,7 @@ export default function BankDetailModal() {
               </span>
             </div>
             <div className="success-actions">
-              <button className="btn primary" onClick={() => goToStep(1)}>
+              <button className="btn primary" onClick={goToBankPage}>
                 Bankayı İncele
               </button>
               <button className="btn" onClick={goBackToBankList}>

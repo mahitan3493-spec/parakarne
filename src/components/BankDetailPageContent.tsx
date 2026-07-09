@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo } from "react";
-import { useRouter } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import AuthModal from "./AuthModal";
 import ProfileModal from "./ProfileModal";
+import BankDetailModal from "./BankDetailModal";
 import ReviewItem from "./ReviewItem";
 import BankLogo from "./BankLogo";
 import Link from "next/link";
@@ -19,8 +19,7 @@ import { CATEGORY_META } from "@/lib/types";
 export default function BankDetailPageContent({ bankId }: { bankId: string }) {
   const { banks } = useBanks();
   const { reviews } = useReviews();
-  const { setReviewFormBank } = useUI();
-  const router = useRouter();
+  const { openBankModal } = useUI();
 
   const rawBank = banks.find((b) => b.id === bankId);
   const bank = useMemo(
@@ -45,8 +44,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
   const bankReviews = visibleReviews(reviews).filter((r) => r.bankId === bank.id);
 
   function handleReviewCta() {
-    setReviewFormBank(bank!.name);
-    router.push("/#yorumlar");
+    openBankModal(bank!.id, "rating");
   }
 
   return (
@@ -133,7 +131,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
             </p>
 
             <button className="btn primary" onClick={handleReviewCta}>
-              Bu Bankaya Yorum Yap
+              Bu Bankayı Puanla
             </button>
 
             <h2 style={{ marginTop: 32 }}>Kullanıcı Yorumları</h2>
@@ -151,6 +149,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
       </main>
       <Footer />
       <AuthModal />
+      <BankDetailModal />
       <ProfileModal />
     </>
   );

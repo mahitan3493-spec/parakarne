@@ -1989,3 +1989,135 @@ tbody tr,
     width: 100%;
   }
 }
+
+/* ===== mobile bank cards + simplified reviews ===== */
+.mobile-bank-list {
+  display: none;
+}
+.review-cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.review-only-layout {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.review-list-wide {
+  width: 100%;
+}
+.empty-review-card {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  padding: 24px;
+  text-align: center;
+  box-shadow: 6px 6px 0 rgba(22, 35, 61, 0.08);
+}
+.empty-review-card h3 {
+  font-family: var(--font-display), serif;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.empty-review-card p {
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+@media (max-width: 700px) {
+  .ledger-desktop {
+    display: none;
+  }
+  .mobile-bank-list {
+    display: grid;
+    gap: 14px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 14px 0;
+  }
+  .mobile-bank-card {
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    padding: 16px;
+    box-shadow: 4px 4px 0 rgba(22, 35, 61, 0.06);
+  }
+  .mobile-bank-main {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+  }
+  .mobile-bank-main .bank-name {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .mobile-bank-main .bank-name small {
+    display: block;
+    margin-top: 3px;
+    font-size: 11.5px;
+  }
+  .mobile-bank-main .bank-logo-wrap.small,
+  .mobile-bank-main .bank-swatch {
+    width: 42px;
+    height: 42px;
+    font-size: 13px;
+  }
+  .mobile-bank-main .grade-pill {
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .mobile-bank-stats {
+    display: grid;
+    grid-template-columns: 1fr 0.75fr;
+    gap: 10px;
+    margin: 14px 0;
+    padding: 12px 0;
+    border-top: 1px solid var(--paper-line);
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .mobile-bank-stats > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-stat-label {
+    font-family: var(--font-mono), monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .mobile-bank-stats strong {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .mobile-bank-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .mobile-bank-actions .ledger-action {
+    width: 100%;
+    min-height: 44px;
+    font-size: 15px;
+  }
+  .review-cta-actions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .review-cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
