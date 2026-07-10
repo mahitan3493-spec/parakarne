@@ -1,17 +1,57 @@
 {
-  "name": "ParaKarne",
+  "name": "ParaKarne - Banka Yorumları ve Karşılaştırma",
   "short_name": "ParaKarne",
-  "description": "Türkiye'nin banka karnesi",
-  "start_url": "/",
+  "description": "Türkiye'deki bankaları gerçek kullanıcı yorumları, puanları ve onay oranlarıyla karşılaştırın.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#f3eee0",
   "theme_color": "#33477A",
+  "lang": "tr-TR",
+  "dir": "ltr",
+  "categories": ["finance", "productivity", "utilities"],
   "icons": [
     {
-      "src": "/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bankaları Karşılaştır",
+      "short_name": "Karşılaştır",
+      "description": "Bankaları kullanıcı puanları ve onay oranlarıyla karşılaştırın.",
+      "url": "/#karsilastir",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Tüm Konular",
+      "short_name": "Konular",
+      "description": "Bankacılık, kredi, icra ve hesap sorunları rehberleri.",
+      "url": "/tum-konular/",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

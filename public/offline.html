@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Bağlantı Yok | ParaKarne</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f3eee0;
+        --card: #ffffff;
+        --ink: #16233d;
+        --muted: #607089;
+        --brand: #33477a;
+        --accent: #c41f35;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at top left, rgba(51, 71, 122, 0.15), transparent 34%), var(--bg);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        padding: 24px;
+      }
+      main {
+        width: min(100%, 440px);
+        background: var(--card);
+        border: 1px solid rgba(22, 35, 61, 0.1);
+        border-radius: 28px;
+        padding: 28px;
+        box-shadow: 0 24px 80px rgba(22, 35, 61, 0.14);
+        text-align: center;
+      }
+      .mark {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 18px;
+        display: grid;
+        place-items: center;
+        border-radius: 24px;
+        background: var(--ink);
+        color: white;
+        font-weight: 900;
+        font-size: 24px;
+        box-shadow: inset 0 0 0 6px var(--accent);
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(24px, 6vw, 34px);
+        letter-spacing: -0.04em;
+      }
+      p {
+        margin: 0 auto 22px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      button, a {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        background: var(--brand);
+        color: white;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        min-height: 46px;
+        padding: 0 20px;
+        text-decoration: none;
+      }
+      .hint {
+        margin-top: 18px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="mark">A+</div>
+      <h1>İnternet bağlantısı yok</h1>
+      <p>ParaKarne’ye tekrar bağlanınca bankaları incelemeye, karşılaştırmaya ve kullanıcı yorumlarını görmeye devam edebilirsiniz.</p>
+      <button type="button" onclick="window.location.reload()">Tekrar dene</button>
+      <div class="hint">Canlı puan ve yorum verileri internet bağlantısı gerektirir.</div>
+    </main>
+  </body>
+</html>

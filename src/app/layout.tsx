@@ -5,6 +5,7 @@ import { ToastProvider } from "@/lib/toast-context";
 import { UIProvider } from "@/lib/ui-context";
 import { BanksProvider } from "@/lib/banks-context";
 import { ReviewsProvider } from "@/lib/reviews-context";
+import PwaRegister from "@/components/PwaRegister";
 
 const siteUrl = "https://parakarne.com";
 
@@ -38,6 +39,23 @@ export const metadata: Metadata = {
   creator: "ParaKarne",
   alternates: { canonical: "/" },
   manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "ParaKarne",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -67,6 +85,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#33477A",
+  colorScheme: "light",
 };
 
 
@@ -115,6 +134,7 @@ export default function RootLayout({
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <PwaRegister />
         <AuthProvider>
           <ToastProvider>
             <UIProvider>
