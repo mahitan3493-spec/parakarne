@@ -1,5 +1,5 @@
 {
-  "name": "ParaKarne - Banka Yorumları ve Karşılaştırma",
+  "name": "ParaKarne",
   "short_name": "ParaKarne",
   "description": "Türkiye'deki bankaları gerçek kullanıcı yorumları, puanları ve onay oranlarıyla karşılaştırın.",
   "id": "/",
@@ -8,7 +8,7 @@
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#f3eee0",
-  "theme_color": "#33477A",
+  "theme_color": "#f3eee0",
   "lang": "tr-TR",
   "dir": "ltr",
   "categories": ["finance", "productivity", "utilities"],

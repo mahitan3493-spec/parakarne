@@ -84,7 +84,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#33477A",
+  themeColor: "#f3eee0",
   colorScheme: "light",
 };
 
@@ -96,7 +96,8 @@ const websiteJsonLd = {
   url: siteUrl,
   inLanguage: "tr-TR",
   description:
-    "ParaKarne, Türkiye'deki bankaları gerçek kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimlerine göre karşılaştırmaya yardımcı olan bağımsız bir banka değerlendirme platformudur.",
+    "ParaKarne.com, Türkiye'deki bankaları gerçek kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimlerine göre karşılaştırmaya yardımcı olan bağımsız bir banka değerlendirme platformudur.",
+  alternateName: ["ParaKarne.com", "Para Karne"],
   publisher: {
     "@type": "Organization",
     name: "ParaKarne",
@@ -113,7 +114,8 @@ const organizationJsonLd = {
   logo: `${siteUrl}/icon.svg`,
   sameAs: [],
   description:
-    "ParaKarne, banka kullanıcı yorumları, banka puanları, mobil uygulama deneyimleri, müşteri hizmetleri, ATM, güvenlik, şube hizmetleri ve kredi/kredi kartı onay oranlarını karşılaştırmaya odaklanan bağımsız bir platformdur.",
+    "ParaKarne.com, banka kullanıcı yorumları, banka puanları, mobil uygulama deneyimleri, müşteri hizmetleri, ATM, güvenlik, şube hizmetleri ve kredi/kredi kartı onay oranlarını karşılaştırmaya odaklanan bağımsız bir platformdur.",
+  alternateName: ["ParaKarne.com", "Para Karne"],
 };
 
 export default function RootLayout({
