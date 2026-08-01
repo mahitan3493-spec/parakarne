@@ -23,15 +23,22 @@ export default function PwaRegister() {
 
     setUpdating(true);
 
-    if (registration.waiting) {
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    const waitingWorker = registration.waiting;
+    if (waitingWorker) {
+      waitingWorker.postMessage({ type: "SKIP_WAITING" });
       return;
     }
 
     await checkForUpdate();
 
-    if (registration.waiting) {
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    // Güncelleme kontrolünden sonra registration nesnesini ref üzerinden
+    // yeniden oku. Bu hem gerçek waiting worker'ı yakalar hem de TypeScript'in
+    // önceki null daraltmasına takılmasını önler.
+    const refreshedRegistration = registrationRef.current;
+    const refreshedWaitingWorker = refreshedRegistration?.waiting;
+
+    if (refreshedWaitingWorker) {
+      refreshedWaitingWorker.postMessage({ type: "SKIP_WAITING" });
       return;
     }
 
