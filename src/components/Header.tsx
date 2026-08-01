@@ -34,6 +34,11 @@ export default function Header() {
     openProfileModal();
   }
 
+  function checkPwaUpdate() {
+    closeMobileMenu();
+    window.dispatchEvent(new Event("parakarne:check-update"));
+  }
+
   return (
     <header className={`site${mobileOpen ? " mobile-open" : ""}`}>
       <div className="nav wrap">
@@ -96,6 +101,11 @@ export default function Header() {
           ))}
         </div>
         <div className="mobile-auth-actions">
+          <button type="button" className="mobile-update-check" onClick={checkPwaUpdate}>
+            <span className="mobile-update-icon" aria-hidden="true">↻</span>
+            <span>Güncellemeleri Kontrol Et</span>
+            <small>V17</small>
+          </button>
           {user ? (
             <button type="button" className="mobile-profile-button" onClick={openMobileProfile}>
               <span className="profile-avatar">{initialsOf(user.displayName || user.email || "?")}</span>

@@ -7,6 +7,7 @@ import { applyReviewStatsToBanks } from "@/lib/bank-stats";
 import { gradeClassOf, letterFromScore } from "@/lib/grades";
 import { CATEGORY_META, type Bank } from "@/lib/types";
 import BankLogo from "./BankLogo";
+import RateBankButton from "./RateBankButton";
 
 type RowKind = "score" | "count" | "grade" | "percent";
 
@@ -29,8 +30,11 @@ export default function CompareBanks() {
   const [idA, setIdA] = useState("");
   const [idB, setIdB] = useState("");
 
-  const bankA = stats.find((b) => b.id === idA) ?? stats[0];
-  const bankB = stats.find((b) => b.id === idB) ?? stats[1];
+  const liveBanks = stats.filter((bank) => bank.reviewCount > 0);
+  const defaultBankA = liveBanks[0] ?? stats[0];
+  const defaultBankB = liveBanks[1] ?? stats.find((bank) => bank.id !== defaultBankA?.id);
+  const bankA = stats.find((b) => b.id === idA) ?? defaultBankA;
+  const bankB = stats.find((b) => b.id === idB) ?? defaultBankB;
 
   if (!bankA || !bankB) return null;
 
@@ -101,7 +105,7 @@ export default function CompareBanks() {
               ParaKarne örnek veya sahte puan göstermez.
             </p>
           </div>
-          <a className="btn primary" href="#bankalar">İlk Puanı Ver</a>
+          <RateBankButton className="btn primary">İlk Puanı Ver</RateBankButton>
         </div>
       )}
 
@@ -111,7 +115,8 @@ export default function CompareBanks() {
         </div>
       )}
 
-      <div className="compare-rows">
+      {hasAnyLiveData && (
+        <div className="compare-rows">
         {rows.map((row) => {
           const aTone = toneFor(row.aValue, row.bValue);
           const bTone = toneFor(row.bValue, row.aValue);
@@ -123,7 +128,8 @@ export default function CompareBanks() {
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

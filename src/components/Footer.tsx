@@ -28,6 +28,7 @@ export default function Footer() {
             <Link href="/tum-konular">Tüm Konular</Link>
             <Link href="/#karsilastir">Banka Karşılaştırma</Link>
             <Link href="/#yorumlar">Kullanıcı Yorumları</Link>
+            <Link href="/#sss">Sıkça Sorulan Sorular</Link>
             <Link href="/hakkimizda">Hakkımızda</Link>
           </div>
         </div>
@@ -42,11 +43,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="wrap footer-disclaimer">
-        ParaKarne bir bankanın resmî temsilcisi değildir. Platformdaki puanlar,
-        yorumlar ve karşılaştırmalar kullanıcı deneyimlerine dayanır; yatırım,
-        kredi veya kesin finansal yönlendirme niteliği taşımaz. Nihai karar öncesinde
-        ilgili bankaların resmî kanallarını kontrol edin.
+      <div className="wrap footer-disclaimer footer-disclaimer-short">
+        <span>Bağımsız kullanıcı değerlendirme platformu.</span>
+        <Link href="/kullanim-sartlari#sorumluluk-siniri">Yasal Uyarı</Link>
       </div>
     </footer>
   );

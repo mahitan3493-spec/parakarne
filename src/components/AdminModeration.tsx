@@ -11,6 +11,7 @@ import { useReviews } from "@/lib/reviews-context";
 import { useToast } from "@/lib/toast-context";
 import { useUI } from "@/lib/ui-context";
 import { approveReview, deleteReview, hideReview } from "@/lib/reviews";
+import { isReviewUnderModeration } from "@/lib/moderation";
 
 const fallbackAdminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL?.toLowerCase();
 
@@ -51,8 +52,8 @@ export default function AdminModeration() {
       reviews
         .filter((review) => review.reportCount > 0 || review.status === "hidden")
         .sort((a, b) => {
-          const aPriority = a.reportCount >= 3 ? 1 : 0;
-          const bPriority = b.reportCount >= 3 ? 1 : 0;
+          const aPriority = isReviewUnderModeration(a) ? 1 : 0;
+          const bPriority = isReviewUnderModeration(b) ? 1 : 0;
           return bPriority - aPriority || b.reportCount - a.reportCount;
         }),
     [reviews],
@@ -108,7 +109,7 @@ export default function AdminModeration() {
                       <p>
                         <strong>{review.bankName}</strong> — {review.userName}
                         <span className="badge-soft">{review.reportCount} bildirim</span>
-                        {review.reportCount >= 3 && <span className="badge-soft badge-alert">öncelikli inceleme</span>}
+                        {isReviewUnderModeration(review) && <span className="badge-soft badge-alert">öncelikli inceleme</span>}
                         {review.status === "hidden" && <span className="badge-soft">gizli</span>}
                       </p>
                       <p>{review.text}</p>

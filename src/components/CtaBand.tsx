@@ -1,9 +1,8 @@
 "use client";
 
-import { useUI } from "@/lib/ui-context";
+import RateBankButton from "./RateBankButton";
 
 export default function CtaBand() {
-  const { openAuthModal } = useUI();
   return (
     <section className="cta-band">
       <div className="wrap cta-band-inner">
@@ -11,14 +10,12 @@ export default function CtaBand() {
           <div className="sec-num" style={{ color: "rgba(255,255,255,0.7)", marginBottom: 10 }}>TOPLULUĞA KATIL</div>
           <h2>Senin deneyimin, başkasının daha doğru banka seçimi olabilir.</h2>
           <p>
-            Ücretsiz üye ol, bankanı puanla ve kredi / kart başvuru deneyimini paylaş.
-            ParaKarne'deki her katkı platformun güvenilirliğini artırır.
+            Bankanı seç, puanlama formunu aç ve kredi / kart başvuru deneyimini paylaş.
+            Henüz üye değilsen form sürecinde ücretsiz hesabını oluşturabilirsin.
           </p>
         </div>
         <div className="hero-ctas cta-buttons" style={{ justifyContent: "center" }}>
-          <button className="btn primary" onClick={() => openAuthModal("signup")}>
-            Ücretsiz Üye Ol
-          </button>
+          <RateBankButton className="btn primary">Bankanı Puanla</RateBankButton>
           <button
             className="btn btn-ghost-light"
             onClick={() =>

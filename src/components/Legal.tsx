@@ -20,9 +20,9 @@ export default function Legal() {
               yorumu &quot;Bildir&quot; butonuyla işaretleyebilirsin.
             </li>
             <li>
-              3&apos;ten fazla bildirim alan yorumlar otomatik olarak
-              incelemeye alınır ve moderatör onayına kadar
-              &quot;İncelemede&quot; etiketiyle gösterilir.
+              3 veya daha fazla bildirim alan yorumlar genel puan ve yorum
+              akışından otomatik olarak çıkarılır; moderasyon panelinde
+              incelemeye alınır.
             </li>
             <li>
               Bankalar, kendileriyle ilgili yorumlara{" "}

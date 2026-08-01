@@ -6,6 +6,7 @@ import { useToast } from "@/lib/toast-context";
 import { useUI } from "@/lib/ui-context";
 import { reportReview } from "@/lib/reviews";
 import type { ApplicationOutcome, CreditOutcome, EmploymentStatus, FindeksScoreRange, Review } from "@/lib/types";
+import { isReviewUnderModeration, REVIEW_REPORT_THRESHOLD } from "@/lib/moderation";
 
 const CREDIT_LABELS: Record<CreditOutcome, string> = {
   approved: "Kredi Onaylandı",
@@ -45,7 +46,7 @@ export default function ReviewItem({ review }: { review: Review }) {
   const { openAuthModal } = useUI();
   const [submitting, setSubmitting] = useState(false);
 
-  const flagged = review.reportCount >= 3;
+  const flagged = isReviewUnderModeration(review);
   const alreadyReported = !!user && review.reportedBy.includes(user.uid);
 
   async function handleReport() {
@@ -59,7 +60,7 @@ export default function ReviewItem({ review }: { review: Review }) {
     try {
       await reportReview(review.id, user.uid);
       showToast(
-        review.reportCount + 1 >= 3
+        review.reportCount + 1 >= REVIEW_REPORT_THRESHOLD
           ? "Yorum incelemeye alındı."
           : "Bildirimin alındı, teşekkürler.",
       );
@@ -110,7 +111,7 @@ export default function ReviewItem({ review }: { review: Review }) {
       </div>
       <div className="rev-text">
         {flagged
-          ? "Bu yorum, birden fazla bildirim aldığı için incelemeye alındı."
+          ? "Bu yorum, 3 veya daha fazla bildirim aldığı için moderasyon incelemesine alındı."
           : review.text}
       </div>
       {!flagged && <div className="rev-margin">{review.note}</div>}

@@ -43,10 +43,10 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon-v12-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-v12-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/icon-v15-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-v15-512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon-v12.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon-v15.png", sizes: "180x180", type: "image/png" }],
   },
   appleWebApp: {
     capable: true,

@@ -1,17 +1,20 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useReviews } from "@/lib/reviews-context";
 import { visibleReviews } from "@/lib/bank-stats";
 import ReviewItem from "./ReviewItem";
+import RateBankButton from "./RateBankButton";
 
 export default function Reviews() {
   const { reviews, loading } = useReviews();
+  const [showAll, setShowAll] = useState(false);
   const publishedReviews = useMemo(
     () => visibleReviews(reviews).filter((review) => review.status !== "hidden"),
     [reviews],
   );
+  const displayedReviews = showAll ? publishedReviews : publishedReviews.slice(0, 3);
 
   return (
     <section id="yorumlar">
@@ -21,14 +24,12 @@ export default function Reviews() {
             <div className="sec-num">GERÇEK DENEYİMLER</div>
             <h2>Bankacılık deneyimleri burada konuşuluyor</h2>
             <p>
-              Gerçek kullanıcı yorumlarını incele, banka deneyimlerini karşılaştır.
-              Puan vermek için banka kartındaki <strong>Puanla</strong> butonunu kullan.
+              Son kullanıcı yorumlarını incele, banka deneyimlerini karşılaştır.
+              <strong>Bankanı Puanla</strong> butonuyla bankanı seçip formu doğrudan aç.
             </p>
           </div>
           <div className="review-cta-actions">
-            <Link className="btn primary" href="/#bankalar">
-              Bankanı Puanla
-            </Link>
+            <RateBankButton className="btn primary">Bankanı Puanla</RateBankButton>
             <Link className="btn" href="/#karsilastir">
               Bankaları Karşılaştır
             </Link>
@@ -47,14 +48,19 @@ export default function Reviews() {
               <div className="empty-review-card">
                 <h3>Henüz yorum yok</h3>
                 <p>İlk puanı sen ver; yorumun burada görünsün.</p>
-                <Link className="btn primary" href="/#bankalar">
-                  İlk Bankayı Puanla
-                </Link>
+                <RateBankButton className="btn primary">İlk Bankayı Puanla</RateBankButton>
               </div>
             ) : (
-              publishedReviews.map((r) => <ReviewItem key={r.id} review={r} />)
+              displayedReviews.map((r) => <ReviewItem key={r.id} review={r} />)
             )}
           </div>
+          {!loading && publishedReviews.length > 3 && (
+            <div className="reviews-more-row">
+              <button className="btn" type="button" onClick={() => setShowAll((value) => !value)}>
+                {showAll ? "Son 3 Yorumu Göster" : `Tüm Yorumları Göster (${publishedReviews.length})`}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

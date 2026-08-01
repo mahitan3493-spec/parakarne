@@ -1,5 +1,6 @@
 import type { ApplicationOutcome, Bank, CategoryKey, CreditOutcome, Review, SubGrades } from "./types";
 import { letterFromScore } from "./grades";
+import { isReviewUnderModeration } from "./moderation";
 
 const CATEGORY_KEYS: CategoryKey[] = ["branch", "service", "app", "atm", "security"];
 
@@ -22,7 +23,7 @@ export function visibleReviews(reviews: Review[]): Review[] {
   return reviews.filter(
     (review) =>
       review.status !== "hidden" &&
-      review.reportCount < 3 &&
+      !isReviewUnderModeration(review) &&
       typeof review.bankId === "string" &&
       review.bankId.length > 0 &&
       typeof review.stars === "number" &&

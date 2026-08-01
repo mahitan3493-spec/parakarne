@@ -6,6 +6,7 @@ import BankGrid from "@/components/BankGrid";
 import Reviews from "@/components/Reviews";
 import HowItWorks from "@/components/HowItWorks";
 import CtaBand from "@/components/CtaBand";
+import HomeFaq from "@/components/HomeFaq";
 import Legal from "@/components/Legal";
 import Footer from "@/components/Footer";
 import AuthModal from "@/components/AuthModal";
@@ -56,6 +57,7 @@ export default function Home() {
       <BankGrid />
       <Reviews />
       <HowItWorks />
+      <HomeFaq />
       <CtaBand />
       <Legal />
       <Footer />

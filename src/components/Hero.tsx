@@ -7,6 +7,7 @@ import { applyReviewStatsToBanks, visibleReviews } from "@/lib/bank-stats";
 import { gradeClassOf, letterFromScore } from "@/lib/grades";
 import { CATEGORY_META } from "@/lib/types";
 import BankLogo from "./BankLogo";
+import RateBankButton from "./RateBankButton";
 
 export default function Hero() {
   const { banks } = useBanks();
@@ -36,10 +37,6 @@ export default function Hero() {
     )[0];
   }, [updated]);
 
-  function handleBankaniPuanla() {
-    document.getElementById("bankalar")?.scrollIntoView({ behavior: "smooth" });
-  }
-
   return (
     <section className="hero">
       <div className="hero-shell wrap">
@@ -68,23 +65,23 @@ export default function Hero() {
               >
                 Bankaları Karşılaştır
               </button>
-              <button className="btn hero-rate-btn" onClick={handleBankaniPuanla}>
+              <RateBankButton className="btn hero-rate-btn">
                 <span className="hero-rate-icon" aria-hidden="true">★</span>
                 <span>Bankanı Puanla</span>
-              </button>
+              </RateBankButton>
             </div>
             <div className="hero-stats hero-stats-pro">
               <div>
                 <span className="num">{stats.bankCount}</span>
-                <span className="lbl">takip edilen banka</span>
+                <span className="lbl">Takip Edilen Banka</span>
               </div>
               <div>
                 <span className="num">{reviewsLoading ? "1+" : stats.reviewCount.toLocaleString("tr-TR")}</span>
-                <span className="lbl">yayındaki kullanıcı yorumu</span>
+                <span className="lbl">Yayındaki Kullanıcı Yorumu</span>
               </div>
               <div>
                 <span className="num">{reviewsLoading ? "canlı" : stats.avg}</span>
-                <span className="lbl">ortalama kullanıcı puanı</span>
+                <span className="lbl">Ortalama Kullanıcı Puanı</span>
               </div>
             </div>
           </div>
@@ -150,9 +147,9 @@ export default function Hero() {
               >
                 İlk puanı ve yorumunu bırak, karneyi sen başlat.
               </p>
-              <button className="btn primary" style={{ width: "100%" }} onClick={handleBankaniPuanla}>
+              <RateBankButton className="btn primary" disabled={banks.length === 0}>
                 İlk Bankayı Puanla
-              </button>
+              </RateBankButton>
             </div>
           )}
         </div>

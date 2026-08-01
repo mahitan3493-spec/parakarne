@@ -22,9 +22,9 @@ export default function TermsPage() {
       <ul>
         <li>Hakaret, tehdit, kişisel veri, telefon, IBAN, reklam ve yanıltıcı bilgi paylaşılmamalıdır.</li>
         <li>Yorumlar gerçek deneyime dayanmalı, başka kişileri hedef göstermemelidir.</li>
-        <li>Bildirim alan yorumlar otomatik incelemeye alınabilir veya gizlenebilir.</li>
+        <li>3 veya daha fazla bildirim alan yorumlar genel puan ve yorum akışından çıkarılarak moderasyon incelemesine alınır.</li>
       </ul>
-      <h2>Sorumluluk sınırı</h2>
+      <h2 id="sorumluluk-siniri">Sorumluluk sınırı</h2>
       <p>
         Sitedeki puanlar gerçek kullanıcı yorumlarıyla oluşur. Buradaki bilgiler yatırım tavsiyesi, kredi tavsiyesi veya kesin finansal yönlendirme niteliği taşımaz. Faiz, ücret ve kampanya bilgileri değişebilir; resmî işlem yapmadan önce ilgili bankanın kendi kanallarından teyit alınmalıdır.
       </p>

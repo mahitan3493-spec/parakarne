@@ -20,7 +20,7 @@ export default function AppealPage() {
       </p>
       <h2>Kullanıcı bildirimi</h2>
       <p>
-        Her yorumun altında yer alan “Bildir” butonu ile yorum işaretlenebilir. Üç veya daha fazla bildirim alan yorumlar otomatik olarak inceleme durumuna alınır.
+        Her yorumun altında yer alan “Bildir” butonu ile yorum işaretlenebilir. 3 veya daha fazla bildirim alan yorumlar genel puan ve yorum akışından otomatik olarak çıkarılır ve moderasyon panelinde incelemeye alınır.
       </p>
       <h2>Kurum/banka itirazı</h2>
       <p>
