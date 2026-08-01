@@ -4641,3 +4641,52 @@ nav.links {
     margin: 0 auto;
   }
 }
+
+/* ===== Final mobile alignment polish v9 ===== */
+.logo {
+  gap: 14px !important;
+}
+
+.nav-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.profile-chip,
+.mobile-menu-btn {
+  align-self: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+  .hero h1 {
+    line-height: 1.18 !important;
+    letter-spacing: -0.038em;
+  }
+
+  .hero-mini-list span {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-height: 30px;
+    padding: 2px 0 !important;
+  }
+
+  .hero-mini-list span::before {
+    position: static !important;
+    flex: 0 0 auto;
+    line-height: 1;
+    transform: translateY(0);
+  }
+
+  .nav-actions {
+    min-height: 44px;
+  }
+
+  .profile-chip,
+  .mobile-menu-btn {
+    min-height: 44px;
+  }
+}
