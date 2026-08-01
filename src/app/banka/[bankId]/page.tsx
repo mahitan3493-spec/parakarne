@@ -38,7 +38,7 @@ export async function generateMetadata({
       title,
       description,
       type: "website",
-      images: [{ url: "/og-image-v8.png", width: 1200, height: 630, alt: `${bank.name} kullanıcı yorumları | ParaKarne` }],
+      images: [{ url: "/parakarne-paylasim.png", width: 1200, height: 630, alt: `${bank.name} kullanıcı yorumları | ParaKarne` }],
     },
   };
 }

@@ -1,11 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#f3eee0"/>
-  <path d="M0 80H1200M0 160H1200M0 240H1200M0 320H1200M0 400H1200M0 480H1200M0 560H1200" stroke="#ded3b4" stroke-width="2"/>
-  <circle cx="180" cy="180" r="76" fill="#16233d"/>
-  <text x="180" y="206" text-anchor="middle" font-family="Georgia, serif" font-size="54" font-weight="900" fill="#ffffff">A+</text>
-  <text x="300" y="170" font-family="Georgia, serif" font-size="82" font-weight="800" fill="#16233d">Para<tspan fill="#c41f35">Karne</tspan></text>
-  <text x="304" y="238" font-family="Arial, sans-serif" font-size="30" fill="#4a5878">Bankanızın notu ne?</text>
-  <rect x="300" y="310" width="600" height="86" rx="10" fill="#fbf8ef" stroke="#16233d" stroke-width="3"/>
-  <text x="330" y="363" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#16233d">Banka yorumları · puanlar · karşılaştırma</text>
-  <text x="300" y="470" font-family="Arial, sans-serif" font-size="25" fill="#4a5878">Gerçek kullanıcı deneyimlerine dayalı banka karnesi.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">ParaKarne banka yorumları ve karşılaştırma</title>
+  <desc id="desc">PK logolu ParaKarne paylaşım görseli.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7FAFC"/>
+      <stop offset="1" stop-color="#EAF6F2"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="110" y1="110" x2="340" y2="350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#12344B"/>
+      <stop offset="0.58" stop-color="#0D7562"/>
+      <stop offset="1" stop-color="#075648"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="55" y="55" width="1090" height="520" rx="34" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2"/>
+  <circle cx="195" cy="315" r="112" fill="url(#badge)"/>
+  <circle cx="195" cy="315" r="99" fill="none" stroke="#E1B65F" stroke-width="5"/>
+  <text x="195" y="352" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" letter-spacing="-5">PK</text>
+  <text x="355" y="180" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="800" fill="#132238">Para<tspan fill="#0D7C66">Karne</tspan></text>
+  <text x="355" y="285" font-family="Arial, Helvetica, sans-serif" font-size="51" font-weight="800" fill="#132238">Bankaları gerçek kullanıcı</text>
+  <text x="355" y="350" font-family="Arial, Helvetica, sans-serif" font-size="51" font-weight="800" fill="#0D7C66">deneyimleriyle karşılaştırın.</text>
+  <text x="355" y="430" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#5D6B82">Puanları, yorumları ve başvuru sonuçlarını tek ekranda inceleyin.</text>
+  <rect x="355" y="475" width="245" height="58" rx="29" fill="#EEF8F5" stroke="#0D7C66"/>
+  <text x="477" y="512" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#0D7C66">parakarne.com</text>
 </svg>

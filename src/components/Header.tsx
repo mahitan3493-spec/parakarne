@@ -104,7 +104,7 @@ export default function Header() {
           <button type="button" className="mobile-update-check" onClick={checkPwaUpdate}>
             <span className="mobile-update-icon" aria-hidden="true">↻</span>
             <span>Güncellemeleri Kontrol Et</span>
-            <small>V17</small>
+            <small>V18</small>
           </button>
           {user ? (
             <button type="button" className="mobile-profile-button" onClick={openMobileProfile}>

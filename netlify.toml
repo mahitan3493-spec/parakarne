@@ -43,16 +43,37 @@
 
 
 [[headers]]
-  for = "/icon-v15-*.png"
+  for = "/icon-v18-*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/icon-maskable-v15-*.png"
+  for = "/icon-maskable-v18-*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/apple-touch-icon-v15.png"
+  for = "/apple-touch-icon-v18.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/parakarne-favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+    Content-Type = "image/x-icon"
+
+[[headers]]
+  for = "/parakarne-favicon-96.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/parakarne-paylasim.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/og-image.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

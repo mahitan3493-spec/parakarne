@@ -37,16 +37,28 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "ParaKarne" }],
   creator: "ParaKarne",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   alternates: { canonical: "/" },
   manifest: "/site.webmanifest",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon-v15-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-v15-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/parakarne-favicon.ico", sizes: "any" },
+      { url: "/parakarne-favicon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-v18-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-v18-512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon-v15.png", sizes: "180x180", type: "image/png" }],
+    shortcut: ["/parakarne-favicon.ico"],
+    apple: [{ url: "/apple-touch-icon-v18.png", sizes: "180x180", type: "image/png" }],
   },
   appleWebApp: {
     capable: true,
@@ -66,7 +78,7 @@ export const metadata: Metadata = {
       "Bankaları gerçek kullanıcı yorumlarına göre puanlayın, inceleyin ve karşılaştırın.",
     images: [
       {
-        url: "/og-image-v8.png",
+        url: "/parakarne-paylasim.png",
         width: 1200,
         height: 630,
         alt: "ParaKarne banka karşılaştırma platformu",
@@ -77,7 +89,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ParaKarne - Banka Yorumları ve Karşılaştırma",
     description: "Türkiye'deki bankaları kullanıcı puanları, yorumlar ve onay oranlarıyla karşılaştırın.",
-    images: ["/og-image-v8.png"],
+    images: ["/parakarne-paylasim.png"],
   },
 };
 
@@ -102,7 +114,7 @@ const websiteJsonLd = {
     "@type": "Organization",
     name: "ParaKarne",
     url: siteUrl,
-    logo: `${siteUrl}/icon.svg`,
+    logo: `${siteUrl}/parakarne-logo-search.png`,
   },
 };
 
@@ -111,7 +123,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "ParaKarne",
   url: siteUrl,
-  logo: `${siteUrl}/icon.svg`,
+  logo: `${siteUrl}/parakarne-logo-search.png`,
   sameAs: [],
   description:
     "ParaKarne.com, banka kullanıcı yorumları, banka puanları, mobil uygulama deneyimleri, müşteri hizmetleri, ATM, güvenlik, şube hizmetleri ve kredi/kredi kartı onay oranlarını karşılaştırmaya odaklanan bağımsız bir platformdur.",

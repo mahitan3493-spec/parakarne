@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     images: [
       {
-        url: "/og-image-v8.png",
+        url: "/parakarne-paylasim.png",
         width: 1200,
         height: 630,
         alt: "ParaKarne.com banka yorumları ve karşılaştırma platformu",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "ParaKarne.com - Banka Yorumları",
     description:
       "Bankaları kullanıcı puanları, yorumlar ve onay oranlarıyla karşılaştırın.",
-    images: ["/og-image-v8.png"],
+    images: ["/parakarne-paylasim.png"],
   },
 };
 

@@ -31,7 +31,7 @@ export async function generateMetadata({
       title: pageTitle,
       description: article.description,
       type: "article",
-      images: [{ url: "/og-image-v8.png", width: 1200, height: 630, alt: "ParaKarne banka rehberleri" }],
+      images: [{ url: "/parakarne-paylasim.png", width: 1200, height: 630, alt: "ParaKarne banka rehberleri" }],
     },
   };
 }

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "Tüm Konular | ParaKarne",
     description:
       "ParaKarne'deki bankacılık, kredi, icra, haciz ve hesap sorunları rehberlerini keşfedin.",
-    images: [{ url: "/og-image-v8.png", width: 1200, height: 630, alt: "ParaKarne rehber merkezi" }],
+    images: [{ url: "/parakarne-paylasim.png", width: 1200, height: 630, alt: "ParaKarne rehber merkezi" }],
   },
 };
 

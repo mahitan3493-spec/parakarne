@@ -1,21 +1,22 @@
 /* ParaKarne PWA Service Worker */
-const CACHE_VERSION = "parakarne-pwa-finview-v17";
+const CACHE_VERSION = "parakarne-pwa-finview-v18";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const APP_SHELL_URLS = [
   "/",
   "/offline.html",
   "/site.webmanifest",
-  "/icon.svg",
   "/logo-mark.svg",
   "/logo-mark.png",
-  "/icon-v15-192.png",
-  "/icon-v15-512.png",
-  "/icon-maskable-v15-192.png",
-  "/icon-maskable-v15-512.png",
-  "/apple-touch-icon-v15.png",
-  "/og-image.png",
-  "/og-image-v8.png"
+  "/parakarne-favicon.ico",
+  "/parakarne-favicon-96.png",
+  "/icon-v18-192.png",
+  "/icon-v18-512.png",
+  "/icon-maskable-v18-192.png",
+  "/icon-maskable-v18-512.png",
+  "/apple-touch-icon-v18.png",
+  "/parakarne-logo-search.png",
+  "/parakarne-paylasim.png"
 ];
 
 self.addEventListener("install", (event) => {
