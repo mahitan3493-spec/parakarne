@@ -9,7 +9,7 @@ import { initialsOf } from "@/lib/grades";
 const MENU_LINKS = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/#karsilastir", label: "Karşılaştır" },
-  { href: "/#bankalar", label: "Bankalar" },
+  { href: "/#bankalar", label: "Öne Çıkanlar" },
   { href: "/#yorumlar", label: "Yorumlar" },
   { href: "/#nasil", label: "Nasıl Çalışır" },
   { href: "/tum-konular/", label: "Tüm Konular" },
@@ -28,7 +28,7 @@ export default function Header() {
     <header className={`site${mobileOpen ? " mobile-open" : ""}`}>
       <div className="nav wrap">
         <Link className="logo" href="/" aria-label="ParaKarne ana sayfa" onClick={closeMobileMenu}>
-          <div className="logo-mark">A+</div>
+          <div className="logo-mark">PK</div>
           <div className="logo-text">
             Para<span>Karne</span>
           </div>
@@ -41,6 +41,7 @@ export default function Header() {
           ))}
         </nav>
         <div className="nav-actions">
+          <div className="header-badge">Bağımsız banka puanları</div>
           {user ? (
             <button className="profile-chip" onClick={openProfileModal}>
               <div className="profile-avatar">
@@ -50,7 +51,7 @@ export default function Header() {
             </button>
           ) : (
             <>
-              <button className="btn small" onClick={() => openAuthModal("login")}>
+              <button className="btn small btn-ghost" onClick={() => openAuthModal("login")}>
                 Giriş Yap
               </button>
               <button

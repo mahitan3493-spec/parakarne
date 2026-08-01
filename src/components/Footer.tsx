@@ -5,32 +5,48 @@ export default function Footer() {
     <footer>
       <div className="wrap foot-grid">
         <div>
-          <div className="logo" style={{ marginBottom: 12 }}>
-            <div className="logo-mark" style={{ width: 30, height: 30, fontSize: 13 }}>
-              A+
+          <div className="logo footer-logo" style={{ marginBottom: 14 }}>
+            <div className="logo-mark" style={{ width: 34, height: 34, fontSize: 12 }}>
+              PK
             </div>
-            <div className="logo-text" style={{ fontSize: 16 }}>
+            <div className="logo-text" style={{ fontSize: 18 }}>
               Para<span>Karne</span>
             </div>
           </div>
-          <div className="mono">
-            © 2026 ParaKarne.com — Bağımsız banka değerlendirme platformu
+          <p className="footer-copy">
+            ParaKarne.com; Türkiye'deki bankaları kullanıcı yorumları,
+            kategori puanları ve başvuru deneyimleriyle karşılaştırmaya yardımcı
+            olan bağımsız bir finans platformudur.
+          </p>
+          <div className="mono footer-mini">
+            © 2026 ParaKarne.com — Tüm hakları saklıdır.
           </div>
         </div>
-        <div className="footer-links">
-          <Link href="/tum-konular">Tüm Konular</Link>
-          <Link href="/hakkimizda">Hakkımızda</Link>
-          <Link href="/gizlilik">Gizlilik</Link>
-          <Link href="/kvkk">KVKK</Link>
-          <Link href="/kullanim-sartlari">Kullanım Şartları</Link>
-          <Link href="/itiraz-sureci">İtiraz Süreci</Link>
-          <Link href="/iletisim">İletişim</Link>
+        <div>
+          <h4 className="footer-title">Platform</h4>
+          <div className="footer-links">
+            <Link href="/tum-konular">Tüm Konular</Link>
+            <Link href="/#karsilastir">Banka Karşılaştırma</Link>
+            <Link href="/#yorumlar">Kullanıcı Yorumları</Link>
+            <Link href="/hakkimizda">Hakkımızda</Link>
+          </div>
+        </div>
+        <div>
+          <h4 className="footer-title">Yasal</h4>
+          <div className="footer-links">
+            <Link href="/gizlilik">Gizlilik</Link>
+            <Link href="/kvkk">KVKK</Link>
+            <Link href="/kullanim-sartlari">Kullanım Şartları</Link>
+            <Link href="/itiraz-sureci">İtiraz Süreci</Link>
+            <Link href="/iletisim">İletişim</Link>
+          </div>
         </div>
       </div>
       <div className="wrap footer-disclaimer">
-        ParaKarne bir bankanın resmî temsilcisi değildir. Platformdaki bilgiler
-        yatırım tavsiyesi, kredi tavsiyesi veya kesin finansal yönlendirme
-        değildir; nihai karar öncesinde bankaların resmî kanallarını kontrol edin.
+        ParaKarne bir bankanın resmî temsilcisi değildir. Platformdaki puanlar,
+        yorumlar ve karşılaştırmalar kullanıcı deneyimlerine dayanır; yatırım,
+        kredi veya kesin finansal yönlendirme niteliği taşımaz. Nihai karar öncesinde
+        ilgili bankaların resmî kanallarını kontrol edin.
       </div>
     </footer>
   );
