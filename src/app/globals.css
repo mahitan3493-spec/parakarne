@@ -4690,3 +4690,84 @@ nav.links {
     min-height: 44px;
   }
 }
+
+/* ===== Mobile hero heading recovery v10 ===== */
+@media (max-width: 700px) {
+  .hero h1 {
+    max-width: 100% !important;
+    font-size: clamp(33px, 9.2vw, 39px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.035em !important;
+    text-wrap: balance;
+  }
+
+  .hero h1 em {
+    display: inline;
+  }
+
+  .lead {
+    font-size: 15.5px;
+    line-height: 1.56;
+  }
+
+  .hero-mini-list {
+    margin-top: 18px;
+  }
+
+  .hero-ctas {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero h1 {
+    font-size: 33px !important;
+  }
+}
+
+
+/* ===== Compact mobile navigation & reliable PWA update v11 ===== */
+@media (max-width: 700px) {
+  .nav-actions {
+    min-height: 42px !important;
+    gap: 10px !important;
+  }
+
+  .profile-chip {
+    min-height: 42px !important;
+    height: 42px;
+    padding: 4px 10px 4px 4px;
+    gap: 7px;
+    border-radius: 999px;
+  }
+
+  .profile-chip .profile-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .profile-chip > span {
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    flex: 0 0 42px;
+    width: 42px !important;
+    min-width: 42px;
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0;
+    border-width: 1.5px;
+    border-radius: 8px !important;
+    gap: 4px;
+    box-shadow: 0 5px 14px rgba(19, 34, 56, 0.06);
+  }
+
+  .mobile-menu-btn span {
+    width: 18px;
+    height: 2px;
+  }
+}

@@ -1,5 +1,5 @@
 /* ParaKarne PWA Service Worker */
-const CACHE_VERSION = "parakarne-pwa-finview-v9";
+const CACHE_VERSION = "parakarne-pwa-finview-v11";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const APP_SHELL_URLS = [
@@ -25,6 +25,13 @@ self.addEventListener("install", (event) => {
       .then((cache) => cache.addAll(APP_SHELL_URLS))
       .then(() => self.skipWaiting())
   );
+});
+
+
+self.addEventListener("message", (event) => {
+  if (event.data?.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("activate", (event) => {
