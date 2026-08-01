@@ -115,8 +115,15 @@ export default function ReviewItem({ review }: { review: Review }) {
       </div>
       {!flagged && <div className="rev-margin">{review.note}</div>}
       <div className="rev-actions">
-        <button className="report-btn" onClick={handleReport} disabled={alreadyReported}>
-          {alreadyReported ? "Bildirildi" : "Bildir"}
+        <button
+          className="report-btn"
+          type="button"
+          data-review-id={review.id}
+          aria-label={`${review.bankName} yorumunu bildir`}
+          onClick={handleReport}
+          disabled={alreadyReported || flagged || submitting}
+        >
+          {flagged ? "İncelemede" : alreadyReported ? "Bildirildi" : submitting ? "Gönderiliyor…" : "Bildir"}
         </button>
         <span className="mono" style={{ fontSize: "10.5px", color: "var(--ink-faint)" }}>
           {review.reportCount ? `${review.reportCount} bildirim` : ""}

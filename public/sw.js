@@ -1,5 +1,5 @@
 /* ParaKarne PWA Service Worker */
-const CACHE_VERSION = "parakarne-pwa-v1";
+const CACHE_VERSION = "parakarne-pwa-finview-v3";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const APP_SHELL_URLS = [

@@ -62,11 +62,10 @@ export default function Ledger() {
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <div className="sec-num">01 — KARŞILAŞTIRMA</div>
-            <h2>Banka defteri</h2>
+            <div className="sec-num">BANKA KARŞILAŞTIRMA</div>
+            <h2>Bankaları tek ekranda karşılaştırın</h2>
             <p>
-              Sütun başlıklarına tıklayarak sıralayın. Yeni yorumlar banka
-              puanına ve yorum sayısına otomatik yansır.
+              Puanları, yorum sayılarını ve kategori notlarını yan yana inceleyin. Yeni kullanıcı deneyimleri sonuçlara otomatik yansır.
             </p>
           </div>
         </div>

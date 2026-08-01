@@ -41,8 +41,8 @@ export default function BankGrid() {
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <div className="sec-num">02 — ÖNE ÇIKANLAR</div>
-            <h2>Sınıf birincileri</h2>
+            <div className="sec-num">KULLANICI PUANLARI</div>
+            <h2>Kullanıcıların öne çıkardığı bankalar</h2>
           </div>
         </div>
         {(loading || reviewsLoading) && <BankGridSkeleton />}

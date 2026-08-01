@@ -47,7 +47,14 @@ export default function AdminModeration() {
   }, [user]);
 
   const reportedReviews = useMemo(
-    () => reviews.filter((review) => review.reportCount > 0 || review.status === "hidden"),
+    () =>
+      reviews
+        .filter((review) => review.reportCount > 0 || review.status === "hidden")
+        .sort((a, b) => {
+          const aPriority = a.reportCount >= 3 ? 1 : 0;
+          const bPriority = b.reportCount >= 3 ? 1 : 0;
+          return bPriority - aPriority || b.reportCount - a.reportCount;
+        }),
     [reviews],
   );
 
@@ -73,7 +80,7 @@ export default function AdminModeration() {
           <section className="admin-card">
             <h1>Moderasyon Paneli</h1>
             <p>
-              Bildirim alan yorumları buradan kontrol edebilirsin. Güvenli kullanım için Firebase tarafında admin custom claim tanımlanmalı.
+              Bildirim alan yorumları buradan kontrol edebilir, yayında tutabilir, gizleyebilir veya silebilirsiniz.
             </p>
 
             {!user && (
@@ -86,7 +93,7 @@ export default function AdminModeration() {
 
             {user && !checking && !isAdmin && (
               <div className="info-strip" style={{ margin: "18px 0" }}>
-                Bu hesap admin yetkisine sahip değil. Firebase Admin SDK ile kullanıcıya <strong>admin: true</strong> custom claim ver veya geçici olarak NEXT_PUBLIC_ADMIN_EMAIL değerini kendi e-postan yap.
+                Bu hesap moderasyon yetkisine sahip değil. Yetkili hesapla giriş yapın.
               </div>
             )}
 
@@ -101,6 +108,7 @@ export default function AdminModeration() {
                       <p>
                         <strong>{review.bankName}</strong> — {review.userName}
                         <span className="badge-soft">{review.reportCount} bildirim</span>
+                        {review.reportCount >= 3 && <span className="badge-soft badge-alert">öncelikli inceleme</span>}
                         {review.status === "hidden" && <span className="badge-soft">gizli</span>}
                       </p>
                       <p>{review.text}</p>

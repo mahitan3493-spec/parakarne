@@ -45,15 +45,12 @@ export default function Hero() {
       <div className="hero-shell wrap">
         <div className="hero-grid">
           <div>
-            <div className="eyebrow">Türkiye'nin bağımsız banka değerlendirme platformu</div>
+            <div className="eyebrow">Bağımsız banka değerlendirme platformu</div>
             <h1>
-              Bankaları <em>gerçek kullanıcı deneyimleriyle</em> puanlayın,
-              karşılaştırın ve daha güvenli karar verin.
+              Bankaları <em>gerçek kullanıcı deneyimleriyle</em> karşılaştırın.
             </h1>
             <p className="lead">
-              ParaKarne; mobil uygulama, müşteri hizmetleri, ATM deneyimi,
-              güvenlik, şube hizmetleri ve kredi/kart başvuru sonuçlarını tek
-              ekranda toplayan modern bir banka yorum platformudur.
+              Mobil uygulama, müşteri hizmetleri, ATM, güvenlik, şube hizmetleri ve kredi/kart başvuru sonuçlarını tek ekranda görün.
             </p>
             <div className="hero-mini-list">
               <span>Canlı kullanıcı puanları</span>

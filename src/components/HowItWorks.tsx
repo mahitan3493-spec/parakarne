@@ -4,7 +4,7 @@ export default function HowItWorks() {
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <div className="sec-num">04 — SÜREÇ</div>
+            <div className="sec-num">ŞEFFAF PUANLAMA</div>
             <h2>ParaKarne nasıl çalışır?</h2>
             <p>
               Her değerlendirme gerçek kullanıcı katkısıyla oluşur. Sistem;

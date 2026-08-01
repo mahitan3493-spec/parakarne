@@ -106,16 +106,28 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
                   </div>
                 </>
               )}
-              {bank.reviewCount === 0 && (
-                <p style={{ fontSize: "12.5px", color: "var(--ink-faint)", padding: "8px 0" }}>
-                  Bu banka için henüz kullanıcı puanı yok — ilk yorumu sen bırakınca kategoriler burada belirecek.
-                </p>
-              )}
             </div>
 
-            <button className="btn primary bank-detail-primary-cta" onClick={handleReviewCta}>
-              Bu Bankayı Puanla
-            </button>
+            {bank.reviewCount === 0 ? (
+              <section className="bank-zero-state" aria-label={`${bank.name} için henüz karne yok`}>
+                <div className="bank-zero-icon" aria-hidden="true">?</div>
+                <div className="bank-zero-copy">
+                  <span className="bank-zero-eyebrow">Henüz veri oluşmadı</span>
+                  <h2>Bu bankaya henüz karne oluşturulmadı.</h2>
+                  <p>
+                    İlk puanı sen ver. Müşteri hizmetleri, mobil uygulama, güvenlik,
+                    ATM ve şube deneyimin bankanın ilk karne notlarını oluştursun.
+                  </p>
+                </div>
+                <button className="btn primary bank-zero-cta" type="button" onClick={handleReviewCta}>
+                  İlk Puanı Sen Ver
+                </button>
+              </section>
+            ) : (
+              <button className="btn primary bank-detail-primary-cta" type="button" onClick={handleReviewCta}>
+                Bu Bankayı Puanla
+              </button>
+            )}
 
             <p className="bank-detail-editor-note">
               <span className="bank-detail-editor-label">Editör notu</span>
@@ -222,9 +234,15 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
               {bankReviews.length ? (
                 bankReviews.map((r) => <ReviewItem key={r.id} review={r} />)
               ) : (
-                <p style={{ fontSize: "13px", color: "var(--ink-faint)" }}>
-                  Henüz yorum yok — ilk yorumu sen yaz.
-                </p>
+                <div className="detail-review-empty">
+                  <div>
+                    <strong>Henüz yayımlanmış kullanıcı yorumu yok.</strong>
+                    <p>Deneyimini paylaşarak bu bankanın yorum alanını ilk sen başlat.</p>
+                  </div>
+                  <button className="btn primary" type="button" onClick={handleReviewCta}>
+                    Yorum ve Puan Ekle
+                  </button>
+                </div>
               )}
             </div>
           </article>

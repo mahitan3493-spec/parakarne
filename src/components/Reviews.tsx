@@ -18,8 +18,8 @@ export default function Reviews() {
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <div className="sec-num">03 — YORUMLAR</div>
-            <h2>Kullanıcılar bankalar hakkında ne diyor?</h2>
+            <div className="sec-num">GERÇEK DENEYİMLER</div>
+            <h2>Bankacılık deneyimleri burada konuşuluyor</h2>
             <p>
               Gerçek kullanıcı yorumlarını incele, banka deneyimlerini karşılaştır.
               Puan vermek için banka kartındaki <strong>Puanla</strong> butonunu kullan.

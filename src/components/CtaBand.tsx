@@ -8,7 +8,7 @@ export default function CtaBand() {
     <section className="cta-band">
       <div className="wrap cta-band-inner">
         <div>
-          <div className="sec-num" style={{ color: "rgba(255,255,255,0.7)", marginBottom: 10 }}>05 — KATILIM</div>
+          <div className="sec-num" style={{ color: "rgba(255,255,255,0.7)", marginBottom: 10 }}>TOPLULUĞA KATIL</div>
           <h2>Senin deneyimin, başkasının daha doğru banka seçimi olabilir.</h2>
           <p>
             Ücretsiz üye ol, bankanı puanla ve kredi / kart başvuru deneyimini paylaş.
