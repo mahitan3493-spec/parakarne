@@ -46,6 +46,8 @@ export default function CompareBanks() {
   }
 
   const rows = buildRows(bankA, bankB);
+  const hasAnyLiveData = bankA.reviewCount > 0 || bankB.reviewCount > 0;
+  const hasCompleteLiveData = bankA.reviewCount > 0 && bankB.reviewCount > 0;
 
   return (
     <div className="compare-card">
@@ -87,6 +89,27 @@ export default function CompareBanks() {
           <span className={`grade-pill ${gradeClassOf(bankB.grade)}`}>{bankB.grade}</span>
         </div>
       </div>
+
+      {!hasAnyLiveData && (
+        <div className="compare-zero-state" role="status">
+          <span className="compare-zero-icon" aria-hidden="true">↗</span>
+          <div>
+            <strong>Karşılaştırma için kullanıcı puanı bekleniyor.</strong>
+            <p>
+              Seçili bankaların gerçek kullanıcı yorumları geldikçe Genel Not,
+              Kullanıcı Puanı ve kategori rozetleri burada otomatik oluşacak.
+              ParaKarne örnek veya sahte puan göstermez.
+            </p>
+          </div>
+          <a className="btn primary" href="#bankalar">İlk Puanı Ver</a>
+        </div>
+      )}
+
+      {hasAnyLiveData && !hasCompleteLiveData && (
+        <div className="compare-partial-note" role="status">
+          Bankalardan birinde henüz kullanıcı puanı yok. Veri olmayan alanlar “—” olarak gösterilir.
+        </div>
+      )}
 
       <div className="compare-rows">
         {rows.map((row) => {

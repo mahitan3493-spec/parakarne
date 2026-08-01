@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { FirebaseError } from "firebase/app";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/lib/toast-context";
@@ -41,6 +42,7 @@ export default function AuthModal() {
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPass, setSignupPass] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -76,6 +78,10 @@ export default function AuthModal() {
       setError("Şifre en az 6 karakter olmalı.");
       return;
     }
+    if (!acceptedTerms) {
+      setError("Üyelik için KVKK Aydınlatma Metni ve Kullanım Şartları onayı gerekli.");
+      return;
+    }
     setBusy(true);
     try {
       await signup(signupName.trim(), signupEmail.trim(), signupPass);
@@ -84,6 +90,7 @@ export default function AuthModal() {
       setSignupName("");
       setSignupEmail("");
       setSignupPass("");
+      setAcceptedTerms(false);
     } catch (err) {
       setError(authErrorMessage(err));
     } finally {
@@ -226,12 +233,24 @@ export default function AuthModal() {
                 placeholder="••••••••"
               />
             </div>
+            <label className="auth-consent">
+              <input
+                type="checkbox"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+              />
+              <span>
+                <Link href="/kvkk" target="_blank">KVKK Aydınlatma Metni</Link>'ni ve{" "}
+                <Link href="/kullanim-sartlari" target="_blank">Kullanım Şartları</Link>'nı
+                okudum, kabul ediyorum.
+              </span>
+            </label>
             {error && <p className="field-error">{error}</p>}
             <button
               className="btn primary"
               style={{ width: "100%" }}
               onClick={handleSignup}
-              disabled={busy}
+              disabled={busy || !acceptedTerms}
             >
               {busy ? "Kaydolunuyor…" : "Üye Ol"}
             </button>

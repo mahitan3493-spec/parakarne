@@ -66,7 +66,7 @@ export const metadata: Metadata = {
       "Bankaları gerçek kullanıcı yorumlarına göre puanlayın, inceleyin ve karşılaştırın.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image-v8.png",
         width: 1200,
         height: 630,
         alt: "ParaKarne banka karşılaştırma platformu",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ParaKarne - Banka Yorumları ve Karşılaştırma",
     description: "Türkiye'deki bankaları kullanıcı puanları, yorumlar ve onay oranlarıyla karşılaştırın.",
-    images: ["/og-image.png"],
+    images: ["/og-image-v8.png"],
   },
 };
 

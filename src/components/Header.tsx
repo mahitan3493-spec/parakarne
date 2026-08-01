@@ -24,11 +24,23 @@ export default function Header() {
     setMobileOpen(false);
   }
 
+  function openMobileAuth(tab: "login" | "signup") {
+    closeMobileMenu();
+    openAuthModal(tab);
+  }
+
+  function openMobileProfile() {
+    closeMobileMenu();
+    openProfileModal();
+  }
+
   return (
     <header className={`site${mobileOpen ? " mobile-open" : ""}`}>
       <div className="nav wrap">
         <Link className="logo" href="/" aria-label="ParaKarne ana sayfa" onClick={closeMobileMenu}>
-          <span className="logo-mark" aria-hidden="true"><img src="/logo-mark.svg" alt="" width="44" height="44" /></span>
+          <span className="logo-mark" aria-hidden="true">
+            <img src="/logo-mark.svg" alt="" width="44" height="44" />
+          </span>
           <div className="logo-text">
             Para<span>Karne</span>
           </div>
@@ -76,11 +88,33 @@ export default function Header() {
         </div>
       </div>
       <nav className={`mobile-links wrap${mobileOpen ? " open" : ""}`} aria-label="Mobil menü">
-        {MENU_LINKS.map((link) => (
-          <Link key={link.href} href={link.href} onClick={closeMobileMenu}>
-            {link.label}
-          </Link>
-        ))}
+        <div className="mobile-link-grid">
+          {MENU_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} onClick={closeMobileMenu}>
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <div className="mobile-auth-actions">
+          {user ? (
+            <button type="button" className="mobile-profile-button" onClick={openMobileProfile}>
+              <span className="profile-avatar">{initialsOf(user.displayName || user.email || "?")}</span>
+              <span>
+                <strong>Profilim</strong>
+                <small>{user.email}</small>
+              </span>
+            </button>
+          ) : (
+            <>
+              <button type="button" className="btn mobile-login-btn" onClick={() => openMobileAuth("login")}>
+                Giriş Yap
+              </button>
+              <button type="button" className="btn primary mobile-signup-btn" onClick={() => openMobileAuth("signup")}>
+                Ücretsiz Üye Ol
+              </button>
+            </>
+          )}
+        </div>
       </nav>
     </header>
   );
