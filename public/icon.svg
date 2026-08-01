@@ -1,19 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">ParaKarne PK logosu</title>
-  <desc id="desc">Koyu lacivert ve yeşil daire içinde beyaz PK harfleri ve altın vurgu.</desc>
+  <desc id="desc">Koyu lacivertten yeşile geçen daire, ince altın çerçeve ve ortalanmış beyaz PK harfleri.</desc>
   <defs>
-    <linearGradient id="pkGradient" x1="84" y1="64" x2="430" y2="448" gradientUnits="userSpaceOnUse">
+    <linearGradient id="pkGradientV7" x1="72" y1="52" x2="438" y2="452" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#12344B"/>
-      <stop offset="0.56" stop-color="#0D7C66"/>
-      <stop offset="1" stop-color="#075D50"/>
+      <stop offset="0.58" stop-color="#0D7562"/>
+      <stop offset="1" stop-color="#075648"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0B2535" flood-opacity="0.22"/>
+    <filter id="pkShadowV7" x="-20%" y="-20%" width="140%" height="145%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#071C29" flood-opacity="0.22"/>
     </filter>
   </defs>
-  <circle cx="256" cy="256" r="226" fill="url(#pkGradient)" filter="url(#shadow)"/>
-  <circle cx="256" cy="256" r="210" fill="none" stroke="#E1B65F" stroke-width="8" stroke-opacity="0.9"/>
-  <path d="M151 334V174h76c54 0 87 26 87 72 0 47-34 75-90 75h-27v13h-46Zm46-53h28c27 0 43-12 43-34 0-21-15-32-42-32h-29v66Z" fill="#FFFFFF"/>
-  <path d="M307 334V174h45v64l54-64h55l-66 75 70 85h-57l-56-70v70h-45Z" fill="#FFFFFF"/>
-  <circle cx="408" cy="118" r="18" fill="#E1B65F"/>
+  <circle cx="256" cy="256" r="220" fill="url(#pkGradientV7)" filter="url(#pkShadowV7)"/>
+  <circle cx="256" cy="256" r="211" fill="none" stroke="#082A38" stroke-opacity="0.75" stroke-width="3"/>
+  <circle cx="256" cy="256" r="199" fill="none" stroke="#E1B65F" stroke-width="7"/>
+  <text x="256" y="322" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="190" font-weight="800" letter-spacing="-10">PK</text>
 </svg>

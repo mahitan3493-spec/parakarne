@@ -4094,3 +4094,63 @@ nav.links {
     font-size: 21px;
   }
 }
+
+
+/* ===== Mobile hero spacing and secondary CTA polish v6 ===== */
+.hero-rate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #effaf6 0%, #dff4ec 100%);
+  border: 2px solid #0d8a70;
+  color: #08725d;
+  font-weight: 800;
+  box-shadow: 0 12px 28px rgba(13, 124, 102, 0.14);
+}
+
+.hero-rate-btn:hover {
+  background: linear-gradient(135deg, #e3f7ef 0%, #d2eee4 100%);
+  border-color: #08725d;
+  color: #075f4e;
+  transform: translateY(-1px);
+}
+
+.hero-rate-icon {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-size: 15px;
+  line-height: 1;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    padding: 14px 0 20px;
+  }
+
+  .hero-shell {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .hero-ctas {
+    gap: 10px;
+  }
+
+  .hero-ctas .btn {
+    min-height: 54px;
+    font-size: 15px;
+  }
+
+  .hero-rate-btn {
+    background: linear-gradient(135deg, #f4fcf9 0%, #dff4ec 100%);
+    border-color: #0d8a70;
+    box-shadow: 0 12px 26px rgba(13, 124, 102, 0.16);
+  }
+}

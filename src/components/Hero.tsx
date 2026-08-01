@@ -68,8 +68,9 @@ export default function Hero() {
               >
                 Bankaları Karşılaştır
               </button>
-              <button className="btn btn-ghost" onClick={handleBankaniPuanla}>
-                Bankanı Puanla
+              <button className="btn hero-rate-btn" onClick={handleBankaniPuanla}>
+                <span className="hero-rate-icon" aria-hidden="true">★</span>
+                <span>Bankanı Puanla</span>
               </button>
             </div>
             <div className="hero-stats hero-stats-pro">
