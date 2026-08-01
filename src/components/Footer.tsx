@@ -6,9 +6,9 @@ export default function Footer() {
       <div className="wrap foot-grid">
         <div>
           <div className="logo footer-logo" style={{ marginBottom: 14 }}>
-            <div className="logo-mark" style={{ width: 34, height: 34, fontSize: 12 }}>
-              PK
-            </div>
+            <span className="logo-mark" style={{ width: 36, height: 36 }} aria-hidden="true">
+              <img src="/logo-mark.svg" alt="" width="36" height="36" />
+            </span>
             <div className="logo-text" style={{ fontSize: 18 }}>
               Para<span>Karne</span>
             </div>

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
-import { GRADE_ORDER, gradeClassOf, starString } from "@/lib/grades";
+import { GRADE_ORDER, gradeClassOf } from "@/lib/grades";
 import { applyReviewStatsToBanks } from "@/lib/bank-stats";
 import type { Bank } from "@/lib/types";
 import BankLogo from "./BankLogo";
@@ -155,18 +155,18 @@ function LedgerRow({ bank }: { bank: Bank }) {
       </td>
       <td>
         {bank.reviewCount > 0 ? (
-          <>
-            <span className="stars">{starString(bank.rating)}</span>{" "}
-            <span className="rate-num" style={{ color: "var(--ink-faint)", fontSize: "12px" }}>
-              {bank.rating}
-            </span>
-          </>
+          <span className="ledger-score-badge ledger-score-rating" aria-label={`${bank.rating} üzerinden 5`}>
+            <span className="ledger-score-star">★</span>
+            {bank.rating.toFixed(1)} / 5
+          </span>
         ) : (
-          <span style={{ fontSize: "12px", color: "var(--ink-faint)" }}>Henüz not yok</span>
+          <span className="ledger-score-badge ledger-score-empty">Henüz not yok</span>
         )}
       </td>
-      <td className="rate-num" style={{ color: "var(--ink-faint)" }}>
-        {bank.reviewCount.toLocaleString("tr-TR")}
+      <td>
+        <span className={`ledger-score-badge ${bank.reviewCount > 0 ? "ledger-score-count" : "ledger-score-empty"}`}>
+          {bank.reviewCount.toLocaleString("tr-TR")}
+        </span>
       </td>
       <td>
         <div className="ledger-actions" onClick={(e) => e.stopPropagation()}>
@@ -208,17 +208,19 @@ function MobileBankCard({ bank }: { bank: Bank }) {
         <div>
           <span className="mobile-stat-label">Kullanıcı puanı</span>
           {bank.reviewCount > 0 ? (
-            <strong>
-              <span className="stars">{starString(bank.rating)}</span>{" "}
-              <span>{bank.rating}</span>
-            </strong>
+            <span className="ledger-score-badge ledger-score-rating">
+              <span className="ledger-score-star">★</span>
+              {bank.rating.toFixed(1)} / 5
+            </span>
           ) : (
-            <strong>Henüz not yok</strong>
+            <span className="ledger-score-badge ledger-score-empty">Henüz not yok</span>
           )}
         </div>
         <div>
           <span className="mobile-stat-label">Yorum</span>
-          <strong>{bank.reviewCount.toLocaleString("tr-TR")}</strong>
+          <span className={`ledger-score-badge ${bank.reviewCount > 0 ? "ledger-score-count" : "ledger-score-empty"}`}>
+            {bank.reviewCount.toLocaleString("tr-TR")}
+          </span>
         </div>
       </div>
 

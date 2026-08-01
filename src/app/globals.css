@@ -3598,12 +3598,12 @@ body {
   }
 
   .hero {
-    padding: 16px 0 18px;
+    padding: 34px 0 22px;
     background: linear-gradient(180deg, rgba(13, 124, 102, 0.045), #ffffff 76%);
   }
 
   .hero-shell {
-    padding-top: 10px;
+    padding-top: 14px;
     padding-bottom: 0;
   }
 
@@ -3996,5 +3996,101 @@ nav.links {
   }
   .detail-review-empty .btn {
     width: 100%;
+  }
+}
+
+
+/* ===== Mobile header-to-hero spacing v4 ===== */
+@media (max-width: 700px) {
+  .hero {
+    scroll-margin-top: 78px;
+  }
+}
+
+/* ===== ParaKarne logo and comparison polish v5 ===== */
+.logo-mark {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+}
+
+.logo-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: drop-shadow(0 8px 14px rgba(18, 52, 75, 0.18));
+}
+
+.logo {
+  gap: 12px;
+}
+
+.ledger-score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(19, 34, 56, 0.08);
+  font-size: 13px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.ledger-score-rating {
+  background: #e9f8f2;
+  border-color: rgba(13, 124, 102, 0.18);
+  color: #08725d;
+}
+
+.ledger-score-count {
+  background: #eef3f7;
+  color: #42536c;
+}
+
+.ledger-score-empty {
+  background: #f6f8fa;
+  color: var(--ink-faint);
+  font-weight: 700;
+}
+
+.ledger-score-star {
+  color: #d8a33d;
+  font-size: 14px;
+}
+
+.report-btn[data-action="report-review"] {
+  min-width: 92px;
+}
+
+@media (max-width: 860px) {
+  .logo-mark {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+}
+
+@media (max-width: 430px) {
+  .logo-mark {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .logo-text {
+    font-size: 21px;
   }
 }

@@ -135,7 +135,15 @@ function toneFor(value: number | null, other: number | null): CompareTone {
 function buildRows(bankA: Bank, bankB: Bank): Row[] {
   const rows: Row[] = [
     {
-      label: "Genel Puan",
+      label: "Genel Not",
+      kind: "grade",
+      aValue: bankA.reviewCount > 0 ? bankA.rating : null,
+      bValue: bankB.reviewCount > 0 ? bankB.rating : null,
+      aDisplay: bankA.reviewCount > 0 ? bankA.grade : "—",
+      bDisplay: bankB.reviewCount > 0 ? bankB.grade : "—",
+    },
+    {
+      label: "Kullanıcı Puanı",
       kind: "score",
       aValue: bankA.reviewCount > 0 ? bankA.rating : null,
       bValue: bankB.reviewCount > 0 ? bankB.rating : null,

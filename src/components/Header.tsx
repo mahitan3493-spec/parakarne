@@ -28,7 +28,7 @@ export default function Header() {
     <header className={`site${mobileOpen ? " mobile-open" : ""}`}>
       <div className="nav wrap">
         <Link className="logo" href="/" aria-label="ParaKarne ana sayfa" onClick={closeMobileMenu}>
-          <div className="logo-mark">PK</div>
+          <span className="logo-mark" aria-hidden="true"><img src="/logo-mark.svg" alt="" width="44" height="44" /></span>
           <div className="logo-text">
             Para<span>Karne</span>
           </div>

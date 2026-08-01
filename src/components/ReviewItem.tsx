@@ -119,6 +119,7 @@ export default function ReviewItem({ review }: { review: Review }) {
           className="report-btn"
           type="button"
           data-review-id={review.id}
+          data-action="report-review"
           aria-label={`${review.bankName} yorumunu bildir`}
           onClick={handleReport}
           disabled={alreadyReported || flagged || submitting}

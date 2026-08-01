@@ -1,5 +1,5 @@
 /* ParaKarne PWA Service Worker */
-const CACHE_VERSION = "parakarne-pwa-finview-v3";
+const CACHE_VERSION = "parakarne-pwa-finview-v5";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const APP_SHELL_URLS = [
@@ -7,6 +7,7 @@ const APP_SHELL_URLS = [
   "/offline.html",
   "/site.webmanifest",
   "/icon.svg",
+  "/logo-mark.svg",
   "/icon-192.png",
   "/icon-512.png",
   "/icon-maskable-192.png",
