@@ -4771,3 +4771,120 @@ nav.links {
     height: 2px;
   }
 }
+
+/* ===== PWA update prompt v12 ===== */
+.pwa-update-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 1000;
+  width: min(560px, calc(100% - 28px));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #12344b 0%, #0d7c66 100%);
+  color: #fff;
+  box-shadow: 0 22px 52px rgba(10, 31, 47, 0.28);
+}
+.pwa-update-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.pwa-update-copy strong {
+  font-size: 14px;
+  line-height: 1.25;
+}
+.pwa-update-copy span {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.pwa-update-button {
+  min-height: 42px;
+  flex: 0 0 auto;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+  color: #0d6f5c;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.pwa-update-button:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+@media (max-width: 560px) {
+  .pwa-update-toast {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+  }
+  .pwa-update-button {
+    width: 100%;
+  }
+}
+
+/* ===== Refined mobile profile and hamburger sizing v13 ===== */
+@media (max-width: 700px) {
+  .nav-actions {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    min-height: 36px !important;
+    gap: 10px !important;
+  }
+
+  .profile-chip {
+    display: flex !important;
+    align-items: center !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 3px 9px 3px 3px !important;
+    gap: 6px !important;
+    margin: 0 !important;
+  }
+
+  .profile-chip .profile-avatar {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    font-size: 11px !important;
+  }
+
+  .profile-chip > span {
+    font-size: 12.5px !important;
+    line-height: 1 !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    gap: 3px !important;
+    box-shadow: 0 4px 10px rgba(19, 34, 56, 0.05) !important;
+  }
+
+  .mobile-menu-btn span {
+    width: 18px !important;
+    height: 2px !important;
+    flex: 0 0 2px;
+  }
+}

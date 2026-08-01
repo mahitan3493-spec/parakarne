@@ -1,44 +1,78 @@
 "use client";
 
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const UPDATE_INTERVAL_MS = 15 * 60 * 1000;
 
 export default function PwaRegister() {
+  const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
+  const [updateReady, setUpdateReady] = useState(false);
+  const [updating, setUpdating] = useState(false);
+
+  const checkForUpdate = useCallback(async () => {
+    try {
+      await registrationRef.current?.update();
+    } catch {
+      // Güncelleme kontrolü bağlantı yokken sessizce başarısız olabilir.
+    }
+  }, []);
+
+  const applyUpdate = useCallback(async () => {
+    const registration = registrationRef.current;
+    if (!registration) return;
+
+    setUpdating(true);
+
+    if (registration.waiting) {
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      return;
+    }
+
+    await checkForUpdate();
+
+    if (registration.waiting) {
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      return;
+    }
+
+    setUpdating(false);
+  }, [checkForUpdate]);
+
   useEffect(() => {
     if (!("serviceWorker" in navigator) || process.env.NODE_ENV !== "production") {
       return;
     }
 
-    let registration: ServiceWorkerRegistration | null = null;
     let reloading = false;
-    const hadControllerAtStart = Boolean(navigator.serviceWorker.controller);
+    let updateTimer: number | undefined;
 
-    const applyWaitingWorker = () => {
-      registration?.waiting?.postMessage({ type: "SKIP_WAITING" });
-    };
-
-    const checkForUpdate = () => {
-      registration?.update().catch(() => undefined);
+    const markWaitingWorker = (registration: ServiceWorkerRegistration) => {
+      if (registration.waiting && navigator.serviceWorker.controller) {
+        setUpdateReady(true);
+      }
     };
 
     const registerServiceWorker = async () => {
       try {
-        registration = await navigator.serviceWorker.register("/sw.js", {
+        const registration = await navigator.serviceWorker.register("/sw.js", {
           scope: "/",
           updateViaCache: "none",
         });
 
-        applyWaitingWorker();
-        checkForUpdate();
+        registrationRef.current = registration;
+        markWaitingWorker(registration);
+        await registration.update().catch(() => undefined);
 
         registration.addEventListener("updatefound", () => {
-          const installingWorker = registration?.installing;
+          const installingWorker = registration.installing;
           if (!installingWorker) return;
 
           installingWorker.addEventListener("statechange", () => {
-            if (installingWorker.state === "installed") {
-              applyWaitingWorker();
+            if (
+              installingWorker.state === "installed" &&
+              navigator.serviceWorker.controller
+            ) {
+              setUpdateReady(true);
             }
           });
         });
@@ -48,20 +82,25 @@ export default function PwaRegister() {
     };
 
     const handleControllerChange = () => {
-      if (!hadControllerAtStart || reloading) return;
+      if (reloading) return;
       reloading = true;
       window.location.reload();
     };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        checkForUpdate();
+        void checkForUpdate();
       }
+    };
+
+    const handleManualCheck = () => {
+      void checkForUpdate();
     };
 
     navigator.serviceWorker.addEventListener("controllerchange", handleControllerChange);
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("focus", checkForUpdate);
+    window.addEventListener("focus", handleManualCheck);
+    window.addEventListener("parakarne:check-update", handleManualCheck);
 
     if (document.readyState === "complete") {
       void registerServiceWorker();
@@ -69,16 +108,36 @@ export default function PwaRegister() {
       window.addEventListener("load", registerServiceWorker, { once: true });
     }
 
-    const updateTimer = window.setInterval(checkForUpdate, UPDATE_INTERVAL_MS);
+    updateTimer = window.setInterval(() => {
+      void checkForUpdate();
+    }, UPDATE_INTERVAL_MS);
 
     return () => {
       window.removeEventListener("load", registerServiceWorker);
-      window.removeEventListener("focus", checkForUpdate);
+      window.removeEventListener("focus", handleManualCheck);
+      window.removeEventListener("parakarne:check-update", handleManualCheck);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       navigator.serviceWorker.removeEventListener("controllerchange", handleControllerChange);
-      window.clearInterval(updateTimer);
+      if (updateTimer) window.clearInterval(updateTimer);
     };
-  }, []);
+  }, [checkForUpdate]);
 
-  return null;
+  if (!updateReady) return null;
+
+  return (
+    <div className="pwa-update-toast" role="status" aria-live="polite">
+      <div className="pwa-update-copy">
+        <strong>Yeni ParaKarne sürümü hazır</strong>
+        <span>Güncelleme birkaç saniye içinde uygulanır.</span>
+      </div>
+      <button
+        type="button"
+        className="pwa-update-button"
+        onClick={() => void applyUpdate()}
+        disabled={updating}
+      >
+        {updating ? "Güncelleniyor…" : "Şimdi Güncelle"}
+      </button>
+    </div>
+  );
 }
