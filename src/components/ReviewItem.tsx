@@ -1,136 +1,18 @@
 "use client";
-
 import { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/lib/toast-context";
 import { useUI } from "@/lib/ui-context";
-import { reportReview } from "@/lib/reviews";
-import type { ApplicationOutcome, CreditOutcome, EmploymentStatus, FindeksScoreRange, Review } from "@/lib/types";
+import { deleteReview, reportReview } from "@/lib/reviews";
+import { publicDisplayName } from "@/lib/display-name";
+import type { ApplicationOutcome, CreditOutcome, Review } from "@/lib/types";
 import { isReviewUnderModeration, REVIEW_REPORT_THRESHOLD } from "@/lib/moderation";
-
-const CREDIT_LABELS: Record<CreditOutcome, string> = {
-  approved: "Kredi Onaylandı",
-  conditional: "Şartlı Onay",
-  rejected: "Kredi Reddedildi",
-};
-
-const APPLICATION_LABELS: Record<ApplicationOutcome, string> = {
-  approved: "Onaylandı",
-  rejected: "Reddedildi",
-  not_applied: "Başvurmadı",
-};
-
-const EMPLOYMENT_LABELS: Record<EmploymentStatus, string> = {
-  private_sector: "Özel Sektör",
-  public_sector: "Kamu",
-  self_employed: "Serbest Meslek",
-  retired: "Emekli",
-  not_working: "Çalışmıyor",
-  student: "Öğrenci",
-  business_owner: "Esnaf / Şirket Sahibi",
-};
-
-const FINDEKS_LABELS: Record<FindeksScoreRange, string> = {
-  unknown: "Findeks: Bilmiyorum",
-  "0_699": "Findeks: 0-699",
-  "700_1099": "Findeks: 700-1099",
-  "1100_1299": "Findeks: 1100-1299",
-  "1300_1499": "Findeks: 1300-1499",
-  "1500_1699": "Findeks: 1500-1699",
-  "1700_1900": "Findeks: 1700-1900",
-};
-
-export default function ReviewItem({ review }: { review: Review }) {
-  const { user } = useAuth();
-  const { showToast } = useToast();
-  const { openAuthModal } = useUI();
-  const [submitting, setSubmitting] = useState(false);
-
-  const flagged = isReviewUnderModeration(review);
-  const alreadyReported = !!user && review.reportedBy.includes(user.uid);
-
-  async function handleReport() {
-    if (!user) {
-      showToast("Bildirmek için üye olman gerekiyor.");
-      openAuthModal("login");
-      return;
-    }
-    if (alreadyReported || submitting) return;
-    setSubmitting(true);
-    try {
-      await reportReview(review.id, user.uid);
-      showToast(
-        review.reportCount + 1 >= REVIEW_REPORT_THRESHOLD
-          ? "Yorum incelemeye alındı."
-          : "Bildirimin alındı, teşekkürler.",
-      );
-    } catch {
-      showToast("Bildirim gönderilemedi, tekrar dene.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  return (
-    <div className="review-item">
-      <div className="rev-head">
-        <span className="rev-user">
-          {review.userName}
-          {flagged && <span className="review-flag">İNCELEMEDE</span>}
-        </span>
-        <span className="rev-bank-pill">{review.bankName}</span>
-      </div>
-      <div className="rev-stars">
-        {"★".repeat(review.stars)}
-        {"☆".repeat(5 - review.stars)}
-        {review.creditOutcome && (
-          <span className={`credit-badge credit-${review.creditOutcome}`}>
-            {CREDIT_LABELS[review.creditOutcome]}
-          </span>
-        )}
-        {review.creditApplicationOutcome && (
-          <span className={`credit-badge credit-${review.creditApplicationOutcome}`}>
-            Kredi: {APPLICATION_LABELS[review.creditApplicationOutcome]}
-          </span>
-        )}
-        {review.creditCardApplicationOutcome && (
-          <span className={`credit-badge credit-${review.creditCardApplicationOutcome}`}>
-            Kart: {APPLICATION_LABELS[review.creditCardApplicationOutcome]}
-          </span>
-        )}
-        {review.employmentStatus && (
-          <span className="credit-badge credit-info">
-            {EMPLOYMENT_LABELS[review.employmentStatus]}
-          </span>
-        )}
-        {review.findeksScoreRange && (
-          <span className="credit-badge credit-info">
-            {FINDEKS_LABELS[review.findeksScoreRange]}
-          </span>
-        )}
-      </div>
-      <div className="rev-text">
-        {flagged
-          ? "Bu yorum, 3 veya daha fazla bildirim aldığı için moderasyon incelemesine alındı."
-          : review.text}
-      </div>
-      {!flagged && <div className="rev-margin">{review.note}</div>}
-      <div className="rev-actions">
-        <button
-          className="report-btn"
-          type="button"
-          data-review-id={review.id}
-          data-action="report-review"
-          aria-label={`${review.bankName} yorumunu bildir`}
-          onClick={handleReport}
-          disabled={alreadyReported || flagged || submitting}
-        >
-          {flagged ? "İncelemede" : alreadyReported ? "Bildirildi" : submitting ? "Gönderiliyor…" : "Bildir"}
-        </button>
-        <span className="mono" style={{ fontSize: "10.5px", color: "var(--ink-faint)" }}>
-          {review.reportCount ? `${review.reportCount} bildirim` : ""}
-        </span>
-      </div>
-    </div>
-  );
+const CREDIT_LABELS:Record<CreditOutcome,string>={approved:"Kredi Onaylandı",conditional:"Şartlı Onay",rejected:"Kredi Reddedildi"};
+const APPLICATION_LABELS:Record<ApplicationOutcome,string>={approved:"Onaylandı",rejected:"Reddedildi",not_applied:"Başvurmadı"};
+export default function ReviewItem({review}:{review:Review}){
+ const {user}=useAuth(); const {showToast}=useToast(); const {openAuthModal}=useUI(); const [submitting,setSubmitting]=useState(false); const [deleting,setDeleting]=useState(false);
+ const flagged=isReviewUnderModeration(review); const alreadyReported=!!user&&review.reportedBy.includes(user.uid); const isOwner=!!user&&review.uid===user.uid; const roundedStars=Math.max(1,Math.min(5,Math.round(review.stars)));
+ async function handleReport(){ if(!user){showToast("Bildirmek için üye olman gerekiyor.");openAuthModal("login");return;} if(isOwner){showToast("Kendi yorumunu bildirmek yerine profilinden silebilirsin.");return;} if(alreadyReported||submitting)return; setSubmitting(true); try{await reportReview(review.id,user.uid);showToast(review.reportCount+1>=REVIEW_REPORT_THRESHOLD?"Yorum moderasyon kuyruğuna alındı.":"Bildirimin alındı, teşekkürler.");}catch{showToast("Bildirim gönderilemedi, tekrar dene.");}finally{setSubmitting(false);} }
+ async function handleDelete(){ if(!isOwner||deleting)return; if(!window.confirm("Bu yorumu kalıcı olarak silmek istediğine emin misin?"))return; setDeleting(true);try{await deleteReview(review.id);showToast("Yorumun silindi.");}catch{showToast("Yorum silinemedi. Tekrar giriş yapıp yeniden dene.");}finally{setDeleting(false);} }
+ return <div className="review-item"><div className="rev-head"><span className="rev-user">{publicDisplayName(review.userName)}{flagged&&<span className="review-flag">İNCELEMEDE</span>}</span><span className="rev-bank-pill">{review.bankName}</span></div><div className="rev-stars"><span aria-label={`${review.stars.toFixed(1)} üzerinden 5 puan`}>{"★".repeat(roundedStars)}{"☆".repeat(5-roundedStars)}</span><span className="review-score-number">{review.stars.toFixed(1)}/5</span>{review.creditOutcome&&<span className={`credit-badge credit-${review.creditOutcome}`}>{CREDIT_LABELS[review.creditOutcome]}</span>}{review.creditApplicationOutcome&&<span className={`credit-badge credit-${review.creditApplicationOutcome}`}>Kredi: {APPLICATION_LABELS[review.creditApplicationOutcome]}</span>}{review.creditCardApplicationOutcome&&<span className={`credit-badge credit-${review.creditCardApplicationOutcome}`}>Kart: {APPLICATION_LABELS[review.creditCardApplicationOutcome]}</span>}</div><div className="rev-text">{review.text}</div>{flagged&&<div className="review-moderation-note">Bu yorum moderasyon inceleme kuyruğunda; yönetici kararı verilene kadar otomatik olarak silinmez.</div>}<div className="rev-margin">{review.note}</div><div className="rev-actions">{isOwner?<button className="report-btn review-delete-btn" type="button" onClick={handleDelete} disabled={deleting}>{deleting?"Siliniyor…":"Yorumumu Sil"}</button>:<button className="report-btn" type="button" data-review-id={review.id} data-action="report-review" aria-label={`${review.bankName} yorumunu bildir`} onClick={handleReport} disabled={alreadyReported||flagged||submitting}>{flagged?"İncelemede":alreadyReported?"Bildirildi":submitting?"Gönderiliyor…":"Bildir"}</button>}</div></div>;
 }

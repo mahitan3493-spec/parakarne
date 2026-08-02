@@ -1,6 +1,8 @@
 import type { ApplicationOutcome, Bank, CategoryKey, CreditOutcome, Review, SubGrades } from "./types";
 import { letterFromScore } from "./grades";
-import { isReviewUnderModeration } from "./moderation";
+
+export const MIN_RELIABLE_REVIEW_COUNT = 10;
+export const MIN_APPROVAL_SAMPLE_COUNT = 10;
 
 const CATEGORY_KEYS: CategoryKey[] = ["branch", "service", "app", "atm", "security"];
 
@@ -23,7 +25,6 @@ export function visibleReviews(reviews: Review[]): Review[] {
   return reviews.filter(
     (review) =>
       review.status !== "hidden" &&
-      !isReviewUnderModeration(review) &&
       typeof review.bankId === "string" &&
       review.bankId.length > 0 &&
       typeof review.stars === "number" &&
@@ -131,5 +132,5 @@ export function overallFromCategories(categories: Partial<Record<CategoryKey, nu
   const values = Object.values(categories).filter((v): v is number => typeof v === "number");
   if (values.length === 0) return 0;
   const avg = values.reduce((sum, v) => sum + v, 0) / values.length;
-  return Math.round(avg);
+  return Number(avg.toFixed(2));
 }

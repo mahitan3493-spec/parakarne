@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { useBanks } from "@/lib/banks-context";
 import { useUI } from "@/lib/ui-context";
+import { useModalAccessibility } from "@/lib/use-modal-accessibility";
 
 type RateBankButtonProps = {
   children: ReactNode;
@@ -22,14 +23,7 @@ export default function RateBankButton({
   const selectId = useId();
   const effectiveSelectedBankId = selectedBankId || banks[0]?.id || "";
 
-  useEffect(() => {
-    if (!open) return;
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
-    }
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  const modalRef = useModalAccessibility<HTMLDivElement>(open, () => setOpen(false));
 
   function openRatingForm() {
     if (!effectiveSelectedBankId) return;
@@ -57,9 +51,11 @@ export default function RateBankButton({
       >
         <div
           className="modal rate-bank-picker"
+          ref={modalRef}
           role="dialog"
           aria-modal="true"
           aria-labelledby={`${selectId}-title`}
+          tabIndex={-1}
           onMouseDown={(event) => event.stopPropagation()}
         >
           <button

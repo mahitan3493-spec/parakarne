@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
@@ -9,7 +9,7 @@ import { useReviews } from "@/lib/reviews-context";
 import { useToast } from "@/lib/toast-context";
 import { useUI } from "@/lib/ui-context";
 import { gradeClassOf, letterFromScore, approvalClass } from "@/lib/grades";
-import { applyReviewStats, overallFromCategories, visibleReviews } from "@/lib/bank-stats";
+import { applyReviewStats, MIN_APPROVAL_SAMPLE_COUNT, MIN_RELIABLE_REVIEW_COUNT, overallFromCategories, visibleReviews } from "@/lib/bank-stats";
 import { submitReview } from "@/lib/reviews";
 import {
   CATEGORY_META,
@@ -21,6 +21,7 @@ import {
 } from "@/lib/types";
 import ReviewItem from "./ReviewItem";
 import BankLogo from "./BankLogo";
+import { useModalAccessibility } from "@/lib/use-modal-accessibility";
 
 type ModalStep = 1 | 2 | 3 | 4 | 5;
 
@@ -87,6 +88,7 @@ export default function BankDetailModal() {
   const { banks } = useBanks();
   const { reviews } = useReviews();
   const { showToast } = useToast();
+  const modalTitleId = useId();
 
   const [step, setStep] = useState<ModalStep>(1);
   const [categories, setCategories] = useState<CategoryRatings>({});
@@ -104,6 +106,7 @@ export default function BankDetailModal() {
     () => (rawBank ? applyReviewStats(rawBank, reviews) : null),
     [rawBank, reviews],
   );
+  const modalRef = useModalAccessibility<HTMLDivElement>(!!bankDetailId && !!bank, closeBankModal);
 
   /* eslint-disable react-hooks/set-state-in-effect -- Modal her açıldığında form alanlarını sıfırlıyoruz. */
   useEffect(() => {
@@ -249,7 +252,8 @@ export default function BankDetailModal() {
         if (e.target === e.currentTarget) closeBankModal();
       }}
     >
-      <div className="modal wide rating-modal">
+      <div className="modal wide rating-modal" ref={modalRef} role="dialog" aria-modal="true" aria-labelledby={modalTitleId} tabIndex={-1}>
+        <h2 id={modalTitleId} className="sr-only">{bank.name} banka karnesi ve puanlama formu</h2>
         <button className="modal-close" onClick={closeBankModal} aria-label="Pencereyi kapat">
           ✕
         </button>
@@ -287,7 +291,7 @@ export default function BankDetailModal() {
                   </div>
                 );
               })}
-              {bank.creditApprovalCount > 0 && (
+              {bank.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT && (
                 <>
                   <div className="rc-row">
                     <span className="subj">Kredi / Kredi Kartı Onay Oranı</span>
@@ -306,9 +310,13 @@ export default function BankDetailModal() {
                 </p>
               )}
             </div>
-            <p className="editor-note">
-              <span>Editör notu</span>
-              {bank.summary}
+            <p className="editor-note data-confidence-note">
+              <span>Veri güveni</span>
+              {bank.reviewCount === 0
+                ? "Bu banka için henüz kullanıcı verisi oluşmadı."
+                : bank.reviewCount < MIN_RELIABLE_REVIEW_COUNT
+                  ? `Karne ${bank.reviewCount} kullanıcı değerlendirmesine dayanıyor; veri arttıkça sonuç daha anlamlı hale gelir.`
+                  : `Karne ${bank.reviewCount.toLocaleString("tr-TR")} gerçek kullanıcı değerlendirmesine dayanıyor.`}
             </p>
             <button
               className="btn primary review-submit-btn"
@@ -484,7 +492,7 @@ export default function BankDetailModal() {
               </div>
             </div>
             <div className="modal-note-box">
-              Yorumun topluluk kurallarına uygun olmalı ve kişisel bilgi içermemelidir.
+              Yorumun topluluk kurallarına uygun olmalı ve kişisel bilgi içermemelidir. Çalışma durumu ve Findeks aralığı yorum kartlarında herkese açık gösterilmez.
             </div>
             <button className="btn primary review-submit-btn" onClick={handleSubmit} disabled={submitting}>
               {submitting ? "Kaydediliyor…" : "Puanı ve Yorumu Kaydet"}

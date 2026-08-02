@@ -4,7 +4,7 @@ import AdminModeration from "@/components/AdminModeration";
 export const metadata: Metadata = {
   title: "Moderasyon Paneli",
   description: "ParaKarne dahili moderasyon paneli.",
-  alternates: { canonical: "/admin" },
+  alternates: { canonical: "/admin/" },
   robots: { index: false, follow: false },
 };
 

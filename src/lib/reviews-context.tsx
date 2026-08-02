@@ -9,9 +9,7 @@ import {
 } from "react";
 import {
   collection,
-  limit,
   onSnapshot,
-  query,
   type DocumentData,
   type QueryDocumentSnapshot,
 } from "firebase/firestore";
@@ -74,7 +72,7 @@ function scoreFromCategories(categories: CategoryRatings): number | null {
   const values = Object.values(categories).filter((value): value is number => typeof value === "number");
   if (values.length === 0) return null;
   const avg = values.reduce((sum, value) => sum + value, 0) / values.length;
-  return Math.min(5, Math.max(1, Math.round(avg)));
+  return Number(Math.min(5, Math.max(1, avg)).toFixed(2));
 }
 
 function normalizeStars(data: Record<string, unknown>, categories: CategoryRatings): number {
@@ -87,7 +85,7 @@ function normalizeStars(data: Record<string, unknown>, categories: CategoryRatin
     0;
 
   if (rawScore <= 0) return 0;
-  return Math.min(5, Math.max(1, Math.round(rawScore)));
+  return Number(Math.min(5, Math.max(1, rawScore)).toFixed(2));
 }
 
 function normalizeReview(d: QueryDocumentSnapshot<DocumentData>): Review {
@@ -150,7 +148,7 @@ export function ReviewsProvider({ children }: { children: ReactNode }) {
     // ana sayaçlara ve banka puanına yansır.
     const reviewsRef = collection(db, "reviews");
     const unsub = onSnapshot(
-      query(reviewsRef, limit(500)),
+      reviewsRef,
       (snap) => {
         setReviews(newestFirst(snap.docs.map(normalizeReview)));
         setLoading(false);

@@ -148,6 +148,9 @@ const baseBanks = [
 
 export const demoBanks: Bank[] = baseBanks.map((bank, index) => ({
   ...bank,
+  // Kaynak listedeki eski editoryal cümleler kullanıcı verisi gibi gösterilmesin.
+  quote: "Karne yalnızca yayınlanmış kullanıcı değerlendirmeleriyle oluşur.",
+  summary: "Henüz bağımsız kullanıcı verisi oluşmadı.",
   color: bankColors[index % bankColors.length],
   order: index,
 }));

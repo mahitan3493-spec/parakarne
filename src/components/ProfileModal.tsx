@@ -1,104 +1,22 @@
 "use client";
-
-import { useState } from "react";
+import { useId, useState } from "react";
 import { updateEmail, updateProfile, type User } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { useAuth } from "@/lib/auth-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useToast } from "@/lib/toast-context";
 import { useUI } from "@/lib/ui-context";
+import { deleteReview } from "@/lib/reviews";
+import { useModalAccessibility } from "@/lib/use-modal-accessibility";
 import ReviewItem from "./ReviewItem";
-
-export default function ProfileModal() {
-  const { user } = useAuth();
-  const { profileOpen } = useUI();
-
-  if (!profileOpen || !user) return null;
-  return <ProfileModalInner user={user} />;
-}
-
-function ProfileModalInner({ user }: { user: User }) {
-  const { logout } = useAuth();
-  const { reviews } = useReviews();
-  const { showToast } = useToast();
-  const { closeProfileModal } = useUI();
-
-  const [name, setName] = useState(user.displayName || "");
-  const [email, setEmail] = useState(user.email || "");
-  const [saving, setSaving] = useState(false);
-
-  const myReviews = reviews.filter((r) => r.uid === user.uid);
-
-  async function handleSave() {
-    setSaving(true);
-    try {
-      if (name.trim() && name.trim() !== user.displayName) {
-        await updateProfile(user, { displayName: name.trim() });
-      }
-      if (email.trim() && email.trim() !== user.email) {
-        await updateEmail(user, email.trim());
-      }
-      showToast("Profil güncellendi.");
-    } catch (err) {
-      if (err instanceof FirebaseError && err.code === "auth/requires-recent-login") {
-        showToast("E-postanı değiştirmek için tekrar giriş yapman gerekiyor.");
-      } else {
-        showToast("Profil güncellenemedi, tekrar dene.");
-      }
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function handleLogout() {
-    await logout();
-    closeProfileModal();
-    showToast("Çıkış yapıldı.");
-  }
-
-  return (
-    <div
-      className="overlay open"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) closeProfileModal();
-      }}
-    >
-      <div className="modal">
-        <button className="modal-close" onClick={closeProfileModal}>
-          ✕
-        </button>
-        <h3>Profilim</h3>
-        <p className="hint">Bilgilerini güncelle ya da çıkış yap.</p>
-        <div className="field">
-          <label>Ad Soyad</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
-        <div className="field">
-          <label>E-posta</label>
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <p style={{ fontSize: "12.5px", color: "var(--ink-faint)", marginBottom: "16px" }}>
-          Yorum sayın: <strong>{myReviews.length}</strong>
-        </p>
-        <button
-          className="btn primary"
-          style={{ width: "100%", marginBottom: "10px" }}
-          onClick={handleSave}
-          disabled={saving}
-        >
-          {saving ? "Kaydediliyor…" : "Kaydet"}
-        </button>
-        <button className="btn" style={{ width: "100%", marginBottom: myReviews.length ? "20px" : 0 }} onClick={handleLogout}>
-          Çıkış Yap
-        </button>
-        {myReviews.length > 0 && (
-          <div className="detail-reviews" style={{ maxHeight: 240 }}>
-            {myReviews.map((r) => (
-              <ReviewItem key={r.id} review={r} />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+export default function ProfileModal(){const{user}=useAuth();const{profileOpen}=useUI();if(!profileOpen||!user)return null;return <ProfileModalInner user={user}/>;}
+function ProfileModalInner({user}:{user:User}){
+ const{logout,resendVerification,deleteAccount}=useAuth();const{reviews,loading:reviewsLoading}=useReviews();const{showToast}=useToast();const{closeProfileModal}=useUI();const titleId=useId();const modalRef=useModalAccessibility<HTMLDivElement>(true,closeProfileModal);
+ const[name,setName]=useState(user.displayName||"");const[email,setEmail]=useState(user.email||"");const[saving,setSaving]=useState(false);const[verificationBusy,setVerificationBusy]=useState(false);const[deleteBusy,setDeleteBusy]=useState(false);const[confirmDelete,setConfirmDelete]=useState(false);
+ const myReviews=reviews.filter(r=>r.uid===user.uid);const signedInWithGoogle=user.providerData.some(p=>p.providerId==="google.com");
+ async function handleSave(){setSaving(true);try{if(name.trim()&&name.trim()!==user.displayName)await updateProfile(user,{displayName:name.trim()});if(email.trim()&&email.trim()!==user.email)await updateEmail(user,email.trim());showToast("Profil güncellendi.");}catch(err){showToast(err instanceof FirebaseError&&err.code==="auth/requires-recent-login"?"E-posta değişikliği için tekrar giriş yapman gerekiyor.":"Profil güncellenemedi, tekrar dene.");}finally{setSaving(false);}}
+ async function handleResendVerification(){setVerificationBusy(true);try{await resendVerification();showToast("Doğrulama e-postası yeniden gönderildi.");}catch{showToast("Doğrulama e-postası gönderilemedi. Biraz sonra tekrar dene.");}finally{setVerificationBusy(false);}}
+ async function handleLogout(){await logout();closeProfileModal();showToast("Çıkış yapıldı.");}
+ async function handleDeleteAccount(){if(reviewsLoading){showToast("Yorumların yüklenmesi tamamlanınca tekrar dene.");return;}if(!confirmDelete){setConfirmDelete(true);return;}setDeleteBusy(true);try{for(const r of myReviews)await deleteReview(r.id);await deleteAccount();closeProfileModal();showToast("Hesabın ve yorumların silindi.");}catch(err){showToast(err instanceof FirebaseError&&err.code==="auth/requires-recent-login"?"Hesabı silmek için çıkış yapıp yeniden giriş yaptıktan sonra tekrar dene.":"Hesap silinemedi. Lütfen tekrar dene.");}finally{setDeleteBusy(false);}}
+ return <div className="overlay open" onClick={e=>{if(e.target===e.currentTarget)closeProfileModal();}}><div className="modal" ref={modalRef} role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1}><button className="modal-close" onClick={closeProfileModal} aria-label="Profil penceresini kapat">✕</button><h3 id={titleId}>Profilim</h3><p className="hint">Görünen adını güncelle, yorumlarını yönet veya hesabını sil.</p><div className="field"><label htmlFor="profile-display-name">Görünen ad</label><input id="profile-display-name" type="text" value={name} onChange={e=>setName(e.target.value)} maxLength={40}/><small>Yorumlarda adın “Murat K.” gibi kısaltılarak gösterilir.</small></div><div className="field"><label htmlFor="profile-email">E-posta</label><input id="profile-email" type="email" value={email} onChange={e=>setEmail(e.target.value)}/></div>{!user.emailVerified&&!signedInWithGoogle&&<div className="profile-verification-box"><span>E-posta adresin henüz doğrulanmadı.</span><button type="button" className="text-link-btn" onClick={handleResendVerification} disabled={verificationBusy}>{verificationBusy?"Gönderiliyor…":"Doğrulama e-postasını yeniden gönder"}</button></div>}<p className="profile-review-count">Yorum sayın: <strong>{myReviews.length}</strong></p><button className="btn primary" style={{width:"100%",marginBottom:"10px"}} onClick={handleSave} disabled={saving}>{saving?"Kaydediliyor…":"Kaydet"}</button><button className="btn" style={{width:"100%",marginBottom:myReviews.length?"20px":0}} onClick={handleLogout}>Çıkış Yap</button>{myReviews.length>0&&<div className="profile-review-section"><h4>Yorumlarım</h4><div className="detail-reviews profile-review-list">{myReviews.map(r=><ReviewItem key={r.id} review={r}/>)}</div></div>}<div className="profile-danger-zone"><strong>Hesabı ve verileri sil</strong><p>Bu işlem hesabını ve sana ait bütün banka yorumlarını kalıcı olarak siler.</p>{confirmDelete&&<p className="profile-delete-warning">Eminsen düğmeye bir kez daha bas.</p>}<button type="button" className="btn danger-btn" onClick={handleDeleteAccount} disabled={deleteBusy||reviewsLoading}>{reviewsLoading?"Yorumlar yükleniyor…":deleteBusy?"Siliniyor…":confirmDelete?"Evet, hesabımı kalıcı sil":"Hesabımı Sil"}</button></div></div></div>;
 }

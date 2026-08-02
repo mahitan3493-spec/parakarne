@@ -1,98 +1,26 @@
 "use client";
-
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
-import {
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  updateProfile,
-  type User,
-} from "firebase/auth";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, deleteUser, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, type User } from "firebase/auth";
 import { auth, firebaseMissingMessage } from "./firebase";
-
 type AuthContextValue = {
-  user: User | null;
-  loading: boolean;
+  user: User | null; loading: boolean;
   signup: (name: string, email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: () => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
-  logout: () => Promise<void>;
+  loginWithGoogle: () => Promise<void>; resetPassword: (email: string) => Promise<void>;
+  resendVerification: () => Promise<void>; deleteAccount: () => Promise<void>; logout: () => Promise<void>;
 };
-
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-
-function requireAuth() {
-  if (!auth) throw new Error(firebaseMissingMessage);
-  return auth;
-}
-
+function requireAuth() { if (!auth) throw new Error(firebaseMissingMessage); return auth; }
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(!!auth);
-
-  useEffect(() => {
-    if (!auth) return;
-
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      setLoading(false);
-    });
-    return unsub;
-  }, []);
-
-  async function signup(name: string, email: string, password: string) {
-    const currentAuth = requireAuth();
-    const cred = await createUserWithEmailAndPassword(currentAuth, email, password);
-    await updateProfile(cred.user, { displayName: name });
-    await sendEmailVerification(cred.user).catch(() => undefined);
-
-    // Firebase User nesnesini spread etmek reload/getIdToken gibi prototype
-    // metotlarını düşürebilir. Yorum kaydı öncesi e-posta doğrulama kontrolü
-    // güvenilir çalışsın diye gerçek User referansını saklıyoruz.
-    await cred.user.reload().catch(() => undefined);
-    setUser(currentAuth.currentUser);
-  }
-
-  async function login(email: string, password: string) {
-    await signInWithEmailAndPassword(requireAuth(), email, password);
-  }
-
-  async function loginWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(requireAuth(), provider);
-  }
-
-  async function resetPassword(email: string) {
-    await sendPasswordResetEmail(requireAuth(), email);
-  }
-
-  async function logout() {
-    await signOut(requireAuth());
-  }
-
-  return (
-    <AuthContext.Provider
-      value={{ user, loading, signup, login, loginWithGoogle, resetPassword, logout }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  const [user, setUser] = useState<User | null>(null); const [loading, setLoading] = useState(!!auth);
+  useEffect(() => { if (!auth) return; return onAuthStateChanged(auth, (u) => { setUser(u); setLoading(false); }); }, []);
+  async function signup(name: string, email: string, password: string) { const a=requireAuth(); const c=await createUserWithEmailAndPassword(a,email,password); await updateProfile(c.user,{displayName:name.trim()}); await sendEmailVerification(c.user).catch(()=>undefined); await c.user.reload().catch(()=>undefined); setUser(a.currentUser); }
+  async function login(email:string,password:string){ await signInWithEmailAndPassword(requireAuth(),email,password); }
+  async function loginWithGoogle(){ await signInWithPopup(requireAuth(),new GoogleAuthProvider()); }
+  async function resetPassword(email:string){ await sendPasswordResetEmail(requireAuth(),email); }
+  async function resendVerification(){ const u=requireAuth().currentUser; if(!u) throw new Error("Oturum bulunamadı."); await sendEmailVerification(u); }
+  async function deleteAccount(){ const u=requireAuth().currentUser; if(!u) throw new Error("Oturum bulunamadı."); await deleteUser(u); }
+  async function logout(){ await signOut(requireAuth()); }
+  return <AuthContext.Provider value={{user,loading,signup,login,loginWithGoogle,resetPassword,resendVerification,deleteAccount,logout}}>{children}</AuthContext.Provider>;
 }
-
-export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
-  return ctx;
-}
+export function useAuth(){ const ctx=useContext(AuthContext); if(!ctx) throw new Error("useAuth must be used within AuthProvider"); return ctx; }
