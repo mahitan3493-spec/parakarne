@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticle(slug);
-  if (!article) notFound();
+  if (!article) return notFound();
 
   const articleUrl = `${SITE_URL}/${article.slug}/`;
   const articleJsonLd = {

@@ -1,8 +1,17 @@
 import { spawn } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 const isWindows = process.platform === "win32";
+
+// Eski statik sitemap/robots dosyaları önceki sürümlerden proje klasöründe
+// kalabilir. App Router içindeki sitemap.ts ve robots.ts ile aynı URL'yi
+// üretmeleri Next.js build çakışmasına yol açar. Netlify build başlamadan
+// önce eski dosyaları güvenle temizle.
+for (const staleFile of ["public/sitemap.xml", "public/robots.txt", "tsconfig.tsbuildinfo"]) {
+  const stalePath = join(process.cwd(), staleFile);
+  if (existsSync(stalePath)) rmSync(stalePath, { force: true });
+}
 const nextBin = join(process.cwd(), "node_modules", ".bin", isWindows ? "next.cmd" : "next");
 const child = spawn(nextBin, ["build"], {
   cwd: process.cwd(),
@@ -42,6 +51,11 @@ child.stderr.on("data", (chunk) => {
   const text = chunk.toString();
   process.stderr.write(text);
   markFinishedIfReady(text);
+});
+
+child.on("error", (error) => {
+  console.error("next build could not start:", error);
+  process.exit(1);
 });
 
 child.on("exit", (code, signal) => {
