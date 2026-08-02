@@ -90,11 +90,11 @@ export default function Hero() {
               <div>
                 <span className={`num${reviewsLoading || stats.reviewCount === 0 ? " num-state" : ""}`}>
                   {reviewsLoading
-                    ? "Hesaplanıyor…"
+                    ? "Hesaplanıyor"
                     : stats.reviewCount === 0
                       ? "Henüz veri yok"
                       : `${stats.avg} / 5`}
-                </span>
+                </span>{" "}
                 <span className="lbl">Ortalama Kullanıcı Puanı</span>
               </div>
             </div>

@@ -1,21 +1,25 @@
 /* ParaKarne PWA Service Worker */
-const CACHE_VERSION = "parakarne-pwa-finview-v24";
+const CACHE_VERSION = "parakarne-pwa-finview-v25";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const APP_SHELL_URLS = [
   "/",
   "/kredi-hesaplama/",
+  "/ihtiyac-kredisi-hesaplama/",
+  "/konut-kredisi-hesaplama/",
+  "/tasit-kredisi-hesaplama/",
+  "/mevduat-faizi-hesaplama/",
   "/offline.html",
   "/site.webmanifest",
   "/logo-mark.svg",
   "/logo-mark.png",
   "/parakarne-favicon.ico",
   "/parakarne-favicon-96.png",
-  "/icon-v24-192.png",
-  "/icon-v24-512.png",
-  "/icon-maskable-v24-192.png",
-  "/icon-maskable-v24-512.png",
-  "/apple-touch-icon-v24.png",
+  "/icon-v25-192.png",
+  "/icon-v25-512.png",
+  "/icon-maskable-v25-192.png",
+  "/icon-maskable-v25-512.png",
+  "/apple-touch-icon-v25.png",
   "/parakarne-logo-search.png",
   "/parakarne-paylasim.png"
 ];

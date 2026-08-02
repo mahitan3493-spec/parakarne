@@ -6655,3 +6655,82 @@ nav.links {
   font-family: var(--font-body), sans-serif;
   font-size: 11px;
 }
+
+
+/* ===== ParaKarne V25 son rötuşlar ===== */
+.mobile-update-check {
+  justify-content: flex-start;
+  gap: 9px;
+}
+
+.mobile-update-label {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.mobile-update-separator {
+  color: rgba(18, 52, 75, 0.35);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mobile-update-status {
+  margin-left: 0;
+}
+
+.finance-home-tool strong,
+.finance-home-tool small {
+  display: block;
+}
+
+.finance-stopaj-legal-note {
+  display: grid;
+  gap: 6px;
+  padding: 15px 17px;
+  border-top: 1px solid rgba(18, 52, 75, 0.09);
+  background: rgba(247, 252, 250, 0.82);
+}
+
+.finance-stopaj-legal-note strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.finance-stopaj-legal-note p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+.finance-stopaj-legal-note a {
+  width: fit-content;
+  color: var(--green);
+  font-size: 10.5px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.compare-pickers select:invalid {
+  color: var(--ink-faint);
+}
+
+@media (max-width: 480px) {
+  .mobile-update-check {
+    gap: 7px;
+    padding: 9px 10px;
+  }
+
+  .mobile-update-label {
+    font-size: 12px;
+  }
+
+  .mobile-update-status {
+    padding: 4px 7px;
+    font-size: 9.5px;
+  }
+}

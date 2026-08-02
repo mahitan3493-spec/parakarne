@@ -266,12 +266,28 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
           </div>
 
           {tab === "deposit" ? (
-            <div className="finance-result-grid">
-              <div><span>Brüt kazanç</span><b>{formatCurrency(depositResult.grossInterest)}</b></div>
-              <div><span>Vergi kesintisi</span><b>-{formatCurrency(depositResult.withholding)}</b></div>
-              <div className="highlight"><span>Net kazanç</span><b>{formatCurrency(depositResult.netInterest)}</b></div>
-              <div><span>Günlük net ortalama</span><b>{formatCurrency(depositResult.dailyNetAverage)}</b></div>
-            </div>
+            <>
+              <div className="finance-result-grid">
+                <div><span>Brüt kazanç</span><b>{formatCurrency(depositResult.grossInterest)}</b></div>
+                <div><span>Vergi kesintisi</span><b>-{formatCurrency(depositResult.withholding)}</b></div>
+                <div className="highlight"><span>Net kazanç</span><b>{formatCurrency(depositResult.netInterest)}</b></div>
+                <div><span>Günlük net ortalama</span><b>{formatCurrency(depositResult.dailyNetAverage)}</b></div>
+              </div>
+              <div className="finance-stopaj-legal-note">
+                <strong>Stopaj varsayımı</strong>
+                <p>
+                  TL mevduatta 6 aya kadar %17,5; 1 yıla kadar %15; 1 yıldan uzun vadede %10 oranı kullanılır.
+                  Hesabın açılış veya yenileme tarihi ile mevzuat değişiklikleri sonucu etkileyebilir.
+                </p>
+                <a
+                  href="https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Ffileadmin%2Fbeyannamerehberi%2F2026%2F2026_Gecici67.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GİB vergi rehberi · Son kontrol: 2 Ağustos 2026 ↗
+                </a>
+              </div>
+            </>
           ) : (
             <>
               <div className="finance-result-grid">

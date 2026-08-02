@@ -95,7 +95,7 @@ export default function PwaRegister() {
         if (manual) {
           showTemporaryStatus(
             "Uygulama güncel",
-            "ParaKarne'nin en yeni web sürümünü kullanıyorsun (V24).",
+            "ParaKarne'nin en yeni web sürümünü kullanıyorsun (V25).",
           );
         }
         return false;
