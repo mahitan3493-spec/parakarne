@@ -101,10 +101,18 @@ export default function Header() {
           ))}
         </div>
         <div className="mobile-auth-actions">
-          <button type="button" className="mobile-update-check" onClick={checkPwaUpdate}>
+          <button
+            type="button"
+            className="mobile-update-check"
+            onClick={checkPwaUpdate}
+            aria-label="ParaKarne V23 güncellemelerini denetle"
+          >
             <span className="mobile-update-icon" aria-hidden="true">↻</span>
-            <span>Güncellemeleri Kontrol Et</span>
-            <small>V21</small>
+            <span className="mobile-update-copy">
+              <strong>Sürüm V23</strong>
+              <small>Güncellemeyi denetle</small>
+            </span>
+            <span className="mobile-update-status">Güncel</span>
           </button>
           {user ? (
             <button type="button" className="mobile-profile-button" onClick={openMobileProfile}>

@@ -96,12 +96,16 @@ export default function CompareBanks() {
 
       {!hasAnyLiveData && (
         <div className="compare-zero-state" role="status">
-          <span className="compare-zero-icon" aria-hidden="true">↗</span>
+          <div className="compare-zero-visual" aria-hidden="true">
+            <span>?</span>
+            <b>VS</b>
+            <span>?</span>
+          </div>
           <div>
-            <strong>Karşılaştırma için kullanıcı puanı bekleniyor.</strong>
+            <strong>Kıyaslamak için yukarıdan iki banka seçin.</strong>
             <p>
-              Seçili bankaların gerçek kullanıcı yorumları geldikçe Genel Not,
-              Kullanıcı Puanı ve kategori rozetleri burada otomatik oluşacak.
+              Seçtiğiniz bankalara gerçek kullanıcı puanları geldikçe Genel Not,
+              Kullanıcı Puanı ve kategori rozetleri burada otomatik oluşur.
               ParaKarne örnek veya sahte puan göstermez.
             </p>
           </div>

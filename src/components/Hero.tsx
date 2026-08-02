@@ -88,7 +88,13 @@ export default function Hero() {
                 <span className="lbl">Yayındaki Kullanıcı Yorumu</span>
               </div>
               <div>
-                <span className="num">{reviewsLoading ? "—" : stats.avg}</span>
+                <span className={`num${reviewsLoading || stats.reviewCount === 0 ? " num-state" : ""}`}>
+                  {reviewsLoading
+                    ? "Hesaplanıyor…"
+                    : stats.reviewCount === 0
+                      ? "Henüz veri yok"
+                      : `${stats.avg} / 5`}
+                </span>
                 <span className="lbl">Ortalama Kullanıcı Puanı</span>
               </div>
             </div>
