@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Ledger from "@/components/Ledger";
+import FinanceHomeTeaser from "@/components/FinanceHomeTeaser";
 import BankGrid from "@/components/BankGrid";
 import Reviews from "@/components/Reviews";
 import HowItWorks from "@/components/HowItWorks";
@@ -53,6 +54,7 @@ export default function Home() {
     <>
       <Header />
       <Hero />
+      <FinanceHomeTeaser />
       <Ledger />
       <BankGrid />
       <Reviews />

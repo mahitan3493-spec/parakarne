@@ -9,6 +9,7 @@ import { initialsOf } from "@/lib/grades";
 const MENU_LINKS = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/#karsilastir", label: "Karşılaştır" },
+  { href: "/kredi-hesaplama/", label: "Hesaplama" },
   { href: "/#bankalar", label: "Öne Çıkanlar" },
   { href: "/#yorumlar", label: "Yorumlar" },
   { href: "/#nasil", label: "Nasıl Çalışır" },
@@ -105,11 +106,11 @@ export default function Header() {
             type="button"
             className="mobile-update-check"
             onClick={checkPwaUpdate}
-            aria-label="ParaKarne V23 güncellemelerini denetle"
+            aria-label="ParaKarne V24 güncellemelerini denetle"
           >
             <span className="mobile-update-icon" aria-hidden="true">↻</span>
             <span className="mobile-update-copy">
-              <strong>Sürüm V23</strong>
+              <strong>Sürüm V24</strong>
               <small>Güncellemeyi denetle</small>
             </span>
             <span className="mobile-update-status">Güncel</span>
