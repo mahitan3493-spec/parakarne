@@ -4,9 +4,9 @@ import LegalPageLayout from "@/components/LegalPageLayout";
 export const metadata: Metadata = {
   title: "İletişim",
   description: "ParaKarne iletişim ve destek sayfası.",
-  alternates: { canonical: "/iletisim/" },
+  alternates: { canonical: "/iletisim" },
   openGraph: {
-    url: "/iletisim/",
+    url: "/iletisim",
     title: "İletişim | ParaKarne",
     description: "ParaKarne iletişim ve destek sayfası.",
   },

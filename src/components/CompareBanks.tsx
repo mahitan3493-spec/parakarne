@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
-import { applyReviewStatsToBanks, MIN_APPROVAL_SAMPLE_COUNT } from "@/lib/bank-stats";
+import { applyReviewStatsToBanks } from "@/lib/bank-stats";
 import { gradeClassOf, letterFromScore } from "@/lib/grades";
 import { CATEGORY_META, type Bank } from "@/lib/types";
 import BankLogo from "./BankLogo";
@@ -204,14 +204,14 @@ function buildRows(bankA: Bank, bankB: Bank): Row[] {
     });
   }
 
-  if (bankA.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT || bankB.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT) {
+  if (bankA.creditApprovalCount > 0 || bankB.creditApprovalCount > 0) {
     rows.push({
       label: "Kredi/Kredi Kartı Onayı",
       kind: "percent",
-      aValue: bankA.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT ? bankA.creditApprovalRate : null,
-      bValue: bankB.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT ? bankB.creditApprovalRate : null,
-      aDisplay: bankA.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT ? `%${Math.round(bankA.creditApprovalRate)}` : "—",
-      bDisplay: bankB.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT ? `%${Math.round(bankB.creditApprovalRate)}` : "—",
+      aValue: bankA.creditApprovalCount > 0 ? bankA.creditApprovalRate : null,
+      bValue: bankB.creditApprovalCount > 0 ? bankB.creditApprovalRate : null,
+      aDisplay: bankA.creditApprovalCount > 0 ? `%${Math.round(bankA.creditApprovalRate)}` : "—",
+      bDisplay: bankB.creditApprovalCount > 0 ? `%${Math.round(bankB.creditApprovalRate)}` : "—",
     });
   }
 

@@ -13,7 +13,7 @@ import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
 import { gradeClassOf, letterFromScore, approvalClass } from "@/lib/grades";
-import { applyReviewStats, MIN_APPROVAL_SAMPLE_COUNT, MIN_RELIABLE_REVIEW_COUNT, visibleReviews } from "@/lib/bank-stats";
+import { applyReviewStats, visibleReviews } from "@/lib/bank-stats";
 import { CATEGORY_META } from "@/lib/types";
 
 export default function BankDetailPageContent({ bankId }: { bankId: string }) {
@@ -93,7 +93,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
                   </div>
                 );
               })}
-              {bank.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT && (
+              {bank.creditApprovalCount > 0 && (
                 <>
                   <div className="rc-row">
                     <span className="subj">Kredi / Kredi Kartı Onay Oranı</span>
@@ -129,13 +129,9 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
               </button>
             )}
 
-            <p className="bank-detail-editor-note data-confidence-note">
-              <span className="bank-detail-editor-label">Veri güveni</span>
-              {bank.reviewCount === 0
-                ? "Bu banka için henüz kullanıcı verisi oluşmadı."
-                : bank.reviewCount < MIN_RELIABLE_REVIEW_COUNT
-                  ? `Karne ${bank.reviewCount} kullanıcı değerlendirmesine dayanıyor; veri arttıkça sonuç daha anlamlı hale gelir.`
-                  : `Karne ${bank.reviewCount.toLocaleString("tr-TR")} gerçek kullanıcı değerlendirmesine dayanıyor.`}
+            <p className="bank-detail-editor-note">
+              <span className="bank-detail-editor-label">Editör notu</span>
+              {bank.summary}
             </p>
 
             <section className="bank-seo-block" aria-label={`${bank.name} banka inceleme başlıkları`}>
@@ -169,7 +165,7 @@ export default function BankDetailPageContent({ bankId }: { bankId: string }) {
                 <section>
                   <h3>{bank.name} Kredi ve Kredi Kartı Onay Oranı</h3>
                   <p>
-                    {bank.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT
+                    {bank.creditApprovalCount > 0
                       ? `${bank.name} kredi ve kredi kartı onay oranı, kullanıcıların paylaştığı ${bank.creditApprovalCount.toLocaleString("tr-TR")} başvuru sonucuna göre yaklaşık %${Math.round(bank.creditApprovalRate)} olarak hesaplanıyor.`
                       : `${bank.name} kredi ve kredi kartı onay oranı için henüz yeterli başvuru sonucu yok. Başvuru sonucunu paylaşan kullanıcılar bu oranın oluşmasını sağlar.`}
                   </p>

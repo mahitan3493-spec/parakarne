@@ -1,9 +1,6 @@
 import type { ApplicationOutcome, Bank, CategoryKey, CreditOutcome, Review, SubGrades } from "./types";
 import { letterFromScore } from "./grades";
 
-export const MIN_RELIABLE_REVIEW_COUNT = 10;
-export const MIN_APPROVAL_SAMPLE_COUNT = 10;
-
 const CATEGORY_KEYS: CategoryKey[] = ["branch", "service", "app", "atm", "security"];
 
 const OUTCOME_SCORE: Record<CreditOutcome, number> = {
@@ -20,6 +17,9 @@ const APPLICATION_SCORE: Record<Exclude<ApplicationOutcome, "not_applied">, numb
 export function gradeFromRating(rating: number): string {
   return rating > 0 ? letterFromScore(rating) : "—";
 }
+
+export const MIN_RELIABLE_REVIEW_COUNT = 10;
+export const MIN_APPROVAL_SAMPLE_COUNT = 10;
 
 export function visibleReviews(reviews: Review[]): Review[] {
   return reviews.filter(

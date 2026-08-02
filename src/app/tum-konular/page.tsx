@@ -11,9 +11,9 @@ export const metadata: Metadata = {
   title: "Tüm Konular",
   description:
     "ParaKarne'deki tüm bankacılık, kredi, icra, haciz ve hesap sorunları rehberlerini kategori ve aramayla keşfedin.",
-  alternates: { canonical: "/tum-konular/" },
+  alternates: { canonical: "/tum-konular" },
   openGraph: {
-    url: "/tum-konular/",
+    url: "/tum-konular",
     title: "Tüm Konular | ParaKarne",
     description:
       "ParaKarne'deki bankacılık, kredi, icra, haciz ve hesap sorunları rehberlerini keşfedin.",

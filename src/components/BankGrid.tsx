@@ -6,7 +6,11 @@ import { useBanks } from "@/lib/banks-context";
 import { useReviews } from "@/lib/reviews-context";
 import { useUI } from "@/lib/ui-context";
 import { gradeClassOf } from "@/lib/grades";
-import { applyReviewStatsToBanks, MIN_APPROVAL_SAMPLE_COUNT, MIN_RELIABLE_REVIEW_COUNT } from "@/lib/bank-stats";
+import {
+  applyReviewStatsToBanks,
+  MIN_APPROVAL_SAMPLE_COUNT,
+  MIN_RELIABLE_REVIEW_COUNT,
+} from "@/lib/bank-stats";
 import type { Bank } from "@/lib/types";
 import BankLogo from "./BankLogo";
 import RateBankButton from "./RateBankButton";
@@ -47,28 +51,36 @@ export default function BankGrid() {
   );
 
   const badgeMetrics = useMemo(() => {
-    const reliableBanks = reviewedBanks.filter((bank) => bank.reviewCount >= MIN_RELIABLE_REVIEW_COUNT);
-    const highestRating = reliableBanks.reduce(
-      (max, bank) => Math.max(max, bank.rating),
-      0,
-    );
-    const highestReviewCount = reliableBanks.reduce(
+    const highestReviewCount = reviewedBanks.reduce(
       (max, bank) => Math.max(max, bank.reviewCount),
       0,
     );
-    const approvalBanks = reviewedBanks.filter((bank) => bank.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT);
+    const reliableBanks = reviewedBanks.filter(
+      (bank) => bank.reviewCount >= MIN_RELIABLE_REVIEW_COUNT,
+    );
+    const highestReliableRating = reliableBanks.reduce(
+      (max, bank) => Math.max(max, bank.rating),
+      0,
+    );
+    const approvalBanks = reviewedBanks.filter(
+      (bank) => bank.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT,
+    );
     const highestApprovalRate = approvalBanks.reduce(
       (max, bank) => Math.max(max, bank.creditApprovalRate),
       0,
     );
 
-    return { highestRating, highestReviewCount, highestApprovalRate };
+    return { highestReliableRating, highestReviewCount, highestApprovalRate };
   }, [reviewedBanks]);
 
   function badgesFor(bank: Bank): BankBadge[] {
     const badges: BankBadge[] = [];
 
-    if (bank.rating === badgeMetrics.highestRating && badgeMetrics.highestRating > 0) {
+    if (
+      bank.reviewCount >= MIN_RELIABLE_REVIEW_COUNT &&
+      bank.rating === badgeMetrics.highestReliableRating &&
+      badgeMetrics.highestReliableRating > 0
+    ) {
       badges.push({ label: "En Yüksek Puan", tone: "emerald" });
     }
     if (
@@ -84,10 +96,8 @@ export default function BankGrid() {
     ) {
       badges.push({ label: "Yüksek Onay Oranı", tone: "blue" });
     }
-    if (bank.reviewCount > 0 && bank.reviewCount <= 2) {
+    if (bank.reviewCount > 0 && bank.reviewCount < MIN_RELIABLE_REVIEW_COUNT) {
       badges.push({ label: "Yeni Karne", tone: "neutral" });
-    } else if (bank.reviewCount < MIN_RELIABLE_REVIEW_COUNT) {
-      badges.push({ label: "Veri Oluşuyor", tone: "neutral" });
     }
 
     return badges.slice(0, 2);
@@ -187,13 +197,13 @@ export default function BankGrid() {
                       {bank.grade}
                     </span>
                   </div>
-                  <div className="bcard-quote">{bank.reviewCount >= MIN_RELIABLE_REVIEW_COUNT ? `${bank.reviewCount.toLocaleString("tr-TR")} gerçek kullanıcı değerlendirmesiyle oluşan karne.` : `İlk ${bank.reviewCount} kullanıcı değerlendirmesi alındı; veri oluşmaya devam ediyor.`}</div>
+                  <div className="bcard-quote">{bank.quote}</div>
                   <div className="bcard-foot">
                     <span>
                       {"★".repeat(Math.round(bank.rating))} {bank.rating}/5
                     </span>
                     <span>{bank.reviewCount.toLocaleString("tr-TR")} yorum</span>
-                    {bank.creditApprovalCount >= MIN_APPROVAL_SAMPLE_COUNT && (
+                    {bank.creditApprovalCount > 0 && (
                       <span>%{Math.round(bank.creditApprovalRate)} onay deneyimi</span>
                     )}
                   </div>

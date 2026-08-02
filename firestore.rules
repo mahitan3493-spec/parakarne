@@ -13,7 +13,8 @@ service cloud.firestore {
 
     function validCategoryValue(categories, key) {
       return !(key in categories)
-        || (categories[key] is int && categories[key] >= 1 && categories[key] <= 5);
+        || ((categories[key] is int || categories[key] is float)
+          && categories[key] >= 1 && categories[key] <= 5);
     }
 
     function validApplicationOutcome(value) {
@@ -63,6 +64,8 @@ service cloud.firestore {
           'creditOutcome',
           'creditApplicationOutcome',
           'creditCardApplicationOutcome',
+          'employmentStatus',
+          'findeksScoreRange',
           'text',
           'note',
           'status',
@@ -107,6 +110,10 @@ service cloud.firestore {
           || validApplicationOutcome(request.resource.data.creditApplicationOutcome))
         && (!('creditCardApplicationOutcome' in request.resource.data)
           || validApplicationOutcome(request.resource.data.creditCardApplicationOutcome))
+        && (!('employmentStatus' in request.resource.data)
+          || validEmploymentStatus(request.resource.data.employmentStatus))
+        && (!('findeksScoreRange' in request.resource.data)
+          || validFindeksScoreRange(request.resource.data.findeksScoreRange))
         && request.resource.data.text is string
         && request.resource.data.text.size() >= 25
         && request.resource.data.text.size() <= 1000
@@ -138,39 +145,6 @@ service cloud.firestore {
           isSignedIn()
           && request.auth.uid == resource.data.uid
         );
-    }
-
-    match /reviewPrivate/{reviewId} {
-      allow read: if isAdmin()
-        || (isSignedIn() && request.auth.uid == resource.data.uid);
-
-      allow create: if isAdmin()
-        || (
-          isSignedIn()
-          && reviewId == request.auth.uid + '_' + request.resource.data.bankId
-          && request.resource.data.keys().hasOnly([
-            'uid',
-            'bankId',
-            'employmentStatus',
-            'findeksScoreRange',
-            'createdAt',
-            'createdAtMs',
-            'migratedAt'
-          ])
-          && request.resource.data.uid == request.auth.uid
-          && request.resource.data.bankId is string
-          && (!('employmentStatus' in request.resource.data)
-            || validEmploymentStatus(request.resource.data.employmentStatus))
-          && (!('findeksScoreRange' in request.resource.data)
-            || validFindeksScoreRange(request.resource.data.findeksScoreRange))
-          && (!('createdAt' in request.resource.data)
-            || request.resource.data.createdAt == request.time)
-        );
-
-      allow update: if isAdmin();
-
-      allow delete: if isAdmin()
-        || (isSignedIn() && request.auth.uid == resource.data.uid);
     }
   }
 }

@@ -4,9 +4,9 @@ import LegalPageLayout from "@/components/LegalPageLayout";
 export const metadata: Metadata = {
   title: "Kullanım Şartları",
   description: "ParaKarne kullanım şartları.",
-  alternates: { canonical: "/kullanim-sartlari/" },
+  alternates: { canonical: "/kullanim-sartlari" },
   openGraph: {
-    url: "/kullanim-sartlari/",
+    url: "/kullanim-sartlari",
     title: "Kullanım Şartları | ParaKarne",
     description: "ParaKarne kullanım şartları.",
   },
@@ -22,7 +22,7 @@ export default function TermsPage() {
       <ul>
         <li>Hakaret, tehdit, kişisel veri, telefon, IBAN, reklam ve yanıltıcı bilgi paylaşılmamalıdır.</li>
         <li>Yorumlar gerçek deneyime dayanmalı, başka kişileri hedef göstermemelidir.</li>
-        <li>3 veya daha fazla bildirim alan yorumlar moderasyon panelinde öncelikli incelemeye alınır; yönetici kararı olmadan otomatik olarak silinmez veya puandan çıkarılmaz.</li>
+        <li>3 veya daha fazla bildirim alan yorumlar genel puan ve yorum akışından çıkarılarak moderasyon incelemesine alınır.</li>
       </ul>
       <h2 id="sorumluluk-siniri">Sorumluluk sınırı</h2>
       <p>
@@ -30,7 +30,7 @@ export default function TermsPage() {
       </p>
       <h2>Hesap işlemleri</h2>
       <p>
-        Kullanıcı hesabı kötüye kullanım, sahte yorum, spam veya hukuka aykırı içerik nedeniyle kısıtlanabilir. Kullanıcı, hesabındaki işlemlerden sorumludur. Kullanıcı kendi yorumunu profil alanından silebilir; hesabını sildiğinde kendisine ait yorumların da silinmesi için uygulamadaki hesap silme akışını kullanabilir.
+        Kullanıcı hesabı kötüye kullanım, sahte yorum, spam veya hukuka aykırı içerik nedeniyle kısıtlanabilir. Kullanıcı, hesabındaki işlemlerden sorumludur.
       </p>
     </LegalPageLayout>
   );

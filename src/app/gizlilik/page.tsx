@@ -4,9 +4,9 @@ import LegalPageLayout from "@/components/LegalPageLayout";
 export const metadata: Metadata = {
   title: { absolute: "Gizlilik Politikası - ParaKarne" },
   description: "ParaKarne gizlilik politikası ve veri işleme bilgilendirmesi.",
-  alternates: { canonical: "/gizlilik/" },
+  alternates: { canonical: "/gizlilik" },
   openGraph: {
-    url: "/gizlilik/",
+    url: "/gizlilik",
     title: "Gizlilik Politikası - ParaKarne",
     description: "ParaKarne gizlilik politikası ve veri işleme bilgilendirmesi.",
   },
@@ -22,8 +22,7 @@ export default function PrivacyPage() {
       <ul>
         <li>Üyelik için e-posta, görünen ad ve Firebase kimlik bilgisi.</li>
         <li>Kullanıcının yazdığı banka yorumu, verdiği yıldız puanı, kategori puanları ve bildirim kayıtları.</li>
-        <li>Kredi ve kredi kartı başvuru sonuçları gibi kullanıcı tarafından paylaşılan deneyim bilgileri.</li>
-        <li>Çalışma/gelir durumu ve isteğe bağlı Findeks aralığı; herkese açık yorum belgesinden ayrı, erişimi kısıtlı özel veri alanında tutulur.</li>
+        <li>Kredi başvurusu, kredi kartı başvurusu, çalışma/gelir durumu ve isteğe bağlı Findeks skor aralığı gibi kullanıcı tarafından paylaşılan deneyim bilgileri.</li>
         <li>Güvenlik, hata ayıklama ve temel performans için teknik kayıtlar.</li>
       </ul>
       <h2>Kullanım amacı</h2>
@@ -34,13 +33,9 @@ export default function PrivacyPage() {
       <p>
         Kimlik doğrulama ve veritabanı için Firebase kullanılabilir. Yayınlama altyapısı Netlify üzerinde çalışabilir. Bu servislerin kendi gizlilik ve güvenlik koşulları ayrıca geçerlidir.
       </p>
-      <h2>Hesap ve yorum yönetimi</h2>
-      <p>
-        Kullanıcılar profil alanından kendi yorumlarını ayrı ayrı silebilir veya hesaplarını ve kendilerine ait yorumları kalıcı olarak kaldırabilir. E-posta ile giriş yapan kullanıcılar doğrulama iletisini yeniden isteyebilir.
-      </p>
       <h2>İletişim</h2>
       <p>
-        Gizlilik talepleri ve veri silme istekleri için <a href="/iletisim/">iletişim sayfasındaki</a> kanallardan başvuru yapılabilir.
+        Gizlilik talepleri ve veri silme istekleri için iletişim sayfasındaki kanallardan başvuru yapılabilir.
       </p>
     </LegalPageLayout>
   );

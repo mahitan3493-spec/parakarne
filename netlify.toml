@@ -44,17 +44,17 @@
 
 
 [[headers]]
-  for = "/icon-v20-*.png"
+  for = "/icon-v21-*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/icon-maskable-v20-*.png"
+  for = "/icon-maskable-v21-*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/apple-touch-icon-v20.png"
+  for = "/apple-touch-icon-v21.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 

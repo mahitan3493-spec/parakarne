@@ -1,5 +1,5 @@
 /* ParaKarne PWA Service Worker */
-const CACHE_VERSION = "parakarne-pwa-finview-v20";
+const CACHE_VERSION = "parakarne-pwa-finview-v21";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const APP_SHELL_URLS = [
@@ -10,11 +10,11 @@ const APP_SHELL_URLS = [
   "/logo-mark.png",
   "/parakarne-favicon.ico",
   "/parakarne-favicon-96.png",
-  "/icon-v20-192.png",
-  "/icon-v20-512.png",
-  "/icon-maskable-v20-192.png",
-  "/icon-maskable-v20-512.png",
-  "/apple-touch-icon-v20.png",
+  "/icon-v21-192.png",
+  "/icon-v21-512.png",
+  "/icon-maskable-v21-192.png",
+  "/icon-maskable-v21-512.png",
+  "/apple-touch-icon-v21.png",
   "/parakarne-logo-search.png",
   "/parakarne-paylasim.png"
 ];

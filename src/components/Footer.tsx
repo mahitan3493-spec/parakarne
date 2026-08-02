@@ -25,27 +25,27 @@ export default function Footer() {
         <div>
           <h4 className="footer-title">Platform</h4>
           <div className="footer-links">
-            <Link href="/tum-konular/">Tüm Konular</Link>
+            <Link href="/tum-konular">Tüm Konular</Link>
             <Link href="/#karsilastir">Banka Karşılaştırma</Link>
             <Link href="/#yorumlar">Kullanıcı Yorumları</Link>
             <Link href="/#sss">Sıkça Sorulan Sorular</Link>
-            <Link href="/hakkimizda/">Hakkımızda</Link>
+            <Link href="/hakkimizda">Hakkımızda</Link>
           </div>
         </div>
         <div>
           <h4 className="footer-title">Yasal</h4>
           <div className="footer-links">
-            <Link href="/gizlilik/">Gizlilik</Link>
-            <Link href="/kvkk/">KVKK</Link>
-            <Link href="/kullanim-sartlari/">Kullanım Şartları</Link>
-            <Link href="/itiraz-sureci/">İtiraz Süreci</Link>
-            <Link href="/iletisim/">İletişim</Link>
+            <Link href="/gizlilik">Gizlilik</Link>
+            <Link href="/kvkk">KVKK</Link>
+            <Link href="/kullanim-sartlari">Kullanım Şartları</Link>
+            <Link href="/itiraz-sureci">İtiraz Süreci</Link>
+            <Link href="/iletisim">İletişim</Link>
           </div>
         </div>
       </div>
       <div className="wrap footer-disclaimer footer-disclaimer-short">
         <span>Bağımsız kullanıcı değerlendirme platformu.</span>
-        <Link href="/kullanim-sartlari/#sorumluluk-siniri">Yasal Uyarı</Link>
+        <Link href="/kullanim-sartlari#sorumluluk-siniri">Yasal Uyarı</Link>
       </div>
     </footer>
   );

@@ -17,7 +17,7 @@ const FAQ_ITEMS = [
   {
     question: "Şüpheli veya uygunsuz bir yorumu nasıl bildirebilirim?",
     answer:
-      "Yorum kartındaki Bildir düğmesini kullanabilirsin. Üç veya daha fazla bildirim alan yorum moderasyon panelinde öncelikli incelemeye alınır; yönetici kararı olmadan otomatik olarak silinmez veya puandan çıkarılmaz.",
+      "Yorum kartındaki Bildir düğmesini kullanabilirsin. Üç bildirim alan yorum genel puan ve açık yorum akışından çıkarılarak moderasyon incelemesine alınır.",
   },
   {
     question: "ParaKarne bir bankaya bağlı mı?",

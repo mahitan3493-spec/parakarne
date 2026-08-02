@@ -20,13 +20,13 @@ export default function Legal() {
               yorumu &quot;Bildir&quot; butonuyla işaretleyebilirsin.
             </li>
             <li>
-              3 veya daha fazla bildirim alan yorumlar moderasyon panelinde öncelikli
-              incelemeye alınır; yönetici kararı olmadan otomatik olarak
-              silinmez veya puandan çıkarılmaz.
+              3 veya daha fazla bildirim alan yorumlar genel puan ve yorum
+              akışından otomatik olarak çıkarılır; moderasyon panelinde
+              incelemeye alınır.
             </li>
             <li>
               Bankalar, kendileriyle ilgili yorumlara{" "}
-              <Link href="/itiraz-sureci/">itiraz süreci</Link> üzerinden yanıt verebilir.
+              <Link href="/itiraz-sureci">itiraz süreci</Link> üzerinden yanıt verebilir.
             </li>
           </ul>
         </div>

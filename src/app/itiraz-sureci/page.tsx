@@ -4,9 +4,9 @@ import LegalPageLayout from "@/components/LegalPageLayout";
 export const metadata: Metadata = {
   title: { absolute: "ParaKarne Yorum ve Puan İtiraz Süreci" },
   description: "ParaKarne yorum bildirim ve itiraz süreci.",
-  alternates: { canonical: "/itiraz-sureci/" },
+  alternates: { canonical: "/itiraz-sureci" },
   openGraph: {
-    url: "/itiraz-sureci/",
+    url: "/itiraz-sureci",
     title: "ParaKarne Yorum ve Puan İtiraz Süreci",
     description: "ParaKarne yorum bildirim ve itiraz süreci.",
   },
@@ -20,7 +20,7 @@ export default function AppealPage() {
       </p>
       <h2>Kullanıcı bildirimi</h2>
       <p>
-        Her yorumun altında yer alan “Bildir” butonu ile yorum işaretlenebilir. 3 veya daha fazla bildirim alan yorumlar moderasyon panelinde öncelikli incelemeye alınır; yönetici kararı olmadan otomatik olarak silinmez veya puandan çıkarılmaz.
+        Her yorumun altında yer alan “Bildir” butonu ile yorum işaretlenebilir. 3 veya daha fazla bildirim alan yorumlar genel puan ve yorum akışından otomatik olarak çıkarılır ve moderasyon panelinde incelemeye alınır.
       </p>
       <h2>Kurum/banka itirazı</h2>
       <p>

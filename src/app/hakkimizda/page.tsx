@@ -4,9 +4,9 @@ import LegalPageLayout from "@/components/LegalPageLayout";
 export const metadata: Metadata = {
   title: "Hakkımızda",
   description: "ParaKarne, bankaları kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimleriyle karşılaştırmaya yardımcı olan bağımsız banka değerlendirme platformudur.",
-  alternates: { canonical: "/hakkimizda/" },
+  alternates: { canonical: "/hakkimizda" },
   openGraph: {
-    url: "/hakkimizda/",
+    url: "/hakkimizda",
     title: "Hakkımızda | ParaKarne",
     description: "ParaKarne, bankaları kullanıcı yorumları, puanları ve kredi/kredi kartı onay deneyimleriyle karşılaştırmaya yardımcı olan bağımsız banka değerlendirme platformudur.",
   },

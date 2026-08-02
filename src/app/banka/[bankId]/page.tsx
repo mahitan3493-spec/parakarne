@@ -32,9 +32,9 @@ export async function generateMetadata({
       `${bank.name} şikayetleri`,
       `${bank.name} karnesi`,
     ],
-    alternates: { canonical: `/banka/${bank.id}/` },
+    alternates: { canonical: `/banka/${bank.id}` },
     openGraph: {
-      url: `/banka/${bank.id}/`,
+      url: `/banka/${bank.id}`,
       title,
       description,
       type: "website",
