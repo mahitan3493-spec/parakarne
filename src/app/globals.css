@@ -5951,6 +5951,7 @@ nav.links {
 }
 
 .finance-field > span,
+.finance-field > label,
 .finance-stopaj-note > span,
 .finance-limit-card > span {
   color: var(--ink-soft);
@@ -6732,5 +6733,61 @@ nav.links {
   .mobile-update-status {
     padding: 4px 7px;
     font-size: 9.5px;
+  }
+}
+
+
+/* ===== ParaKarne V26 finans alanı giriş düzeltmesi ===== */
+.finance-input-wrap input {
+  font-variant-numeric: tabular-nums;
+}
+
+.finance-input-wrap input::placeholder {
+  color: #9a9384;
+  opacity: 0.72;
+}
+
+/* ===== ParaKarne V27 finans girişi: tamamen silme + anlık binlik ayırıcı ===== */
+.finance-input-wrap {
+  position: relative;
+}
+
+.finance-input-wrap input {
+  padding-right: 44px;
+}
+
+.finance-input-clear {
+  position: absolute;
+  right: 53px;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  outline: 0;
+  background: #f0ede5;
+  color: #6f685c;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1;
+  place-items: center;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.finance-input-clear:hover,
+.finance-input-clear:focus-visible {
+  background: #e3eee6;
+  color: var(--green);
+}
+
+@media (max-width: 480px) {
+  .finance-input-clear {
+    right: 49px;
+    width: 28px;
+    height: 28px;
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState, type ChangeEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type ChangeEvent, type FocusEvent } from "react";
 import { bankLogoPath } from "@/lib/bank-data";
 import {
   calculateDeposit,
@@ -24,6 +24,62 @@ const TAB_META: { id: FinanceTab; label: string; short: string; icon: string }[]
   { id: "deposit", label: "Mevduat Getirisi", short: "Mevduat", icon: "%" },
 ];
 
+const trIntegerFormatter = new Intl.NumberFormat("tr-TR", {
+  maximumFractionDigits: 0,
+});
+
+type NumericInputFormat = "currency" | "integer" | "decimal";
+
+function stepDecimals(step: number) {
+  const value = String(step);
+  return value.includes(".") ? value.split(".")[1].length : 0;
+}
+
+function formatNumericDraft(value: number, format: NumericInputFormat, step: number, allowEmpty = true) {
+  if (!Number.isFinite(value) || (allowEmpty && value === 0)) return "";
+
+  if (format === "currency") {
+    return trIntegerFormatter.format(Math.max(0, Math.round(value)));
+  }
+
+  if (format === "integer") {
+    return String(Math.max(0, Math.round(value)));
+  }
+
+  return new Intl.NumberFormat("tr-TR", {
+    useGrouping: false,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: Math.max(2, stepDecimals(step)),
+  }).format(Math.max(0, value));
+}
+
+function cleanNumericDraft(rawValue: string, format: NumericInputFormat, step: number) {
+  if (format === "currency" || format === "integer") {
+    const digits = rawValue.replace(/\D/g, "").replace(/^0+(?=\d)/, "");
+    if (!digits) return { draft: "", parsed: null as number | null };
+
+    const parsed = Number(digits);
+    return {
+      draft: format === "currency" ? trIntegerFormatter.format(parsed) : digits,
+      parsed,
+    };
+  }
+
+  const decimalLimit = Math.max(2, stepDecimals(step));
+  const normalized = rawValue.replace(/,/g, ".").replace(/[^0-9.]/g, "");
+  const [wholeRaw = "", ...fractionParts] = normalized.split(".");
+  const whole = wholeRaw.replace(/^0+(?=\d)/, "") || (normalized.startsWith(".") ? "0" : wholeRaw);
+  const fraction = fractionParts.join("").slice(0, decimalLimit);
+  const hasSeparator = normalized.includes(".");
+  const draft = `${whole}${hasSeparator ? "," : ""}${fraction}`;
+  const parsed = draft && draft !== "," ? Number(draft.replace(",", ".")) : null;
+
+  return {
+    draft,
+    parsed: Number.isFinite(parsed) ? parsed : null,
+  };
+}
+
 function NumericInput({
   id,
   label,
@@ -34,6 +90,8 @@ function NumericInput({
   max,
   step = 1,
   hint,
+  format = "integer",
+  allowEmpty = true,
 }: {
   id: string;
   label: string;
@@ -44,25 +102,93 @@ function NumericInput({
   max?: number;
   step?: number;
   hint?: string;
+  format?: NumericInputFormat;
+  allowEmpty?: boolean;
 }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(() => formatNumericDraft(value, format, step, allowEmpty));
+
+  useEffect(() => {
+    if (!editing) setDraft(formatNumericDraft(value, format, step, allowEmpty));
+  }, [allowEmpty, editing, format, step, value]);
+
+  const clampValue = (nextValue: number) => {
+    let next = Math.max(min, nextValue);
+    if (typeof max === "number") next = Math.min(max, next);
+    return format === "decimal" ? next : Math.round(next);
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const cleaned = cleanNumericDraft(event.target.value, format, step);
+    setDraft(cleaned.draft);
+
+    // Alan tamamen silindiğinde parent değerini de sıfırla; eski rakam geri gelmesin.
+    if (cleaned.parsed === null) {
+      onChange(0);
+      return;
+    }
+    onChange(cleaned.parsed);
+  };
+
+  const handleFocus = () => {
+    setEditing(true);
+    window.requestAnimationFrame(() => inputRef.current?.select());
+  };
+
+  const handleBlur = (_event: FocusEvent<HTMLInputElement>) => {
+    setEditing(false);
+    const cleaned = cleanNumericDraft(draft, format, step);
+    if (cleaned.parsed === null || (allowEmpty && cleaned.parsed === 0)) {
+      onChange(0);
+      setDraft("");
+      return;
+    }
+    const next = clampValue(cleaned.parsed);
+    onChange(next);
+    setDraft(formatNumericDraft(next, format, step, allowEmpty));
+  };
+
+  const handleClear = () => {
+    setEditing(true);
+    setDraft("");
+    onChange(0);
+    window.requestAnimationFrame(() => inputRef.current?.focus());
+  };
+
   return (
-    <label className="finance-field" htmlFor={id}>
-      <span>{label}</span>
+    <div className="finance-field">
+      <label className="finance-field-title" htmlFor={id}>{label}</label>
       <div className="finance-input-wrap">
         <input
+          ref={inputRef}
           id={id}
-          type="number"
-          inputMode="decimal"
-          min={min}
-          max={max}
-          step={step}
-          value={Number.isFinite(value) ? value : ""}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(Number(event.target.value))}
+          type="text"
+          inputMode={format === "decimal" ? "decimal" : "numeric"}
+          autoComplete="off"
+          enterKeyHint="done"
+          value={draft}
+          placeholder="0"
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          aria-label={`${label} (${suffix})`}
         />
+        {draft ? (
+          <button
+            type="button"
+            className="finance-input-clear"
+            aria-label={`${label} alanını temizle`}
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={handleClear}
+          >
+            ×
+          </button>
+        ) : null}
         <b>{suffix}</b>
       </div>
       {hint ? <small>{hint}</small> : null}
-    </label>
+    </div>
   );
 }
 
@@ -157,7 +283,10 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
     [tab],
   );
 
-  const productInvalid = tab === "vehicle" && !vehicleLimit.eligible;
+  const productInvalid = tab === "vehicle" && vehiclePrice > 0 && !vehicleLimit.eligible;
+  const productContextReady = tab === "housing" ? propertyValue > 0 : tab === "vehicle" ? vehiclePrice > 0 : true;
+  const loanReady = tab !== "deposit" && productContextReady && principal > 0 && months > 0 && monthlyRate >= 0 && !productInvalid;
+  const depositReady = tab === "deposit" && depositPrincipal > 0 && depositDays > 0 && depositRate >= 0;
 
   return (
     <div className="finance-center">
@@ -188,7 +317,7 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
 
           {tab === "housing" ? (
             <div className="finance-fields">
-              <NumericInput id="property-value" label="Konut değeri" value={propertyValue} onChange={setPropertyValue} suffix="TL" step={10_000} min={100_000} />
+              <NumericInput id="property-value" label="Konut değeri" value={propertyValue} onChange={setPropertyValue} suffix="TL" step={10_000} min={100_000} format="currency" />
               <label className="finance-field" htmlFor="energy-class">
                 <span>Enerji sınıfı</span>
                 <select id="energy-class" value={energyClass} onChange={(event: ChangeEvent<HTMLSelectElement>) => setEnergyClass(event.target.value as EnergyClass)}>
@@ -203,15 +332,15 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
               </label>
               <div className="finance-limit-card">
                 <span>Tahmini azami kredi</span>
-                <strong>{formatCurrency(housingLimit.maxLoan)}</strong>
-                <small>Azami oran {formatPercent(housingLimit.maxRatio * 100, 0)} · Asgari peşinat {formatCurrency(housingLimit.minDownPayment)}</small>
+                <strong>{propertyValue > 0 ? formatCurrency(housingLimit.maxLoan) : "—"}</strong>
+                <small>{propertyValue > 0 ? `Azami oran ${formatPercent(housingLimit.maxRatio * 100, 0)} · Asgari peşinat ${formatCurrency(housingLimit.minDownPayment)}` : "Konut değerini girin."}</small>
               </div>
             </div>
           ) : null}
 
           {tab === "vehicle" ? (
             <div className="finance-fields">
-              <NumericInput id="vehicle-price" label="Araç fatura/değer tutarı" value={vehiclePrice} onChange={setVehiclePrice} suffix="TL" step={10_000} min={50_000} />
+              <NumericInput id="vehicle-price" label="Araç fatura/değer tutarı" value={vehiclePrice} onChange={setVehiclePrice} suffix="TL" step={10_000} min={50_000} format="currency" />
               <label className="finance-field" htmlFor="vehicle-type">
                 <span>Araç türü</span>
                 <select id="vehicle-type" value={vehicleType} onChange={(event: ChangeEvent<HTMLSelectElement>) => setVehicleType(event.target.value as VehicleType)}>
@@ -221,8 +350,8 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
               </label>
               <div className={`finance-limit-card${vehicleLimit.eligible ? "" : " warning"}`}>
                 <span>{vehicleLimit.eligible ? "Tahmini azami taşıt kredisi" : "Bu değer aralığında sınır aşılıyor"}</span>
-                <strong>{formatCurrency(vehicleLimit.maxLoan)}</strong>
-                <small>{vehicleLimit.eligible ? `Azami oran ${formatPercent(vehicleLimit.maxRatio * 100, 0)} · Azami vade ${vehicleLimit.maxMonths} ay` : "Seçilen araç türü için tanımlı üst sınırın üzerinde."}</small>
+                <strong>{vehiclePrice > 0 ? formatCurrency(vehicleLimit.maxLoan) : "—"}</strong>
+                <small>{vehiclePrice <= 0 ? "Araç değerini girin." : vehicleLimit.eligible ? `Azami oran ${formatPercent(vehicleLimit.maxRatio * 100, 0)} · Azami vade ${vehicleLimit.maxMonths} ay` : "Seçilen araç türü için tanımlı üst sınırın üzerinde."}</small>
               </div>
             </div>
           ) : null}
@@ -232,26 +361,27 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
               <NumericInput
                 id="loan-principal"
                 label="Kredi tutarı"
-                value={constrainedPrincipal}
+                value={principal}
                 onChange={setPrincipal}
                 suffix="TL"
                 min={1_000}
-                max={Math.max(1, maxPrincipal)}
+                max={Math.max(1_000, maxPrincipal)}
                 step={1_000}
+                format="currency"
                 hint={tab === "personal" ? `Bu tutarda azami vade ${personalMaxMonths} ay.` : undefined}
               />
-              <NumericInput id="loan-months" label="Vade" value={constrainedMonths} onChange={(value) => setMonths(Math.round(value))} suffix="Ay" min={1} max={maxMonths} />
-              <NumericInput id="monthly-rate" label="Aylık faiz/kâr payı" value={monthlyRate} onChange={setMonthlyRate} suffix="%" min={0} max={100} step={0.01} />
-              <NumericInput id="allocation-fee" label="Tahsis ve diğer peşin masraf" value={allocationFee} onChange={setAllocationFee} suffix="TL" min={0} step={1} />
+              <NumericInput id="loan-months" label="Vade" value={months} onChange={(value) => setMonths(Math.round(value))} suffix="Ay" min={1} max={maxMonths} format="integer" />
+              <NumericInput id="monthly-rate" label="Aylık faiz/kâr payı" value={monthlyRate} onChange={setMonthlyRate} suffix="%" min={0} max={100} step={0.01} format="decimal" />
+              <NumericInput id="allocation-fee" label="Tahsis ve diğer peşin masraf" value={allocationFee} onChange={setAllocationFee} suffix="TL" min={0} step={1} format="currency" />
             </div>
           ) : (
             <div className="finance-fields finance-main-fields">
-              <NumericInput id="deposit-principal" label="Yatırılacak tutar" value={depositPrincipal} onChange={setDepositPrincipal} suffix="TL" min={1_000} step={1_000} />
-              <NumericInput id="deposit-rate" label="Yıllık brüt faiz" value={depositRate} onChange={setDepositRate} suffix="%" min={0} max={100} step={0.01} />
-              <NumericInput id="deposit-days" label="Vade" value={depositDays} onChange={(value) => setDepositDays(Math.round(value))} suffix="Gün" min={1} max={3650} />
+              <NumericInput id="deposit-principal" label="Yatırılacak tutar" value={depositPrincipal} onChange={setDepositPrincipal} suffix="TL" min={1_000} step={1_000} format="currency" />
+              <NumericInput id="deposit-rate" label="Yıllık brüt faiz" value={depositRate} onChange={setDepositRate} suffix="%" min={0} max={100} step={0.01} format="decimal" />
+              <NumericInput id="deposit-days" label="Vade" value={depositDays} onChange={(value) => setDepositDays(Math.round(value))} suffix="Gün" min={1} max={3650} format="integer" />
               <div className="finance-stopaj-note">
                 <span>Uygulanan stopaj</span>
-                <strong>{formatPercent(depositResult.withholdingRate * 100, 1)}</strong>
+                <strong>{depositReady ? formatPercent(depositResult.withholdingRate * 100, 1) : "—"}</strong>
                 <small>Vade gününe göre otomatik seçildi.</small>
               </div>
             </div>
@@ -261,17 +391,17 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
         <section className="finance-result-card" aria-live="polite">
           <div className="finance-result-top">
             <span>{tab === "deposit" ? "Vade sonu toplam" : "Tahmini aylık taksit"}</span>
-            <strong>{tab === "deposit" ? formatCurrency(depositResult.maturityTotal) : productInvalid ? "—" : formatCurrency(loanResult.monthlyPayment)}</strong>
-            <small>{tab === "deposit" ? `${depositDays} gün sonunda net kazanç` : `${constrainedMonths} eşit taksit varsayımı`}</small>
+            <strong>{tab === "deposit" ? (depositReady ? formatCurrency(depositResult.maturityTotal) : "—") : loanReady ? formatCurrency(loanResult.monthlyPayment) : "—"}</strong>
+            <small>{tab === "deposit" ? (depositReady ? `${depositDays} gün sonunda net kazanç` : "Hesaplamak için tutar ve vade girin") : loanReady ? `${constrainedMonths} eşit taksit varsayımı` : "Hesaplamak için kredi tutarı ve vade girin"}</small>
           </div>
 
           {tab === "deposit" ? (
             <>
               <div className="finance-result-grid">
-                <div><span>Brüt kazanç</span><b>{formatCurrency(depositResult.grossInterest)}</b></div>
-                <div><span>Vergi kesintisi</span><b>-{formatCurrency(depositResult.withholding)}</b></div>
-                <div className="highlight"><span>Net kazanç</span><b>{formatCurrency(depositResult.netInterest)}</b></div>
-                <div><span>Günlük net ortalama</span><b>{formatCurrency(depositResult.dailyNetAverage)}</b></div>
+                <div><span>Brüt kazanç</span><b>{depositReady ? formatCurrency(depositResult.grossInterest) : "—"}</b></div>
+                <div><span>Vergi kesintisi</span><b>{depositReady ? `-${formatCurrency(depositResult.withholding)}` : "—"}</b></div>
+                <div className="highlight"><span>Net kazanç</span><b>{depositReady ? formatCurrency(depositResult.netInterest) : "—"}</b></div>
+                <div><span>Günlük net ortalama</span><b>{depositReady ? formatCurrency(depositResult.dailyNetAverage) : "—"}</b></div>
               </div>
               <div className="finance-stopaj-legal-note">
                 <strong>Stopaj varsayımı</strong>
@@ -291,14 +421,14 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
           ) : (
             <>
               <div className="finance-result-grid">
-                <div><span>Toplam taksit</span><b>{productInvalid ? "—" : formatCurrency(loanResult.totalInstallments)}</b></div>
-                <div><span>Toplam faiz/kâr payı</span><b>{productInvalid ? "—" : formatCurrency(loanResult.totalInterest)}</b></div>
-                <div><span>Vergiler</span><b>{productInvalid ? "—" : formatCurrency(loanResult.totalTaxes)}</b></div>
-                <div className="highlight"><span>Masraflı toplam ödeme</span><b>{productInvalid ? "—" : formatCurrency(loanResult.totalCost)}</b></div>
+                <div><span>Toplam taksit</span><b>{loanReady ? formatCurrency(loanResult.totalInstallments) : "—"}</b></div>
+                <div><span>Toplam faiz/kâr payı</span><b>{loanReady ? formatCurrency(loanResult.totalInterest) : "—"}</b></div>
+                <div><span>Vergiler</span><b>{loanReady ? formatCurrency(loanResult.totalTaxes) : "—"}</b></div>
+                <div className="highlight"><span>Masraflı toplam ödeme</span><b>{loanReady ? formatCurrency(loanResult.totalCost) : "—"}</b></div>
               </div>
               <div className="finance-result-foot">
-                <span>Yaklaşık yıllık bileşik oran: <strong>{productInvalid ? "—" : formatPercent(loanResult.effectiveAnnualRate)}</strong>{taxExplanation}</span>
-                <button type="button" disabled={productInvalid} onClick={() => setScheduleOpen((open) => !open)}>
+                <span>Yaklaşık yıllık bileşik oran: <strong>{loanReady ? formatPercent(loanResult.effectiveAnnualRate) : "—"}</strong>{taxExplanation}</span>
+                <button type="button" disabled={!loanReady} onClick={() => setScheduleOpen((open) => !open)}>
                   {scheduleOpen ? "Ödeme planını kapat" : "Ödeme planını göster"}
                 </button>
               </div>
@@ -307,7 +437,7 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
         </section>
       </div>
 
-      {tab !== "deposit" && scheduleOpen && !productInvalid ? (
+      {tab !== "deposit" && scheduleOpen && loanReady ? (
         <section className="finance-schedule-card">
           <div className="finance-section-heading">
             <div><span className="eyebrow">AYLIK DÖKÜM</span><h2>Ödeme planı</h2></div>
@@ -346,7 +476,7 @@ export default function FinanceCalculator({ initialTab = "personal" }: { initial
                 offer.tab === "deposit" ||
                 ((offer.minMonths === undefined || comparedMonths >= offer.minMonths) &&
                   (offer.maxMonths === undefined || comparedMonths <= offer.maxMonths));
-              const offerMatches = principalMatches && monthsMatch;
+              const offerMatches = principalMatches && monthsMatch && (offer.tab === "deposit" ? depositReady : loanReady);
               const offerLoan = offer.tab !== "deposit" && offerMatches
                 ? calculateLoan({
                     principal: constrainedPrincipal,

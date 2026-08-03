@@ -54,11 +54,11 @@ export const metadata: Metadata = {
     icon: [
       { url: "/parakarne-favicon.ico", sizes: "any" },
       { url: "/parakarne-favicon-96.png", sizes: "96x96", type: "image/png" },
-      { url: "/icon-v25-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-v25-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/icon-v27-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-v27-512.png", sizes: "512x512", type: "image/png" },
     ],
     shortcut: ["/parakarne-favicon.ico"],
-    apple: [{ url: "/apple-touch-icon-v25.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon-v27.png", sizes: "180x180", type: "image/png" }],
   },
   appleWebApp: {
     capable: true,

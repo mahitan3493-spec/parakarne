@@ -106,10 +106,10 @@ export default function Header() {
             type="button"
             className="mobile-update-check"
             onClick={checkPwaUpdate}
-            aria-label="ParaKarne V25 güncellemelerini denetle"
+            aria-label="ParaKarne V27 güncellemelerini denetle"
           >
             <span className="mobile-update-icon" aria-hidden="true">↻</span>{" "}
-            <span className="mobile-update-label">Sürüm V25</span>{" "}
+            <span className="mobile-update-label">Sürüm V27</span>{" "}
             <span className="mobile-update-separator" aria-hidden="true"> | </span>{" "}
             <span className="mobile-update-status">Güncel</span>
           </button>
