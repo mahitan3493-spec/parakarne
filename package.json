@@ -7,8 +7,7 @@
     "build": "node scripts/safe-build.mjs",
     "start": "next start",
     "lint": "eslint",
-    "build:next": "next build",
-    "logos:import": "node scripts/import-bankpuan-logos.mjs"
+    "build:next": "next build"
   },
   "dependencies": {
     "firebase": "^12.15.0",
